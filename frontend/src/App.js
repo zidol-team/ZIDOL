@@ -6,7 +6,7 @@ import Home from "./pages/Home";
 import Notice from "./pages/Notice";
 import Mypage from "./pages/MyPage";
 import FourZeroFour from "./pages/FourZeroFour";
-import MainNavbar from "./components/mainNavbar";
+import MainNavbar from "./components/MainNavbar";
 import Algorithm from "./pages/Algorithm";
 import Database from "./pages/Database";
 import DataStructure from "./pages/DataStructure";
@@ -23,7 +23,7 @@ function App() {
 
       {/* 라우터 */}
       <Routes>
-        <Route path="/" element={<Home></Home>}></Route>
+        <Route exact path="/" element={<Home></Home>}></Route>
         <Route path="/signin" element={<SignIn></SignIn>}></Route>
         <Route path="/signup" element={<SignUp></SignUp>}></Route>
         <Route
