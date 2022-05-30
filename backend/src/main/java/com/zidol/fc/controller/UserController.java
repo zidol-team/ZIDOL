@@ -1,5 +1,6 @@
 package com.zidol.fc.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -12,8 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 	
 	@PostMapping("/helloworld")
-	public void helloWorld(@RequestBody Map<String, String> param) {
+	public Map<String, String> helloWorld(@RequestBody Map<String, String> param) {
 		String s = param.get("hello");
 		System.out.println(s);
+		Map<String, String> m = new HashMap<String, String>();
+		m.put("받아유", "보냈어유");
+		return m;
 	}
 }
