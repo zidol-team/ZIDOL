@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.zidol.fc.domain.Admin;
 
 @Repository
-public interface AdminRepository extends JpaRepository<Long, Admin> {
+public interface AdminRepository extends JpaRepository<Admin, Long> {
 
 }
