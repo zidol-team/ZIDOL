@@ -7,5 +7,6 @@ import com.zidol.fc.domain.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-
+	
+	public User findByUserEmail(String userId);
 }
