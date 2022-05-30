@@ -23,6 +23,8 @@ public class UserController {
 
 	@PostMapping("/SignIn.act")
 	public Map<String, Boolean> singIn(HttpSession session, @RequestBody Map<String, String> params) {
+		System.out.println();
+		
 		Map<String, Boolean> result = new HashMap<>();
 		String userEmail = params.get("userEmail");
 		User user = userService.findByUserEmail(userEmail);
@@ -74,11 +76,4 @@ public class UserController {
 		return result;
 	}
 	
-	@PostMapping("/hello.act")
-	public Map<String, String> hello(@RequestBody Map<String, String> param) {
-		Map<String,String> m = new HashMap<>();
-		System.out.println(param.get("hello"));
-		m.put("보내유", "받았어유?");
-		return m;
-	}
 }
