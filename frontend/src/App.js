@@ -7,14 +7,9 @@ import Notice from "./pages/Notice";
 import Mypage from "./pages/MyPage";
 import FourZeroFour from "./pages/FourZeroFour";
 import MainNavbar from "./components/MainNavbar";
-import Algorithm from "./pages/Algorithm";
-import Database from "./pages/Database";
-import DataStructure from "./pages/DataStructure";
-import Network from "./pages/Network";
-import OperatingSystem from "./pages/OperatingSystem";
-import Language from "./pages/Language";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
+import CsStudy from "./pages/CsStudy";
 
 function App() {
   return (
@@ -27,56 +22,11 @@ function App() {
         <Route path="/signin" element={<SignIn></SignIn>}></Route>
         <Route path="/signup" element={<SignUp></SignUp>}></Route>
         <Route
-          path="/algorithm"
+          path="/csstudy"
           element={
             <>
               <MainNavbar></MainNavbar>
-              <Algorithm></Algorithm>
-            </>
-          }
-        ></Route>
-        <Route
-          path="/database"
-          element={
-            <>
-              <MainNavbar></MainNavbar>
-              <Database></Database>
-            </>
-          }
-        ></Route>
-        <Route
-          path="/datastructure"
-          element={
-            <>
-              <MainNavbar></MainNavbar>
-              <DataStructure></DataStructure>
-            </>
-          }
-        ></Route>
-        <Route
-          path="/network"
-          element={
-            <>
-              <MainNavbar></MainNavbar>
-              <Network></Network>
-            </>
-          }
-        ></Route>
-        <Route
-          path="/opreatingsystem"
-          element={
-            <>
-              <MainNavbar></MainNavbar>
-              <OperatingSystem></OperatingSystem>
-            </>
-          }
-        ></Route>
-        <Route
-          path="/language"
-          element={
-            <>
-              <MainNavbar></MainNavbar>
-              <Language></Language>
+              <CsStudy></CsStudy>
             </>
           }
         ></Route>

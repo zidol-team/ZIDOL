@@ -20,47 +20,18 @@ const MainNavbar = () => {
             </Nav.Link>
             <Nav.Link
               onClick={() => {
-                navigate("/algorithm");
+                navigate("/csstudy");
               }}
             >
-              알고리즘
+              CS Study
             </Nav.Link>
             <Nav.Link
               onClick={() => {
-                navigate("/database");
+                navigate("/interview");
               }}
             >
-              데이터베이스
+              인터뷰 준비
             </Nav.Link>
-            <Nav.Link
-              onClick={() => {
-                navigate("/datastructure");
-              }}
-            >
-              자료구조
-            </Nav.Link>
-            <Nav.Link
-              onClick={() => {
-                navigate("/network");
-              }}
-            >
-              네트워크
-            </Nav.Link>
-            <Nav.Link
-              onClick={() => {
-                navigate("/opreatingsystem");
-              }}
-            >
-              운영체제
-            </Nav.Link>
-            <Nav.Link
-              onClick={() => {
-                navigate("/language");
-              }}
-            >
-              언어
-            </Nav.Link>
-
             <Nav.Link
               onClick={() => {
                 navigate("/notice");
