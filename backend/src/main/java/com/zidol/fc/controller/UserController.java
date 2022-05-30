@@ -23,8 +23,9 @@ public class UserController {
 
 	@PostMapping("/SignIn.act")
 	public Map<String, Boolean> singIn(HttpSession session, @RequestBody Map<String, String> params) {
-		System.out.println();
-		
+		System.out.println(params.get("userEmail"));
+		System.out.println(params.get("userPassword"));
+		System.out.println("-----------------------");
 		Map<String, Boolean> result = new HashMap<>();
 		String userEmail = params.get("userEmail");
 		User user = userService.findByUserEmail(userEmail);
