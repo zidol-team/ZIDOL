@@ -73,4 +73,12 @@ public class UserController {
 
 		return result;
 	}
+	
+	@PostMapping("/hello.act")
+	public Map<String, String> hello(@RequestBody Map<String, String> param) {
+		Map<String,String> m = new HashMap<>();
+		System.out.println(param.get("hello"));
+		m.put("보내유", "받았어유?");
+		return m;
+	}
 }
