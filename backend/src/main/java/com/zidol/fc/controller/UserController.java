@@ -17,7 +17,7 @@ public class UserController {
 		String s = param.get("hello");
 		System.out.println(s);
 		Map<String, String> m = new HashMap<String, String>();
-		m.put("받아유", "보냈어유");
+		m.put("받아유", "왜 안되냐");
 		return m;
 	}
 }
