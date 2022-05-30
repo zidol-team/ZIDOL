@@ -39,7 +39,7 @@ public class UserController {
 			// 비밀번호가 틀렸을 경우
 			result.put("singIn", false);
 		}
-
+		System.out.println("뭐가 굴러가긴 하는거니?");
 		return result;
 	}
 
@@ -76,12 +76,12 @@ public class UserController {
 		return result;
 	}
 	
-	@PostMapping("/helloworld")
-	public Map<String, String> helloWorld(@RequestBody Map<String, String> param) {
-		String s = param.get("hello");
-		System.out.println(s);
-		Map<String, String> m = new HashMap<String, String>();
-		m.put("받아유", "보냈어유");
-		return m;
-	}
+//	@PostMapping("/helloworld")
+//	public Map<String, String> helloWorld(@RequestBody Map<String, String> param) {
+//		String s = param.get("hello");
+//		System.out.println(s);
+//		Map<String, String> m = new HashMap<String, String>();
+//		m.put("받아유", "보냈어유");
+//		return m;
+//	}
 }
