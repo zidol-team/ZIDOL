@@ -22,15 +22,21 @@ public class UserController {
 	UserService userService;
 
 	@PostMapping("/SignIn.act")
-	public Map<String, Boolean> singIn(HttpSession session, @RequestBody Map<String, String> param) {
+	public Map<String, Boolean> singIn(HttpSession session, @RequestBody Map<String, String> params) {
+		System.out.println();
+		
 		Map<String, Boolean> result = new HashMap<>();
-		String userEmail = param.get("userEmail");
+		String userEmail = params.get("userEmail");
 		User user = userService.findByUserEmail(userEmail);
 
-		if (user != null) {
+		if (user == null) {
+			// 이메일 계정이 존재하지 않는 경우
+			result.put("singIn", false);
+		} else if(user.getUserPassword().equals(params.get("userPassword"))) {
 			session.setAttribute("user", user);
 			result.put("singIn", true);
 		} else {
+			// 비밀번호가 틀렸을 경우
 			result.put("singIn", false);
 		}
 
@@ -44,6 +50,7 @@ public class UserController {
 		User user = userService.findByUserEmail(userEmail);
 
 		if (user == null) {
+			// 이메일 계정이 존재하지 않는 경우
 			result.put("singUp", true);
 		} else {
 			result.put("singUp", false);
@@ -58,9 +65,9 @@ public class UserController {
 		User user = User.builder().userEmail(params.get("userEmail")).userPassword(params.get("userPassword"))
 				.userName(params.get("userName")).userNickname(params.get("userNickname")).build();
 		
-		userService.insertUser(user);
+		User register = userService.insertUser(user);
 		
-		if (user != null) {
+		if (register != null) {
 			result.put("singUp", true);
 		} else {
 			result.put("singUp", false);
@@ -68,4 +75,5 @@ public class UserController {
 
 		return result;
 	}
+	
 }

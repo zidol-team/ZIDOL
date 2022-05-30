@@ -16,7 +16,7 @@ public class UserService {
 		return userRepository.findByUserEmail(userId);
 	}
 	
-	public void insertUser(User user) {
-		userRepository.save(user);
+	public User insertUser(User user) {
+		return userRepository.save(user);
 	}
 }
