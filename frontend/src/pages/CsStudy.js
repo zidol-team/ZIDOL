@@ -13,7 +13,7 @@ const CsStudy = () => {
     };
     console.log("requestOptions : ", requestOptions);
 
-    fetch("/helloworld", requestOptions)
+    fetch("/hello.act", requestOptions)
       .then((res) => res.json())
       .then((res) => {
         console.log("res : ", res);

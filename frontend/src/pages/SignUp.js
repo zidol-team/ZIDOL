@@ -23,6 +23,8 @@ export default function SignUp() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
+      name: data.get("name"),
+      nickname: data.get("nickname"),
       email: data.get("email"),
       password: data.get("password"),
     });
@@ -55,12 +57,11 @@ export default function SignUp() {
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
-                  autoComplete="given-name"
-                  name="firstName"
+                  name="name"
                   required
                   fullWidth
-                  id="firstName"
-                  label="First Name"
+                  id="name"
+                  label="이름"
                   autoFocus
                 />
               </Grid>
@@ -68,10 +69,9 @@ export default function SignUp() {
                 <TextField
                   required
                   fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  autoComplete="family-name"
+                  id="nickname"
+                  label="닉네임"
+                  name="nickname"
                 />
               </Grid>
               <Grid item xs={12}>
@@ -79,7 +79,7 @@ export default function SignUp() {
                   required
                   fullWidth
                   id="email"
-                  label="Email Address"
+                  label="이메일 주소"
                   name="email"
                   autoComplete="email"
                 />
@@ -92,15 +92,6 @@ export default function SignUp() {
                   label="Password"
                   type="password"
                   id="password"
-                  autoComplete="new-password"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <FormControlLabel
-                  control={
-                    <Checkbox value="allowExtraEmails" color="primary" />
-                  }
-                  label="I want to receive inspiration, marketing promotions and updates via email."
                 />
               </Grid>
             </Grid>

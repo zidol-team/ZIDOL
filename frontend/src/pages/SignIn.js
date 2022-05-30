@@ -13,34 +13,32 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
-
 const theme = createTheme();
 
-export default function SignInSide() {
+export default function SignIn() {
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+
+    // requestOptions
+    const requestOptions = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json;charset=UTF-8",
+      },
+      body: JSON.stringify({
+        // userEmail, userPassword 전송
+        userEmail: "userEmail",
+        userPassword: "userPassword",
+      }),
+    };
+    console.log("requestOptions : ", requestOptions);
+
+    fetch("/hello.act", requestOptions)
+      .then((res) => res.json())
+      .then((res) => {
+        console.log("res : ", res);
+      });
   };
 
   return (
@@ -85,35 +83,35 @@ export default function SignInSide() {
               onSubmit={handleSubmit}
               sx={{ mt: 1 }}
             >
+              {/* 이메일 입력 칸 */}
               <TextField
                 margin="normal"
                 required
                 fullWidth
-                id="email"
+                id="userEmail"
                 label="Email Address"
-                name="email"
+                name="userEmail"
                 autoComplete="email"
                 autoFocus
               />
+              {/* 비밀번호 입력 칸 */}
               <TextField
                 margin="normal"
                 required
                 fullWidth
-                name="password"
-                label="Password"
+                name="userPassword"
+                label="userPassword"
                 type="password"
-                id="password"
+                id="userPassword"
                 autoComplete="current-password"
               />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              />
+
               <Button
                 type="submit"
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
+                onClick={handleSubmit}
               >
                 Sign In
               </Button>
@@ -129,7 +127,6 @@ export default function SignInSide() {
                   </Link>
                 </Grid>
               </Grid>
-              <Copyright sx={{ mt: 5 }} />
             </Box>
           </Box>
         </Grid>
