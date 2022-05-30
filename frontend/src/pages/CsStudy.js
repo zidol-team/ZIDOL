@@ -5,17 +5,16 @@ const CsStudy = () => {
       // mode: "no-cors",
       headers: {
         Accept: "application/json",
-        "Access-control-allow-origin": "http://112.172.225.17:8282",
         "Content-Type": "application/json;charset=UTF-8",
       },
       body: JSON.stringify({
-        string: "helloworld",
+        hello: "helloworld",
       }),
     };
     console.log("requestOptions : ", requestOptions);
 
     fetch("/helloworld", requestOptions)
-      // .then((res) => res.json())
+      .then((res) => res.json())
       .then((res) => {
         console.log("res : ", res);
       });
