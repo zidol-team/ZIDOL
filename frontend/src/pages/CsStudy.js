@@ -2,7 +2,7 @@ const CsStudy = () => {
   const handleSubmit = () => {
     const requestOptions = {
       method: "POST",
-      mode: "no-cors",
+      // mode: "no-cors",
       headers: {
         Accept: "application/json",
         "Access-control-allow-origin": "http://112.172.225.17:8282",
@@ -14,7 +14,7 @@ const CsStudy = () => {
     };
     console.log("requestOptions : ", requestOptions);
 
-    fetch("http://112.172.225.17:8282/helloworld", requestOptions)
+    fetch("/helloworld", requestOptions)
       // .then((res) => res.json())
       .then((res) => {
         console.log("res : ", res);
