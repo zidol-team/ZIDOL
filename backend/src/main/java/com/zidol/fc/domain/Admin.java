@@ -19,7 +19,7 @@ public class Admin {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long adminCode;
+	private long adminCode;
 	
 	@NotNull
 	private String adminEmail;

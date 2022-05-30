@@ -13,8 +13,8 @@ import lombok.Setter;
 
 @Setter
 @Getter
-@Entity
 @NoArgsConstructor
+@Entity
 public class Board {
 	
 	@Id

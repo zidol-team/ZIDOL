@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.zidol.fc.domain.User;
 
 @Repository
-public interface UserRepository extends JpaRepository<Long, User> {
+public interface UserRepository extends JpaRepository<User, Long> {
 
 }

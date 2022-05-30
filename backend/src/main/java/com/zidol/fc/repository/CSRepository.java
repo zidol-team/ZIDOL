@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.zidol.fc.domain.CS;
 
 @Repository
-public interface CSRepository extends JpaRepository<Long, CS> {
+public interface CSRepository extends JpaRepository<CS, Long> {
 
 }
