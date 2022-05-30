@@ -11,6 +11,7 @@ import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import CsStudy from "./pages/CsStudy";
 
+// 확인
 function App() {
   return (
     <div className="App">
