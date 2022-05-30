@@ -3,9 +3,9 @@ package com.zidol.fc.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.zidol.fc.domain.User;
+import com.zidol.fc.domain.CS;
 
 @Repository
-public interface UserRepository extends JpaRepository<Long, User> {
+public interface CSRepository extends JpaRepository<Long, CS> {
 
 }
