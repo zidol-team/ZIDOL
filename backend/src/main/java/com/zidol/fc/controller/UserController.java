@@ -57,7 +57,9 @@ public class UserController {
 		Map<String, Boolean> result = new HashMap<>();
 		User user = User.builder().userEmail(params.get("userEmail")).userPassword(params.get("userPassword"))
 				.userName(params.get("userName")).userNickname(params.get("userNickname")).build();
-
+		
+		userService.insertUser(user);
+		
 		if (user != null) {
 			result.put("singUp", true);
 		} else {
