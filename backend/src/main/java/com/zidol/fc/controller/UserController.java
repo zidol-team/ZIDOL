@@ -30,12 +30,14 @@ public class UserController {
 		if (user == null) {
 			// 이메일 계정이 존재하지 않는 경우
 			result.put("signIn", false);
+			result.put("userEmail", false);
 		} else if(user.getUserPassword().equals(params.get("userPassword"))) {
 			session.setAttribute("user", user);
 			result.put("signIn", true);
 		} else {
 			// 비밀번호가 틀렸을 경우
 			result.put("signIn", false);
+			result.put("userPassword", false);
 		}
 
 		return result;
