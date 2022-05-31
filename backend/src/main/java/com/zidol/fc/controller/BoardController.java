@@ -12,6 +12,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,10 +39,6 @@ public class BoardController {
 	public Map<String, Long> insertBoard(@RequestBody Map<String, Board> params) {
 		Map<String, Long> result = new HashMap<>();
 		System.out.println(params.get("qnaContent"));
-//		System.out.println(params.get("boardTitle"));
-//		System.out.println(params.get("boardContent"));
-//		Board board = Board.builder().boardTitle(params.get("boardTitle")).boardContent(params.get("boardContent"))
-//				.build();
 		Board board = params.get("qnaContent");
 		boardService.insertBoard(board);
 
@@ -51,16 +48,11 @@ public class BoardController {
 	
 	
 	@GetMapping("/board-detail")
-	public Map<String, Board> boardDetail(@RequestParam String boardCode){
-		Board board = boardService.findByBoardCode(boardCode);
-		Map<String, Board> result = new HashMap<>();
-		if(board != null) {
-			result.put("board",board);
-		}else {
-			System.out.println("보드에 객체가 없습니다");
-		}
-		return result;
+	public Board boardDetail(@RequestParam long boardCode){
+		Board board = boardService.findBoardCode(boardCode);
+		return board;
 	}
+	
 	
     @GetMapping("/read-all")
     public ResponseEntity<DataResponse> readAllBoard(@PageableDefault(page=0, size=10) Pageable pageable){

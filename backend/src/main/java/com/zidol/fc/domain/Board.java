@@ -1,5 +1,6 @@
 package com.zidol.fc.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,7 +16,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@ToString
 @Setter
 @Getter
 @NoArgsConstructor
@@ -27,25 +27,36 @@ public class Board {
 	private User user;
 	
 	@Id
+	@Column
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long boardCode;
 	
+	
 	@NotNull
+	@Column
 	private String boardType;
 	
-	@NotNull
-	private String boardTitle;
 	
 	@NotNull
+	@Column
+	private String boardTitle;
+	
+	
+	@NotNull
+	@Column
 	private String boardContent;
 
 	@Builder
-	public Board(long boardCode, String boardType, String boardTitle, String boardContent) {
+	public Board(User user, long boardCode, @NotNull String boardType, @NotNull String boardTitle,
+			@NotNull String boardContent) {
 		super();
+		this.user = user;
 		this.boardCode = boardCode;
 		this.boardType = boardType;
 		this.boardTitle = boardTitle;
 		this.boardContent = boardContent;
 	}
+
+
 	
 }
