@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^34.1.0",
+    "@ckeditor/ckeditor5-react": "^5.0.2",
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
     "@mui/icons-material": "^5.8.0",
@@ -45,5 +47,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://192.168.45.96:8282"
+  "proxy": "http://58.233.194.147:8282"
 }
