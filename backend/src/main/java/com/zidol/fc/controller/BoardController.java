@@ -21,22 +21,11 @@ public class BoardController {
 	@Autowired
 	BoardService boardService;
 
-	@GetMapping("/FindAllBoard.act")
+	@GetMapping("/find-all-board")
 	public Map<String, Page<Board>> findAllBoard(@PageableDefault(page = 0, size = 10) Pageable pageable) {
 		Map<String, Page<Board>> result = new HashMap<>();
 		result.put("Board", boardService.findAllBoard(pageable));
 		return result;
 	}
 
-	@PostMapping("/InsertBoard.act")
-	public Map<String, Boolean> insertBoard(@RequestBody Map<String, Board> params) {
-		Map<String, Boolean> result = new HashMap<>();
-		System.out.println(params.get("qnaContent"));
-//		System.out.println(params.get("boardTitle"));
-//		System.out.println(params.get("boardContent"));
-//		Board board = Board.builder().boardTitle(params.get("boardTitle")).boardContent(params.get("boardContent"))
-//				.build();
-
-		return result;
-	}
 }

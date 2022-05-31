@@ -21,7 +21,7 @@ public class UserController {
 	@Autowired
 	UserService userService;
 
-	@PostMapping("/SignIn.act")
+	@PostMapping("/sign-in")
 	public Map<String, Boolean> singIn(HttpSession session, @RequestBody Map<String, String> params) {
 		Map<String, Boolean> result = new HashMap<>();
 		String userEmail = params.get("userEmail");
@@ -47,7 +47,7 @@ public class UserController {
 		return result;
 	}
 
-	@PostMapping("/CheckEmail.act")
+	@PostMapping("/check-email.act")
 	public Map<String, Boolean> checkId(@RequestBody Map<String, String> param) {
 		Map<String, Boolean> result = new HashMap<>();
 		String userEmail = param.get("userEmail");
@@ -63,7 +63,7 @@ public class UserController {
 		return result;
 	}
 
-	@PostMapping("/SignUp.act")
+	@PostMapping("/sign-up.act")
 	public Map<String, Boolean> signUp(@RequestBody Map<String, String> params) {
 		Map<String, Boolean> result = new HashMap<>();
 		User user = User.builder().userEmail(params.get("userEmail")).userPassword(params.get("userPassword"))
@@ -80,7 +80,7 @@ public class UserController {
 		return result;
 	}
 	
-	@PostMapping("/FindEmail.act")
+	@PostMapping("/find-email.act")
 	public Map<String, String> findEmail(@RequestBody Map<String, String> params) {
 		Map<String, String> result = new HashMap<>();
 		String userName = params.get("userName");
@@ -95,7 +95,7 @@ public class UserController {
 		return result;
 	}
 	
-	@PostMapping("/FindPassword.act")
+	@PostMapping("/find-password.act")
 	public Map<String, Boolean> findPassword(@RequestBody Map<String, String> params) {
 		Map<String, Boolean> result = new HashMap<>();
 		User user = User.builder().userEmail(params.get("userEmail")).userPassword(params.get("userPassword"))
