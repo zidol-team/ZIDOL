@@ -23,22 +23,19 @@ public class UserController {
 
 	@PostMapping("/SignIn.act")
 	public Map<String, Boolean> singIn(HttpSession session, @RequestBody Map<String, String> params) {
-		System.out.println(params.get("userEmail"));
-		System.out.println(params.get("userPassword"));
-		System.out.println("-----------------------");
 		Map<String, Boolean> result = new HashMap<>();
 		String userEmail = params.get("userEmail");
 		User user = userService.findByUserEmail(userEmail);
 
 		if (user == null) {
 			// 이메일 계정이 존재하지 않는 경우
-			result.put("singIn", false);
+			result.put("signIn", false);
 		} else if(user.getUserPassword().equals(params.get("userPassword"))) {
 			session.setAttribute("user", user);
-			result.put("singIn", true);
+			result.put("signIn", true);
 		} else {
 			// 비밀번호가 틀렸을 경우
-			result.put("singIn", false);
+			result.put("signIn", false);
 		}
 		return result;
 	}
@@ -51,16 +48,16 @@ public class UserController {
 
 		if (user == null) {
 			// 이메일 계정이 존재하지 않는 경우
-			result.put("singUp", true);
+			result.put("checkId", true);
 		} else {
-			result.put("singUp", false);
+			result.put("checkId", false);
 		}
 
 		return result;
 	}
 
 	@PostMapping("/SignUp.act")
-	public Map<String, Boolean> singUp(@RequestBody Map<String, String> params) {
+	public Map<String, Boolean> signUp(@RequestBody Map<String, String> params) {
 		Map<String, Boolean> result = new HashMap<>();
 		User user = User.builder().userEmail(params.get("userEmail")).userPassword(params.get("userPassword"))
 				.userName(params.get("userName")).userNickname(params.get("userNickname")).build();
@@ -68,9 +65,41 @@ public class UserController {
 		User register = userService.insertUser(user);
 		
 		if (register != null) {
-			result.put("singUp", true);
+			result.put("signUp", true);
 		} else {
-			result.put("singUp", false);
+			result.put("signUp", false);
+		}
+
+		return result;
+	}
+	
+	@PostMapping("/FindEmail.act")
+	public Map<String, Boolean> findEmail(@RequestBody Map<String, String> params) {
+		Map<String, String> result = new HashMap<>();
+		String userName = params.get("userName");
+		User user = userService.findByUserName(userName);
+		
+		if (user != null) {
+			result.put("findEmail", user.getUserEmail());
+		} else {
+			result.put("findEmail", false);
+		}
+
+		return result;
+	}
+	
+	@PostMapping("/FindPassword.act")
+	public Map<String, Boolean> findPassword(@RequestBody Map<String, String> params) {
+		Map<String, Boolean> result = new HashMap<>();
+		User user = User.builder().userEmail(params.get("userEmail")).userPassword(params.get("userPassword"))
+				.userName(params.get("userName")).userNickname(params.get("userNickname")).build();
+		
+		User register = userService.insertUser(user);
+		
+		if (register != null) {
+			result.put("findPassword", true);
+		} else {
+			result.put("findPassword", false);
 		}
 
 		return result;

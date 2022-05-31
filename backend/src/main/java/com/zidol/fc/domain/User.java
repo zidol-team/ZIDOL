@@ -1,9 +1,13 @@
 package com.zidol.fc.domain;
 
+import java.util.List;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 import lombok.Builder;
@@ -17,24 +21,31 @@ import lombok.Setter;
 @Entity
 public class User {
 	
+	@OneToMany(mappedBy = "user")
+	private List<Board> board;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long userCode;
 	
+	@Column
 	@NotNull
 	private String userEmail;
 	
+	@Column
 	@NotNull
 	private String userPassword;
 	
+	@Column
 	@NotNull
 	private String userName;
 	
+	@Column
 	@NotNull
 	private String userNickname;
 
 	@Builder
-	public User(Long userCode, @NotNull String userEmail, @NotNull String userPassword, @NotNull String userName,
+	public User(long userCode, @NotNull String userEmail, @NotNull String userPassword, @NotNull String userName,
 			@NotNull String userNickname) {
 		super();
 		this.userCode = userCode;
