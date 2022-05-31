@@ -1,37 +1,32 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import CommonTable from "../components/CommonTable";
-import CommonTableColumn from "../components/CommonTableColumn";
-import CommonTableRow from "../components/CommonTableRow";
-import { postList } from "./Data";
+import { useState } from "react";
 
-const PostList = (props) => {
-  const [dataList, setDataList] = useState([]);
-
-  useEffect(() => {
-    setDataList(postList);
-  }, []);
+function Notice() {
+  const [board, setboard] = useState({});
+  const profiletest = () => {
+    fetch("/find-all-board", {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json;charset=UTF-8",
+      },
+    })
+      .then((res) => res.json())
+      .then((log) => console.log(log))
+      .then((data) => setboard(data));
+  };
 
   return (
-    <>
-      <CommonTable headersName={["글번호", "제목", "등록일", "조회수"]}>
-        {dataList
-          ? dataList.map((item, index) => {
-              return (
-                <CommonTableRow key={index}>
-                  <CommonTableColumn>{item.no}</CommonTableColumn>
-                  <CommonTableColumn>
-                    <Link to={`/postView/${item.no}`}>{item.title}</Link>
-                  </CommonTableColumn>
-                  <CommonTableColumn>{item.createDate}</CommonTableColumn>
-                  <CommonTableColumn>{item.readCount}</CommonTableColumn>
-                </CommonTableRow>
-              );
-            })
-          : ""}
-      </CommonTable>
-    </>
+    <div>
+      <div>Notice</div>
+      <button onClick={profiletest}>test</button>
+      <div>
+        여기에 넣고싶어요
+        <table>
+          <th>제목</th>
+        </table>
+      </div>
+    </div>
   );
-};
+}
 
-export default PostList;
+export default Notice;

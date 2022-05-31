@@ -1,3 +1,17 @@
+import { useEffect } from "react";
+
+const profiletest = () => {
+  fetch("/FindAllBoard.act", {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json;charset=UTF-8",
+    },
+  })
+    .then((res) => res.json())
+    .then((data) => console.log(data));
+};
+
 const postList = [
   {
     no: 1,
