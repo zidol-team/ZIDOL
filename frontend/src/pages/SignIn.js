@@ -15,11 +15,15 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const theme = createTheme();
 
-export default function SignIn() {
+export default function SignInSide() {
   const handleSubmit = (event) => {
     event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    console.log({
+      email: data.get("userEmail"),
+      password: data.get("userPassword"),
+    });
 
-    // requestOptions
     const requestOptions = {
       method: "POST",
       headers: {
@@ -28,16 +32,25 @@ export default function SignIn() {
       },
       body: JSON.stringify({
         // userEmail, userPassword 전송
-        userEmail: "userEmail",
-        userPassword: "userPassword",
+        userEmail: data.get("userEmail"),
+        userPassword: data.get("userPassword"),
       }),
     };
     console.log("requestOptions : ", requestOptions);
 
-    fetch("/hello.act", requestOptions)
+    fetch("/SignIn.act", requestOptions)
       .then((res) => res.json())
       .then((res) => {
         console.log("res : ", res);
+        if (res.userEmail === false) {
+          alert("등록된 이메일이 없습니다.");
+        } else if (res.userPassword === false) {
+          alert("비밀번호가 틀렸습니다.");
+        } else {
+          alert("로그인 완료");
+          window.location = "/MyPage";
+        }
+        // 쿠키저장 필요
       });
   };
 
@@ -83,7 +96,6 @@ export default function SignIn() {
               onSubmit={handleSubmit}
               sx={{ mt: 1 }}
             >
-              {/* 이메일 입력 칸 */}
               <TextField
                 margin="normal"
                 required
@@ -94,13 +106,12 @@ export default function SignIn() {
                 autoComplete="email"
                 autoFocus
               />
-              {/* 비밀번호 입력 칸 */}
               <TextField
                 margin="normal"
                 required
                 fullWidth
                 name="userPassword"
-                label="userPassword"
+                label="Password"
                 type="password"
                 id="userPassword"
                 autoComplete="current-password"
@@ -111,7 +122,6 @@ export default function SignIn() {
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
-                onClick={handleSubmit}
               >
                 Sign In
               </Button>
