@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Navbar, Container, Nav } from "react-bootstrap";
 import "./App.css";
 import { Routes, Route, Link, useNavigate, Outlet } from "react-router-dom";
@@ -10,9 +11,13 @@ import MainNavbar from "./components/MainNavbar";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import CsStudy from "./pages/CsStudy";
+import SubjectDetail from "./pages/SubjectDetail";
+import Data from "./data/data";
 
 // 확인
 function App() {
+  const [algorithm, setAlgorithm] = useState(Data);
+
   return (
     <div className="App">
       {/* 네비게이션 바 */}
@@ -48,6 +53,10 @@ function App() {
               <Mypage></Mypage>
             </>
           }
+        ></Route>
+        <Route
+          path="/SubjectDetail"
+          element={<SubjectDetail algorithm={algorithm}></SubjectDetail>}
         ></Route>
         <Route
           path="*"
