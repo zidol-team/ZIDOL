@@ -23,9 +23,6 @@ public class UserController {
 
 	@PostMapping("/SignIn.act")
 	public Map<String, Boolean> singIn(HttpSession session, @RequestBody Map<String, String> params) {
-		System.out.println(params.get("userEmail"));
-		System.out.println(params.get("userPassword"));
-		System.out.println("-----------------------");
 		Map<String, Boolean> result = new HashMap<>();
 		String userEmail = params.get("userEmail");
 		User user = userService.findByUserEmail(userEmail);
@@ -79,14 +76,12 @@ public class UserController {
 	
 	@PostMapping("/FindEmail.act")
 	public Map<String, Boolean> findEmail(@RequestBody Map<String, String> params) {
-		Map<String, Boolean> result = new HashMap<>();
-		User user = User.builder().userEmail(params.get("userEmail")).userPassword(params.get("userPassword"))
-				.userName(params.get("userName")).userNickname(params.get("userNickname")).build();
+		Map<String, String> result = new HashMap<>();
+		String userName = params.get("userName");
+		User user = userService.findByUserName(userName);
 		
-		User register = userService.insertUser(user);
-		
-		if (register != null) {
-			result.put("findEmail", true);
+		if (user != null) {
+			result.put("findEmail", user.getUserEmail());
 		} else {
 			result.put("findEmail", false);
 		}
