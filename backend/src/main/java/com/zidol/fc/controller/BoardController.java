@@ -29,14 +29,16 @@ public class BoardController {
 	}
 
 	@PostMapping("/InsertBoard.act")
-	public Map<String, Boolean> insertBoard(@RequestBody Map<String, Board> params) {
+	public Map<String, Boolean> insertBoard(@RequestBody Map<String, String> params) {
 		Map<String, Boolean> result = new HashMap<>();
 		System.out.println(params.get("qnaContent"));
 //		System.out.println(params.get("boardTitle"));
 //		System.out.println(params.get("boardContent"));
 //		Board board = Board.builder().boardTitle(params.get("boardTitle")).boardContent(params.get("boardContent"))
 //				.build();
-
+		String title = params.get("boardTitle");
+		result.put(title, true);
+		System.out.println(title);
 		return result;
 	}
 }
