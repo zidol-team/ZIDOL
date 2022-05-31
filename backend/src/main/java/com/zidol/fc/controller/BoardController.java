@@ -21,10 +21,10 @@ public class BoardController {
 	@Autowired
 	BoardService boardService;
 
-	@GetMapping("/ListUp.act")
-	public Map<String, Page<Board>> ListUp(@PageableDefault(page = 0, size = 10) Pageable pageable) {
+	@GetMapping("/FindAllBoard.act")
+	public Map<String, Page<Board>> findAllBoard(@PageableDefault(page = 0, size = 10) Pageable pageable) {
 		Map<String, Page<Board>> result = new HashMap<>();
-		result.put("ListUp", boardService.findAll(pageable));
+		result.put("Board", boardService.findAllBoard(pageable));
 		return result;
 	}
 
