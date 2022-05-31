@@ -75,7 +75,7 @@ public class UserController {
 	}
 	
 	@PostMapping("/FindEmail.act")
-	public Map<String, Boolean> findEmail(@RequestBody Map<String, String> params) {
+	public Map<String, String> findEmail(@RequestBody Map<String, String> params) {
 		Map<String, String> result = new HashMap<>();
 		String userName = params.get("userName");
 		User user = userService.findByUserName(userName);
@@ -83,7 +83,7 @@ public class UserController {
 		if (user != null) {
 			result.put("findEmail", user.getUserEmail());
 		} else {
-			result.put("findEmail", false);
+			result.put("findEmail", "false");
 		}
 
 		return result;
