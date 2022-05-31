@@ -30,12 +30,14 @@ public class UserController {
 		if (user == null) {
 			// 이메일 계정이 존재하지 않는 경우
 			result.put("signIn", false);
+			result.put("userEmail", false);
 		} else if(user.getUserPassword().equals(params.get("userPassword"))) {
 			session.setAttribute("user", user);
 			result.put("signIn", true);
 		} else {
 			// 비밀번호가 틀렸을 경우
 			result.put("signIn", false);
+			result.put("userPassword", false);
 		}
 		return result;
 	}
@@ -74,7 +76,7 @@ public class UserController {
 	}
 	
 	@PostMapping("/FindEmail.act")
-	public Map<String, Boolean> findEmail(@RequestBody Map<String, String> params) {
+	public Map<String, String> findEmail(@RequestBody Map<String, String> params) {
 		Map<String, String> result = new HashMap<>();
 		String userName = params.get("userName");
 		User user = userService.findByUserName(userName);
@@ -82,7 +84,7 @@ public class UserController {
 		if (user != null) {
 			result.put("findEmail", user.getUserEmail());
 		} else {
-			result.put("findEmail", false);
+			result.put("findEmail", "false");
 		}
 
 		return result;
