@@ -17,4 +17,8 @@ public class BoardService {
 	public Page<Board> findAll(Pageable pageable) {
 		return boardRepository.findAll(pageable);
 	}
+	
+	public void insertBoard(Board board) {
+		boardRepository.save(board);
+	}
 }
