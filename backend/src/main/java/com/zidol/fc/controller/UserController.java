@@ -43,7 +43,6 @@ public class UserController {
 			result.put("userEmail", true);
 			result.put("userPassword", false);
 		}
-
 		return result;
 	}
 

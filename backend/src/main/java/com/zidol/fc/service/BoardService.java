@@ -21,4 +21,10 @@ public class BoardService {
 	public void insertBoard(Board board) {
 		boardRepository.save(board);
 	}
+
+
+	public Board findByBoardCode(String boardCode) {
+		return boardRepository.findByBoardCode(boardCode);
+	}
+	
 }
