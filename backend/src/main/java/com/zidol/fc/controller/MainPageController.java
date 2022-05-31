@@ -7,9 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class MypageController {
-	
-	
+public class MainPageController {
 	
 	@PostMapping("/userProfile")
 	public Map<String,String> test2(@RequestBody Map<String, String> param){
@@ -17,4 +15,5 @@ public class MypageController {
 		
 		return null;
 	}
+
 }

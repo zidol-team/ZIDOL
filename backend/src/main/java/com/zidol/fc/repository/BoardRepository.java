@@ -8,4 +8,5 @@ import com.zidol.fc.domain.Board;
 @Repository
 public interface BoardRepository extends JpaRepository<Board, Long> {
 	
+	
 }

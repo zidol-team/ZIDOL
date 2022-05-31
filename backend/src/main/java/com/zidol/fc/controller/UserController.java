@@ -40,7 +40,6 @@ public class UserController {
 			// 비밀번호가 틀렸을 경우
 			result.put("singIn", false);
 		}
-		System.out.println("뭐가 굴러가긴 하는거니?");
 		return result;
 	}
 
