@@ -1,4 +1,4 @@
-package com.zidol.fc.controller;
+package com.zidol.fc.domain;
 
 import lombok.Data;
 
