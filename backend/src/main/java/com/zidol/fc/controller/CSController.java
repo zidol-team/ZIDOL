@@ -19,7 +19,7 @@ public class CSController {
 	@Autowired
 	CSService csService;
 
-	@GetMapping("/cs-study")
+	@GetMapping("/cs-study.act")
 	public ResponseEntity<DataResponse> findAllCS() {
 		DataResponse dataResponse = new DataResponse();
 		HttpHeaders headers = new HttpHeaders();
