@@ -1,9 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
-import Data from "../data/data";
+import { useParams } from "react-router-dom";
+import Algorithm from "../data/algorithm";
 
 const SubjectDetail = (props) => {
   const algorithmList = props.algorithm;
-  console.log(props.algorithm);
+  const subject = useParams();
+  console.log(subject);
+  console.log(props);
+
+  console.log(props.key);
 
   const titleList = algorithmList.map((a, index) => (
     <div key={index}>

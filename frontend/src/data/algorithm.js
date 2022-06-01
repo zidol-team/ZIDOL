@@ -1,4 +1,4 @@
-const data = [
+const algorithm = [
   { id: 0, title: "Binary Search", content: "내용없는상태" },
   { id: 1, title: "DFS & BFS", content: "내용없는상태" },
   { id: 2, title: "Hash Table 구현하기", content: "내용없는상태" },
@@ -25,4 +25,4 @@ const data = [
   { id: 15, title: "최대공약수 & 최소공배수", content: "내용없는상태" },
 ];
 
-export default data;
+export default algorithm;

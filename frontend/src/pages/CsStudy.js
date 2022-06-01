@@ -1,9 +1,10 @@
 import * as React from "react";
 import { Button, Container, Card } from "react-bootstrap";
+import { useParams } from "react-router-dom";
 
 const CsStudy = () => {
   const subjects = [
-    "알고리즘",
+    "algorithm",
     "자료구조",
     "컴퓨터구조",
     "데이터베이스",
@@ -12,6 +13,7 @@ const CsStudy = () => {
     "면접질문",
     "디자인패턴",
   ];
+  const { id } = useParams();
 
   const handleSubmit = () => {
     const requestOptions = {
@@ -53,7 +55,9 @@ const CsStudy = () => {
         </Card.Text>
         <Button
           variant="primary"
-          onClick={(window.location = "/SubjectDetail" + {})}
+          onClick={() =>
+            (window.location = `cs-study/subject-detail/${subject}`)
+          }
         >
           Go somewhere
         </Button>

@@ -12,11 +12,13 @@ import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import CsStudy from "./pages/CsStudy";
 import SubjectDetail from "./pages/SubjectDetail";
-import Data from "./data/data";
+import Algorithm from "./data/algorithm";
+import DataStructure from "./data/dataStructure";
 
 // 확인
 function App() {
-  const [algorithm, setAlgorithm] = useState(Data);
+  const [algorithm, setAlgorithm] = useState(Algorithm);
+  const [dataStructure, setSataStructure] = useState(DataStructure);
 
   return (
     <div className="App">
@@ -28,7 +30,7 @@ function App() {
         <Route path="/signin" element={<SignIn></SignIn>}></Route>
         <Route path="/signup" element={<SignUp></SignUp>}></Route>
         <Route
-          path="/csstudy"
+          path="/cs-study"
           element={
             <>
               <MainNavbar></MainNavbar>
@@ -55,8 +57,22 @@ function App() {
           }
         ></Route>
         <Route
-          path="/SubjectDetail"
-          element={<SubjectDetail algorithm={algorithm}></SubjectDetail>}
+          path="cs-study/subject-detail"
+          element={
+            <SubjectDetail
+              algorithm={algorithm}
+              dataStructure={dataStructure}
+            ></SubjectDetail>
+          }
+        ></Route>
+        <Route
+          path="cs-study/subject-detail/:subject"
+          element={
+            <SubjectDetail
+              algorithm={algorithm}
+              dataStructure={dataStructure}
+            ></SubjectDetail>
+          }
         ></Route>
         <Route
           path="*"
