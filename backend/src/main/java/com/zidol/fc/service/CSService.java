@@ -17,5 +17,9 @@ public class CSService {
 	public List<CS> findByCsType(String csType) {
 		return csRepository.findByCsType(csType);
 	}
+	
+	public List<CS> findAllCS() {
+		return csRepository.findAll();
+	}
 
 }
