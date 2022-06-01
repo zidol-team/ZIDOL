@@ -1,10 +1,20 @@
-import * as React from "react";
+import { useState, useEffect } from "react";
 import { Button, Container, Card } from "react-bootstrap";
-import { useParams } from "react-router-dom";
+
+import {
+  Routes,
+  Route,
+  Link,
+  Outlet,
+  Navigate,
+  useNavigate,
+} from "react-router-dom";
 
 const CsStudy = () => {
-  const subjects = [
-    "algorithm",
+  const navigate = useNavigate();
+
+  const csTypes = [
+    "알고리즘",
     "자료구조",
     "컴퓨터구조",
     "데이터베이스",
@@ -13,31 +23,32 @@ const CsStudy = () => {
     "면접질문",
     "디자인패턴",
   ];
-  const { id } = useParams();
+  const [studyData, setStudyData] = useState([]);
 
-  const handleSubmit = () => {
+  const getData = async () => {
     const requestOptions = {
-      method: "POST",
-      // mode: "no-cors",
+      method: "GET",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json;charset=UTF-8",
       },
-      body: JSON.stringify({
-        hello: "helloworld",
-      }),
     };
-    console.log("requestOptions : ", requestOptions);
+    // console.log("requestOptions : ", requestOptions);
 
-    fetch("/hello.act", requestOptions)
+    const data = await fetch("/cs-study.act", requestOptions)
       .then((res) => res.json())
       .then((res) => {
         console.log("res : ", res);
+        setStudyData(res.data);
       });
   };
+  useEffect(() => {
+    getData();
+  }, []);
 
-  const subjectCard = subjects.map((subject) => (
+  const csTypeCard = csTypes.map((csType, index) => (
     <Card
+      key={index}
       style={{
         width: "18rem",
         marginLeft: 20,
@@ -48,7 +59,7 @@ const CsStudy = () => {
     >
       <Card.Img variant="top" src="holder.js/100px180" />
       <Card.Body>
-        <Card.Title>{subject}</Card.Title>
+        <Card.Title>{csType}</Card.Title>
         <Card.Text>
           Some quick example text to build on the card title and make up the
           bulk of the card's content.
@@ -56,7 +67,9 @@ const CsStudy = () => {
         <Button
           variant="primary"
           onClick={() =>
-            (window.location = `cs-study/subject-detail/${subject}`)
+            navigate(`subject-detail/${csType}`, {
+              state: { csType: csType, studyData: studyData },
+            })
           }
         >
           Go somewhere
@@ -76,7 +89,7 @@ const CsStudy = () => {
         flexWrap: "wrap",
       }}
     >
-      {subjectCard}
+      {csTypeCard}
     </Container>
   );
 };

@@ -59,19 +59,22 @@ function App() {
         <Route
           path="cs-study/subject-detail"
           element={
-            <SubjectDetail
-              algorithm={algorithm}
-              dataStructure={dataStructure}
-            ></SubjectDetail>
+            <>
+              <MainNavbar></MainNavbar>
+              <SubjectDetail
+                algorithm={algorithm}
+                dataStructure={dataStructure}
+              ></SubjectDetail>
+            </>
           }
         ></Route>
         <Route
-          path="cs-study/subject-detail/:subject"
+          path="cs-study/subject-detail/:csType"
           element={
-            <SubjectDetail
-              algorithm={algorithm}
-              dataStructure={dataStructure}
-            ></SubjectDetail>
+            <>
+              <MainNavbar></MainNavbar>
+              <SubjectDetail></SubjectDetail>
+            </>
           }
         ></Route>
         <Route
