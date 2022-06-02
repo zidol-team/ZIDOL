@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.zidol.fc.domain.User;
 import com.zidol.fc.error.ErrorResponse;
-import com.zidol.fc.error.ErrorResponse.CustomFieldError;
 import com.zidol.fc.error.user.DuplicateIdException;
 import com.zidol.fc.error.user.LoginFailException;
 import com.zidol.fc.service.UserService;
@@ -62,7 +61,6 @@ public class UserController {
 	public ResponseEntity<DataResponse> singIn(HttpSession session, @RequestBody Map<String, String> params) {
 		String userEmail = params.get("userEmail");
 		User user = userService.findByUserEmail(userEmail);
-		Map<String, Boolean> singInFailed = new HashMap<>();
 		
 		DataResponse dataResponse = new DataResponse();
 		HttpHeaders headers = new HttpHeaders();

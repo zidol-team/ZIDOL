@@ -4,35 +4,29 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Setter
 @Getter
+@Setter
 @NoArgsConstructor
 @Entity
-public class CS {
-
+public class Achievement {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long csCode;
+	private long achievementCode;
 	
-	@NotNull
-	private String csType;
+	@ManyToOne
+	@JoinColumn(name = "user_code")
+	private User user;
 	
-	@NotNull
-	private String csName;
-
-	@Builder
-	public CS(long csCode, String csType, String csName) {
-		super();
-		this.csCode = csCode;
-		this.csType = csType;
-		this.csName = csName;
-	}
+	@ManyToOne
+	@JoinColumn(name = "cs_code")
+	private CS cs;
 	
 }
