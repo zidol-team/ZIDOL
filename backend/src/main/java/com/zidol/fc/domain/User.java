@@ -24,11 +24,11 @@ import lombok.Setter;
 public class User {
 	
 	@OneToMany(mappedBy = "user")
-	@JsonManagedReference
+	@JsonManagedReference(value = "user-board")
 	private List<Board> board;
 	
 	@OneToMany(mappedBy = "user")
-	@JsonManagedReference
+	@JsonManagedReference(value = "user-cs")
 	private List<Achievement> css;
 	
 	@Id
