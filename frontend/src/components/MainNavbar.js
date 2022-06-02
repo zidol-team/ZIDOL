@@ -13,7 +13,7 @@ const MainNavbar = () => {
           <Nav className="me-auto">
             <Nav.Link
               onClick={() => {
-                navigate("/csstudy");
+                navigate("/cs-study");
               }}
             >
               CS Study
