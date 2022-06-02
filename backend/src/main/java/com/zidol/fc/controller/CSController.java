@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.zidol.fc.domain.Achievement;
+import com.zidol.fc.domain.CS;
 import com.zidol.fc.domain.User;
 import com.zidol.fc.service.CSService;
 import com.zidol.fc.service.UserService;
@@ -42,11 +44,10 @@ public class CSController {
 	
 	@PostMapping("/achievement.act")
 	public ResponseEntity<DataResponse> achievement(@RequestBody Map<String, String> params) {
-		System.out.println(params.get("csCode"));
-		System.out.println(params.get("userEmail"));
 		
-		User user = userService.findByUserEmail(params.get("csCode"));
-		CS cs = csService.find
+		User user = userService.findByUserEmail(params.get("userEmail"));
+		CS cs = csService.findByCsName(params.get("csName"));
+		Achievement achievement = Achievement.builder().user(user).cs(cs).build();
 		
 		DataResponse dataResponse = new DataResponse();
 		HttpHeaders headers = new HttpHeaders();
@@ -54,7 +55,7 @@ public class CSController {
 		
 		dataResponse.setStatus(StatusCode.OK.getStatus());
 		dataResponse.setCode(StatusCode.OK.getCode());
-		dataResponse.setData(csService.findAll());
+		dataResponse.setData(achievement);
 		
 		return new ResponseEntity<DataResponse>(dataResponse, headers, HttpStatus.OK);
 	}
