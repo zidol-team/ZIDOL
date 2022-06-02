@@ -1,6 +1,6 @@
 package com.zidol.fc.domain;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -51,17 +51,17 @@ public class Board {
    
    @NotNull
    @Column
-   private LocalDateTime boardRegDate;
+   private LocalDate boardRegDate;
    
    @PrePersist
    @PreUpdate
    public void createdAt() {
-       this.boardRegDate = LocalDateTime.now();
+       this.boardRegDate = LocalDate.now();
    }
    
    @Builder
    public Board(User user, long boardCode, @NotNull String boardType, @NotNull String boardTitle,
-         @NotNull String boardContent, @NotNull LocalDateTime boardRegDate) {
+         @NotNull String boardContent, @NotNull LocalDate boardRegDate) {
       super();
       this.user = user;
       this.boardCode = boardCode;
