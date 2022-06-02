@@ -14,12 +14,12 @@ public class CSService {
 	@Autowired
 	CSRepository csRepository;
 	
-	public List<CS> findByCsType(String csType) {
-		return csRepository.findByCsType(csType);
+	public List<CS> findAll() {
+		return csRepository.findAll();
 	}
 	
-	public List<CS> findAllCS() {
-		return csRepository.findAll();
+	public CS findByCsName(String csName) {
+		return csRepository.findByCsName(csName);
 	}
 
 }

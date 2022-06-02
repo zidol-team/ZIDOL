@@ -29,7 +29,7 @@ public class UserController {
 	@Autowired
 	UserService userService;
 
-	@PostMapping("/sign-up")
+	@PostMapping("/sign-up.act")
 	public ResponseEntity<DataResponse> signUp(@RequestBody Map<String, String> params) {		
 		DataResponse dataResponse = new DataResponse();
 		HttpHeaders headers = new HttpHeaders();
@@ -57,7 +57,7 @@ public class UserController {
 		}
 	}
 
-	@PostMapping("/sign-in")
+	@PostMapping("/sign-in.act")
 	public ResponseEntity<DataResponse> singIn(HttpSession session, @RequestBody Map<String, String> params) {
 		String userEmail = params.get("userEmail");
 		User user = userService.findByUserEmail(userEmail);
