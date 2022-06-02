@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^34.1.0",
+    "@ckeditor/ckeditor5-react": "^5.0.2",
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
     "@mui/icons-material": "^5.8.0",
@@ -12,9 +14,11 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.27.2",
     "bootstrap": "^5.1.3",
+    "buffer": "^6.0.3",
     "react": "^18.1.0",
     "react-bootstrap": "^2.4.0",
     "react-dom": "^18.1.0",
+    "react-html-parser": "^2.0.2",
     "react-redux": "^8.0.2",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
@@ -45,5 +49,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://112.172.225.17:8282"
+  "proxy": "http://58.233.194.147:8282"
 }

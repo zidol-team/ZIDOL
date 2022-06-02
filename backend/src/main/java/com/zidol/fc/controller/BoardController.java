@@ -1,5 +1,6 @@
 package com.zidol.fc.controller;
 
+import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -7,9 +8,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.zidol.fc.domain.Board;
@@ -20,23 +27,72 @@ public class BoardController {
 
 	@Autowired
 	BoardService boardService;
-
-	@GetMapping("/ListUp.act")
-	public Map<String, Page<Board>> ListUp(@PageableDefault(page = 0, size = 10) Pageable pageable) {
+	
+	// 게시글 전체 리스트업
+	@GetMapping("/find-all-board")
+	public Map<String, Page<Board>> findAllBoard(@PageableDefault(page = 0, size = 10) Pageable pageable) {
 		Map<String, Page<Board>> result = new HashMap<>();
-		result.put("ListUp", boardService.findAll(pageable));
+		result.put("ListUp", boardService.findAllBoard(pageable));
 		return result;
 	}
 
-	@PostMapping("/InsertBoard.act")
-	public Map<String, Boolean> insertBoard(@RequestBody Map<String, Board> params) {
-		Map<String, Boolean> result = new HashMap<>();
+	// 게시글 작성
+	@PostMapping("/insert-board")
+	public Map<String, Long> insertBoard(@RequestBody Map<String, Board> params) {
+		Map<String, Long> result = new HashMap<>();
 		System.out.println(params.get("qnaContent"));
-//		System.out.println(params.get("boardTitle"));
-//		System.out.println(params.get("boardContent"));
-//		Board board = Board.builder().boardTitle(params.get("boardTitle")).boardContent(params.get("boardContent"))
-//				.build();
-
+		Board board = params.get("qnaContent");
+		boardService.insertBoard(board);
+		result.put("boardCode", board.getBoardCode());
 		return result;
 	}
+
+	// 게시글 수정
+	@PostMapping("/board-modify")
+	public Map<String, Long> boardModify(@RequestBody Map<String, Board> params) {
+		Map<String, Long> result = new HashMap<>();
+		Board board = params.get("modifyContent");
+		System.out.println(params.get("modifyContent"));
+		boardService.modifyBoard(board);
+		result.put("boardCode", board.getBoardCode());
+		return result;
+	}
+
+	// 게시글 상세페이지 이동
+	@GetMapping("/board-detail")
+	public Board boardDetail(@RequestParam long boardCode) {
+		Board board = boardService.findByBoardCode(boardCode);
+		System.out.println(boardCode);
+		return board;
+	}
+
+	//POST 방식으로 삭제 중
+	@PostMapping("/board-detail-delete")
+	public Map<String, Long> boardDelete(@RequestBody Map<String, Long> params) {
+		Map<String, Long> result = new HashMap<>();
+		System.out.println(params);
+		System.out.println(params.get("boardCode"));
+		boardService.deleteBoard(params.get("boardCode"));
+		return result;
+	}
+	
+	//실험 Delete로 하는것
+	@DeleteMapping("/board-detail-delete2")
+	public Board boardDelete2(@RequestParam long boardCode) {
+		Board board = boardService.findByBoardCode(boardCode);
+		return board;
+	}
+
+	// 전체 리스트업 샘플
+	@GetMapping("/read-all")
+	public ResponseEntity<DataResponse> readAllBoard(@PageableDefault(page = 0, size = 10) Pageable pageable) {
+		DataResponse dataResponse = new DataResponse();
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+
+		dataResponse.setData(boardService.findAllBoard(pageable));
+
+		return new ResponseEntity<>(dataResponse, headers, HttpStatus.OK);
+	}
+
 }
