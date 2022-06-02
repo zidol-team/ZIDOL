@@ -13,13 +13,22 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+
 const theme = createTheme();
 
-export default function SignIn() {
+export default function SignInSide() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const handleSubmit = (event) => {
     event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    console.log({
+      email: data.get("userEmail"),
+      password: data.get("userPassword"),
+    });
 
-    // requestOptions
     const requestOptions = {
       method: "POST",
       headers: {
@@ -28,16 +37,33 @@ export default function SignIn() {
       },
       body: JSON.stringify({
         // userEmail, userPassword 전송
-        userEmail: "userEmail",
-        userPassword: "userPassword",
+        userEmail: data.get("userEmail"),
+        userPassword: data.get("userPassword"),
       }),
     };
     console.log("requestOptions : ", requestOptions);
 
-    fetch("/SignIn.act", requestOptions)
+    fetch("/sign-in.act", requestOptions)
       .then((res) => res.json())
       .then((res) => {
         console.log("res : ", res);
+        if (res.code === "LOGIN_FAILED") {
+          alert(res.fieldErrors[0].message);
+        } else {
+          alert("로그인 성공했습니다.");
+          // console.log(res.data.userEmail);
+          // console.log(res.data.userName);
+          // console.log(res.data.userNickname);
+          navigate("/MyPage", {
+            state: {
+              userEmail: res.data.userEmail,
+              userName: res.data.userName,
+              userNickname: res.data.userNickname,
+              userCode: res.data.userCode,
+            },
+          });
+        }
+        // 쿠키저장 필요
       });
   };
 
@@ -83,7 +109,6 @@ export default function SignIn() {
               onSubmit={handleSubmit}
               sx={{ mt: 1 }}
             >
-              {/* 이메일 입력 칸 */}
               <TextField
                 margin="normal"
                 required
@@ -94,13 +119,12 @@ export default function SignIn() {
                 autoComplete="email"
                 autoFocus
               />
-              {/* 비밀번호 입력 칸 */}
               <TextField
                 margin="normal"
                 required
                 fullWidth
                 name="userPassword"
-                label="userPassword"
+                label="Password"
                 type="password"
                 id="userPassword"
                 autoComplete="current-password"
@@ -111,7 +135,6 @@ export default function SignIn() {
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
-                onClick={handleSubmit}
               >
                 Sign In
               </Button>

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Navbar, Container, Nav } from "react-bootstrap";
 import "./App.css";
 import { Routes, Route, Link, useNavigate, Outlet } from "react-router-dom";
@@ -13,9 +14,16 @@ import MainNavbar from "./components/MainNavbar";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import CsStudy from "./pages/CsStudy";
+import SubjectDetail from "./pages/SubjectDetail";
+import SubjectInfo from "./pages/SubjectInfo";
+import Algorithm from "./data/algorithm";
+import DataStructure from "./data/dataStructure";
 
 // 확인
 function App() {
+  const [algorithm, setAlgorithm] = useState(Algorithm);
+  const [dataStructure, setSataStructure] = useState(DataStructure);
+
   return (
     <div className="App">
       {/* 네비게이션 바 */}
@@ -26,7 +34,7 @@ function App() {
         <Route path="/signin" element={<SignIn></SignIn>}></Route>
         <Route path="/signup" element={<SignUp></SignUp>}></Route>
         <Route
-          path="/csstudy"
+          path="/cs-study"
           element={
             <>
               <MainNavbar></MainNavbar>
@@ -49,6 +57,37 @@ function App() {
             <>
               <MainNavbar></MainNavbar>
               <Mypage></Mypage>
+            </>
+          }
+        ></Route>
+        <Route
+          path="cs-study/subject-detail"
+          element={
+            <>
+              <MainNavbar></MainNavbar>
+              <SubjectDetail
+                algorithm={algorithm}
+                dataStructure={dataStructure}
+              ></SubjectDetail>
+            </>
+          }
+        ></Route>
+        <Route
+          path="cs-study/subject-detail/:csType"
+          element={
+            <>
+              <MainNavbar></MainNavbar>
+              <SubjectDetail></SubjectDetail>
+            </>
+          }
+        ></Route>
+        <Route
+          // /cs-study/subject-detail/${a.csType}/${a.csCode}
+          path="cs-study/subject-detail/:csType/:csCode"
+          element={
+            <>
+              <MainNavbar></MainNavbar>
+              <SubjectInfo></SubjectInfo>
             </>
           }
         ></Route>

@@ -16,6 +16,10 @@ public class UserService {
 		return userRepository.findByUserEmail(userEmail);
 	}
 	
+	public User findByUserCode(long userCode) {
+		return userRepository.findByUserCode(userCode);
+	}
+	
 	public User insertUser(User user) {
 		return userRepository.save(user);
 	}
