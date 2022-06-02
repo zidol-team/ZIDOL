@@ -41,7 +41,7 @@ public class Board {
 	
 	@NotNull
 	private String boardContent;
-
+	
 	@Builder
 	public Board(long boardCode, String boardType, String boardTitle, String boardContent) {
 		super();
