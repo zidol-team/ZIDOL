@@ -21,10 +21,16 @@ public class BoardService {
 	public void insertBoard(Board board) {
 		boardRepository.save(board);
 	}
+	
+	public void modifyBoard(Board board) {
+		boardRepository.save(board);
+	}
 
-
-	public Board findByBoardCode(String boardCode) {
+	public Board findBoardCode(long boardCode) {
 		return boardRepository.findByBoardCode(boardCode);
 	}
 	
+	public void deleteBoard(long boardCode) {
+		 boardRepository.deleteById(boardCode);
+	}
 }
