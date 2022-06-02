@@ -1,8 +1,61 @@
 package com.zidol.fc.controller;
 
+import java.nio.charset.Charset;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.zidol.fc.domain.User;
+import com.zidol.fc.service.CSService;
+import com.zidol.fc.service.UserService;
 
 @RestController
 public class CSController {
+	
+	@Autowired
+	CSService csService;
+	
+	@Autowired
+	UserService userService;
+	
 
+	@GetMapping("/cs-study.act")
+	public ResponseEntity<DataResponse> findAllCS() {
+		DataResponse dataResponse = new DataResponse();
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(new MediaType("application","json",Charset.forName("UTF-8")));
+		
+		dataResponse.setStatus(StatusCode.OK.getStatus());
+		dataResponse.setCode(StatusCode.OK.getCode());
+		dataResponse.setData(csService.findAll());
+		
+		return new ResponseEntity<DataResponse>(dataResponse, headers, HttpStatus.OK);
+	}
+	
+	@PostMapping("/achievement.act")
+	public ResponseEntity<DataResponse> achievement(@RequestBody Map<String, String> params) {
+		System.out.println(params.get("csCode"));
+		System.out.println(params.get("userEmail"));
+		
+		User user = userService.findByUserEmail(params.get("csCode"));
+		CS cs = csService.find
+		
+		DataResponse dataResponse = new DataResponse();
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(new MediaType("application","json",Charset.forName("UTF-8")));
+		
+		dataResponse.setStatus(StatusCode.OK.getStatus());
+		dataResponse.setCode(StatusCode.OK.getCode());
+		dataResponse.setData(csService.findAll());
+		
+		return new ResponseEntity<DataResponse>(dataResponse, headers, HttpStatus.OK);
+	}
 }

@@ -24,6 +24,9 @@ public class User {
 	@OneToMany(mappedBy = "user")
 	private List<Board> board;
 	
+	@OneToMany(mappedBy = "user")
+	private List<Achievement> css;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long userCode;
@@ -45,9 +48,11 @@ public class User {
 	private String userNickname;
 
 	@Builder
-	public User(long userCode, @NotNull String userEmail, @NotNull String userPassword, @NotNull String userName,
-			@NotNull String userNickname) {
+	public User(List<Board> board, List<Achievement> css, long userCode, @NotNull String userEmail,
+			@NotNull String userPassword, @NotNull String userName, @NotNull String userNickname) {
 		super();
+		this.board = board;
+		this.css = css;
 		this.userCode = userCode;
 		this.userEmail = userEmail;
 		this.userPassword = userPassword;
