@@ -26,12 +26,12 @@ public class Achievement {
 	
 	@ManyToOne
 	@JoinColumn(name = "user_code")
-	@JsonBackReference
+	@JsonBackReference(value = "user-cs")
 	private User user;
 	
 	@ManyToOne
 	@JoinColumn(name = "cs_code")
-	@JsonBackReference
+	@JsonBackReference(value = "cs")
 	private CS cs;
 
 	@Builder
