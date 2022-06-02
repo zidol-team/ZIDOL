@@ -12,8 +12,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -63,7 +61,7 @@ public class BoardController {
 	// 게시글 상세페이지 이동
 	@GetMapping("/board-detail")
 	public Board boardDetail(@RequestParam long boardCode) {
-		Board board = boardService.findBoardCode(boardCode);
+		Board board = boardService.findByBoardCode(boardCode);
 		System.out.println(boardCode);
 		return board;
 	}
@@ -79,35 +77,26 @@ public class BoardController {
 		return result;
 	}
 	
-
-
 	//실험 Delete로 하는것
 	@DeleteMapping("/board-detail-delete2")
 	public Board boardDelete2(@RequestParam long boardCode) {
-		Board board = boardService.findBoardCode(boardCode);
+		Board board = boardService.findByBoardCode(boardCode);
 		return board;
 	}
+	
 
 	// 전체 리스트업 샘플
-	@GetMapping("/read-all")
-	public ResponseEntity<DataResponse> readAllBoard(@PageableDefault(page = 0, size = 10) Pageable pageable) {
-		DataResponse dataResponse = new DataResponse();
-		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
-
-		//dataResponse.setStatus(StatusEnum.OK.statusCode);
-		//dataResponse.setMessage(StatusEnum.OK.code);
-		dataResponse.setData(boardService.findAllBoard(pageable));
-
-		return new ResponseEntity<>(dataResponse, headers, HttpStatus.OK);
-	}
-
-//	@GetMapping("/BoardList")
-//	public Map<String, Boolean> boardList(@RequestBody Map<String, Board> params) {
-//		Map<String, Boolean> result = new HashMap<>();
-//		
-//		boardService.findByTitle("boardTitle");
-//		result.put("boardTitle", true);
-//		return result;
+//	@GetMapping("/read-all")
+//	public ResponseEntity<DataResponse> readAllBoard(@PageableDefault(page = 0, size = 10) Pageable pageable) {
+//		DataResponse dataResponse = new DataResponse();
+//		HttpHeaders headers = new HttpHeaders();
+//		headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+//
+//		//dataResponse.setStatus(StatusEnum.OK.statusCode);
+//		//dataResponse.setMessage(StatusEnum.OK.code);
+//		dataResponse.setData(boardService.findAllBoard(pageable));
+//
+//		return new ResponseEntity<>(dataResponse, headers, HttpStatus.OK);
 //	}
+
 }

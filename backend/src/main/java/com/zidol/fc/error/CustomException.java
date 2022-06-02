@@ -1,5 +1,6 @@
 package com.zidol.fc.error;
 
+
 import java.io.Serial;
 
 import lombok.Getter;
@@ -8,6 +9,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class CustomException extends RuntimeException{
+	
 	@Serial
 	private static final long serialVersionUID = 1L;
 	
