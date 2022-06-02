@@ -1,41 +1,42 @@
 import { useState } from "react";
+import React, { useLocation, useNavigate } from "react-router-dom";
+
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
-function NoticeWrite() {
-  const [qnaContent, setQnaContent] = useState({
-    boardTitle: "",
-    boardContent: "",
+function NoticeModify() {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const sendboardCode = [location.state.boardCode];
+
+  const [modifyContent, setModifyContent] = useState({
+    boardTitle: location.state.boardTitle,
+    boardContent: location.state.boardContent,
     boardType: "",
+    boardCode: location.state.boardCode,
   });
 
   const getValue = (e) => {
     const { name, value } = e.target;
-    setQnaContent({
-      ...qnaContent,
+    setModifyContent({
+      ...modifyContent,
       [name]: value,
     });
   };
-  const PostSubmit = (event) => {
-    event.preventDefault();
-
-    const requestOptions = {
+  const modifySubmit = () => {
+    fetch("/board-modify", {
       method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json;charset=UTF-8",
       },
       body: JSON.stringify({
-        qnaContent,
+        modifyContent: modifyContent,
       }),
-    };
-
-    fetch("/insert-board", requestOptions)
+    })
       .then((res) => res.json())
-      .then((res) => {
-        console.log("res : ", res);
-        alert("등록완료");
-        window.location = "/Notice";
+      .then((data) => {
+        navigate("/Notice");
       });
   };
   return (
@@ -45,6 +46,7 @@ function NoticeWrite() {
 
       <input
         style={{ width: "500px", height: "40px", margin: "10px" }}
+        value={modifyContent.boardTitle}
         onChange={getValue}
         placeholder="제목"
         type="text"
@@ -53,17 +55,17 @@ function NoticeWrite() {
 
       <CKEditor
         editor={ClassicEditor}
+        data={modifyContent.boardContent}
         onChange={(event, editor) => {
           const data = editor.getData();
-          console.log({ event, editor, data });
-          setQnaContent({
-            ...qnaContent,
+          setModifyContent({
+            ...modifyContent,
             boardContent: data,
           });
         }}
       />
-      <button onClick={PostSubmit}>등록</button>
+      <button onClick={modifySubmit}>수정하기</button>
     </div>
   );
 }
-export default NoticeWrite;
+export default NoticeModify;
