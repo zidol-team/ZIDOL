@@ -18,6 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.zidol.fc.domain.User;
 import com.zidol.fc.error.ErrorResponse;
+import com.zidol.fc.error.ErrorResponse.CustomFieldError;
+import com.zidol.fc.error.user.DuplicateIdException;
+import com.zidol.fc.error.user.LoginFailException;
 import com.zidol.fc.service.UserService;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -67,12 +70,8 @@ public class UserController {
 
 		if (user == null) {
 			// 이메일 계정이 존재하지 않는 경우
-			singInFailed.put("userEmail", false);
-			dataResponse.setStatus(StatusCode.OK.getStatus());
-			dataResponse.setCode(StatusCode.OK.getCode());
-			dataResponse.setData(singInFailed);
-			
-			return new ResponseEntity<DataResponse>(dataResponse, headers, HttpStatus.OK);
+			ErrorResponse.CustomFieldError customFieldError = new ErrorResponse.CustomFieldError("User", params.get("userEmail"), "아이디가 존재하지 않습니다.");
+			throw new LoginFailException(customFieldError);
 		} 
 		
 		if (user.getUserPassword().equals(params.get("userPassword"))) {
@@ -84,13 +83,8 @@ public class UserController {
 			return new ResponseEntity<DataResponse>(dataResponse, headers, HttpStatus.OK);
 		} else {
 			// 비밀번호가 틀렸을 경우
-			singInFailed.put("userEmail", true);
-			singInFailed.put("userPassword", false);
-			dataResponse.setStatus(StatusCode.OK.getStatus());
-			dataResponse.setCode(StatusCode.OK.getCode());
-			dataResponse.setData(singInFailed);
-			
-			return new ResponseEntity<DataResponse>(dataResponse, headers, HttpStatus.OK);
+			ErrorResponse.CustomFieldError customFieldError = new ErrorResponse.CustomFieldError("User", params.get("userPassword"), "비밀번호가 틀립니다.");
+			throw new LoginFailException(customFieldError);
 		}
 	}
 
