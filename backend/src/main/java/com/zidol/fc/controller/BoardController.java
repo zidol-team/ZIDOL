@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.zidol.fc.domain.Board;
 import com.zidol.fc.service.BoardService;
 
-@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 public class BoardController {
 
