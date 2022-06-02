@@ -7,6 +7,7 @@ import './Ckeditor.css';
 
 
 function NoticeModify() {
+  
   const location = useLocation();
   const navigate = useNavigate();
 

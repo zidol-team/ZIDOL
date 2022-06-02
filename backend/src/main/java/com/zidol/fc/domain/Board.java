@@ -1,7 +1,6 @@
 package com.zidol.fc.domain;
 
-import java.time.LocalDateTime;
-
+import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,48 +26,48 @@ import lombok.ToString;
 @NoArgsConstructor
 @Entity
 public class Board {
-   
-   @ManyToOne
-   @JoinColumn(name="user_code")
-   @JsonBackReference
-   private User user;
-   
-   @Id
-   @GeneratedValue(strategy = GenerationType.IDENTITY)
-   private long boardCode;
-   
-   @NotNull
-   @Column
-   private String boardType;
-   
-   @NotNull
-   @Column
-   private String boardTitle;
-   
-   @NotNull
-   @Column
-   private String boardContent;
-   
-   @NotNull
-   @Column
-   private LocalDateTime boardRegDate;
-   
-   @PrePersist
-   @PreUpdate
-   public void createdAt() {
-       this.boardRegDate = LocalDateTime.now();
-   }
-   
-   @Builder
-   public Board(User user, long boardCode, @NotNull String boardType, @NotNull String boardTitle,
-         @NotNull String boardContent, @NotNull LocalDateTime boardRegDate) {
-      super();
-      this.user = user;
-      this.boardCode = boardCode;
-      this.boardType = boardType;
-      this.boardTitle = boardTitle;
-      this.boardContent = boardContent;
-      this.boardRegDate = boardRegDate;
-   }
+
+	@ManyToOne
+	@JoinColumn(name = "user_code")
+	@JsonBackReference
+	private User user;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long boardCode;
+
+	@NotNull
+	@Column
+	private String boardType;
+
+	@NotNull
+	@Column
+	private String boardTitle;
+
+	@NotNull
+	@Column
+	private String boardContent;
+
+	@NotNull
+	@Column
+	private LocalDate boardRegDate;
+
+	@PrePersist
+	@PreUpdate
+	public void createdAt() {
+		this.boardRegDate = LocalDate.now();
+	}
+
+	@Builder
+	public Board(User user, long boardCode, @NotNull String boardType, @NotNull String boardTitle,
+			@NotNull String boardContent, @NotNull LocalDate boardRegDate) {
+		super();
+		this.user = user;
+		this.boardCode = boardCode;
+		this.boardType = boardType;
+		this.boardTitle = boardTitle;
+		this.boardContent = boardContent;
+		this.boardRegDate = boardRegDate;
+	}
 
 }
