@@ -9,6 +9,8 @@ import javax.persistence.ManyToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,6 +26,7 @@ public class Board {
 	
 	@ManyToOne
 	@JoinColumn(name="user_code")
+	@JsonBackReference
 	private User user;
 	
 	@Id

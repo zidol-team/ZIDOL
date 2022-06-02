@@ -27,10 +27,10 @@ public class CSController {
 	
 	@Autowired
 	UserService userService;
-	
 
 	@GetMapping("/cs-study.act")
 	public ResponseEntity<DataResponse> findAllCS() {
+		
 		DataResponse dataResponse = new DataResponse();
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(new MediaType("application","json",Charset.forName("UTF-8")));
@@ -43,20 +43,27 @@ public class CSController {
 	}
 	
 	@PostMapping("/achievement.act")
-	public ResponseEntity<DataResponse> achievement(@RequestBody Map<String, String> params) {
+	public ResponseEntity<DataResponse> achievement(@RequestBody Map<String, Long> params) {
 		
-		User user = userService.findByUserEmail(params.get("userEmail"));
-		CS cs = csService.findByCsName(params.get("csName"));
+		User user = userService.findByUserCode(params.get("userCode"));
+		CS cs = csService.findByCsCode(params.get("csCode"));
 		Achievement achievement = Achievement.builder().user(user).cs(cs).build();
 		
 		DataResponse dataResponse = new DataResponse();
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(new MediaType("application","json",Charset.forName("UTF-8")));
 		
-		dataResponse.setStatus(StatusCode.OK.getStatus());
-		dataResponse.setCode(StatusCode.OK.getCode());
-		dataResponse.setData(achievement);
-		
-		return new ResponseEntity<DataResponse>(dataResponse, headers, HttpStatus.OK);
+		if(csService.insertAchievement(achievement) != null) {
+			dataResponse.setStatus(StatusCode.OK.getStatus());
+			dataResponse.setCode(StatusCode.OK.getCode());
+			dataResponse.setData(achievement);
+			
+			return new ResponseEntity<DataResponse>(dataResponse, headers, HttpStatus.OK);
+		} else {
+			dataResponse.setStatus(StatusCode.NOT_FOUND.getStatus());
+			dataResponse.setCode(StatusCode.NOT_FOUND.getCode());
+			
+			return new ResponseEntity<DataResponse>(dataResponse, headers, HttpStatus.NOT_FOUND);
+		}
 	}
 }

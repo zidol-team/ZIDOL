@@ -22,7 +22,6 @@ public class BoardService {
 		boardRepository.save(board);
 	}
 
-
 	public Board findByBoardCode(String boardCode) {
 		return boardRepository.findByBoardCode(boardCode);
 	}
