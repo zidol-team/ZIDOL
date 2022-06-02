@@ -47,7 +47,7 @@ public class Board {
 	@NotNull
 	@Column
 	private String boardContent;
-
+	
 	@NotNull
 	@Column
 	private LocalDate boardRegDate;
