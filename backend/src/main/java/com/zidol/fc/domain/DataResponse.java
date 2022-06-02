@@ -10,7 +10,7 @@ public class DataResponse {
     private int status;
     
     // 메세지
-    private String message;
+    private String code;
     
     // 응답 데이터
     private Object data;
