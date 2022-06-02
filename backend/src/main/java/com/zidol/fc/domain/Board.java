@@ -1,8 +1,6 @@
 package com.zidol.fc.domain;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
+import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,6 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -29,6 +29,7 @@ public class Board {
    
    @ManyToOne
    @JoinColumn(name="user_code")
+   @JsonBackReference
    private User user;
    
    @Id
@@ -49,32 +50,26 @@ public class Board {
    
    @NotNull
    @Column
-   private String boardRegDate;
+   private LocalDate boardRegDate;
    
    @PrePersist
    @PreUpdate
    public void createdAt() {
    
-       Date today = new Date();
-
-
-       SimpleDateFormat date = new SimpleDateFormat("yyyy/MM/dd");
-       boardRegDate = date.format(today);
+       this.boardRegDate = LocalDate.now();
    }
-   
    @Builder
    public Board(User user, long boardCode, @NotNull String boardType, @NotNull String boardTitle,
-         @NotNull String boardContent, @NotNull String boardRegDate) {
-      super();
-      this.user = user;
-      this.boardCode = boardCode;
-      this.boardType = boardType;
-      this.boardTitle = boardTitle;
-      this.boardContent = boardContent;
-      this.boardRegDate = boardRegDate;
-   }
-
-
-
+		@NotNull String boardContent, @NotNull LocalDate boardRegDate) {
+	super();
+	this.user = user;
+	this.boardCode = boardCode;
+	this.boardType = boardType;
+	this.boardTitle = boardTitle;
+	this.boardContent = boardContent;
+	this.boardRegDate = boardRegDate;
+}
    
+
+
 }

@@ -27,7 +27,7 @@ public class BoardController {
 
 	@Autowired
 	BoardService boardService;
-
+	
 	// 게시글 전체 리스트업
 	@GetMapping("/find-all-board")
 	public Map<String, Page<Board>> findAllBoard(@PageableDefault(page = 0, size = 10) Pageable pageable) {
@@ -46,7 +46,7 @@ public class BoardController {
 		result.put("boardCode", board.getBoardCode());
 		return result;
 	}
-	
+
 	// 게시글 수정
 	@PostMapping("/board-modify")
 	public Map<String, Long> boardModify(@RequestBody Map<String, Board> params) {
@@ -72,7 +72,6 @@ public class BoardController {
 		Map<String, Long> result = new HashMap<>();
 		System.out.println(params);
 		System.out.println(params.get("boardCode"));
-//		Board board = boardService.findBoardCode(params.get("boardCode"));
 		boardService.deleteBoard(params.get("boardCode"));
 		return result;
 	}
@@ -83,20 +82,17 @@ public class BoardController {
 		Board board = boardService.findByBoardCode(boardCode);
 		return board;
 	}
-	
 
 	// 전체 리스트업 샘플
-//	@GetMapping("/read-all")
-//	public ResponseEntity<DataResponse> readAllBoard(@PageableDefault(page = 0, size = 10) Pageable pageable) {
-//		DataResponse dataResponse = new DataResponse();
-//		HttpHeaders headers = new HttpHeaders();
-//		headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
-//
-//		//dataResponse.setStatus(StatusEnum.OK.statusCode);
-//		//dataResponse.setMessage(StatusEnum.OK.code);
-//		dataResponse.setData(boardService.findAllBoard(pageable));
-//
-//		return new ResponseEntity<>(dataResponse, headers, HttpStatus.OK);
-//	}
+	@GetMapping("/read-all")
+	public ResponseEntity<DataResponse> readAllBoard(@PageableDefault(page = 0, size = 10) Pageable pageable) {
+		DataResponse dataResponse = new DataResponse();
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+
+		dataResponse.setData(boardService.findAllBoard(pageable));
+
+		return new ResponseEntity<>(dataResponse, headers, HttpStatus.OK);
+	}
 
 }
