@@ -6,7 +6,7 @@ const SubjectDetail = ({}) => {
   const navigate = useNavigate();
   const location = useLocation();
   // console.log(location.state);
-  console.log(location.state.csType);
+  // console.log(location.state.csType);
   // console.log(location.state.studyData);
   // console.log(location.state.studyData[csType]);
   // console.log(location.state.studyData[csName]);
@@ -15,7 +15,8 @@ const SubjectDetail = ({}) => {
   전체 공부 데이터 = location.state.studyData
   */
   const studyData = location.state.studyData;
-  const [studyIndex, setStudyIndex] = useState([]);
+  // const [studyIndex, setStudyIndex] = useState([]);
+  // const [selected, setSelected] = useState("");
 
   useEffect(() => {
     //
@@ -29,11 +30,19 @@ const SubjectDetail = ({}) => {
         <div
           key={index}
           onClick={() => {
-            console.log(a.csType);
-            console.log(a.csCode);
-
-            navigate(`subject-detail/${a.csType}/${a.csCode}`, {
-              state: { csType: a.csType, studyData: studyData },
+            navigate(`/cs-study/subject-detail/${a.csType}/${a.csCode}`, {
+              state: {
+                /*
+                csType: a.csType, : 선택했던 과목
+                csCode: a.csCode, : 선택한 목록의 csCode
+                studyData: studyData, : 전체 데이터
+                selected: a.csName, : 선택한 과목에서 클릭한 목록
+                 */
+                csType: a.csType,
+                csCode: a.csCode,
+                studyData: studyData,
+                selected: a.csName,
+              },
             });
             // alert("클릭적용");
           }}
@@ -53,16 +62,5 @@ const SubjectDetail = ({}) => {
     </>
   );
 };
-/* 
-<Button
-  variant="primary"
-  onClick={() =>
-    navigate(`subject-detail/${csType}`, {
-      state: { csType: csType, studyData: studyData },
-    })
-  }
->
-  Go somewhere
-</Button>;
-*/
+
 export default SubjectDetail;

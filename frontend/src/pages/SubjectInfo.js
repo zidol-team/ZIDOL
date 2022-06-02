@@ -1,68 +1,78 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Algorithm from "../data/algorithm";
+import DataStructure from "../data/dataStructure";
 
-const SubjectDetail = ({}) => {
-  const navigate = useNavigate();
+const SubjectInfo = ({}) => {
   const location = useLocation();
-  // console.log(location.state);
-  console.log(location.state.csType);
-  // console.log(location.state.studyData);
-  // console.log(location.state.studyData[csType]);
-  // console.log(location.state.studyData[csName]);
+  const csCode = location.state.csCode;
+  const [algorithm, setAlgorithm] = useState(Algorithm);
+  const [dataStructure, setDataStructure] = useState(DataStructure);
+
   /* 
-  버튼 클릭했을때 선택된 과목 = location.state.csType
+  선택된 리스트 = location.state.selected
   전체 공부 데이터 = location.state.studyData
+  보내야할 것(선택한 목록의 csCode) = location.state.csCode
   */
-  const studyData = location.state.studyData;
-  const [studyIndex, setStudyIndex] = useState([]);
+
+  // console.log(location);
+  console.log(location.state.csCode);
+  // console.log(location.state.selected);
+  // console.log(algorithm);
+
+  // 선택한 목차와 내용을 저장한 데이터의 title과 같은지 비교
+  const mapSubjectInfo = dataStructure.map((a, index) => {
+    if (location.state.selected === a.title) {
+      console.log(a.content);
+      return <div key={index}>{a.content}</div>;
+    }
+  });
 
   useEffect(() => {
     //
   }, []);
 
-  // 선택한 과목과 데이터상의 과목이름이 같을때
-  const mapStudyData = studyData.map((a, index) => {
-    if (location.state.csType === a.csType) {
-      console.log(a.csName);
-      return (
-        <div
-          key={index}
-          onClick={() => {
-            console.log(a.csType);
-            console.log(a.csCode);
+  // 버튼 눌렀을때 전송 (csCode)
+  const handleSubmit = (event) => {
+    // event.preventDefault();
+    // const data = new FormData(event.currentTarget);
+    console.log("csCode " + csCode + " 클릭했음");
 
-            navigate(`subject-detail/${a.csType}/${a.csCode}`, {
-              state: { csType: a.csType, studyData: studyData },
-            });
-            // alert("클릭적용");
-          }}
-        >
-          {a.csName}
-        </div>
-      );
-      // setStudyIndex([...studyData, a.csName]);
-      // console.log(studyIndex);
-    }
-  });
+    const requestOptions = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json;charset=UTF-8",
+      },
+      body: JSON.stringify({
+        // userEmail, userPassword 전송
+        csCode: csCode,
+      }),
+    };
+    console.log("requestOptions : ", requestOptions);
+
+    fetch("/achievement.act", requestOptions);
+    // .then((res) => res.json())
+    // .then((res) => {
+    //res로 무엇을할지 나중에 작성
+    //
+    // });
+  };
 
   return (
     <>
-      <h1>선택과목 : {location.state.csType}</h1>
-      <div>{mapStudyData}</div>
+      <h1>{location.state.csType}</h1>
+      <h3>{location.state.selected}</h3>
+      <div>{mapSubjectInfo}</div>
+      <button
+        onClick={() => {
+          handleSubmit();
+        }}
+      >
+        공부완료
+      </button>
     </>
   );
 };
-/* 
-<Button
-  variant="primary"
-  onClick={() =>
-    navigate(`subject-detail/${csType}`, {
-      state: { csType: csType, studyData: studyData },
-    })
-  }
->
-  Go somewhere
-</Button>;
-*/
-export default SubjectDetail;
+
+export default SubjectInfo;

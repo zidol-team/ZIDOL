@@ -12,6 +12,7 @@ import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import CsStudy from "./pages/CsStudy";
 import SubjectDetail from "./pages/SubjectDetail";
+import SubjectInfo from "./pages/SubjectInfo";
 import Algorithm from "./data/algorithm";
 import DataStructure from "./data/dataStructure";
 
@@ -74,6 +75,16 @@ function App() {
             <>
               <MainNavbar></MainNavbar>
               <SubjectDetail></SubjectDetail>
+            </>
+          }
+        ></Route>
+        <Route
+          // /cs-study/subject-detail/${a.csType}/${a.csCode}
+          path="cs-study/subject-detail/:csType/:csCode"
+          element={
+            <>
+              <MainNavbar></MainNavbar>
+              <SubjectInfo></SubjectInfo>
             </>
           }
         ></Route>
