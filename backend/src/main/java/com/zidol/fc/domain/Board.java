@@ -57,6 +57,7 @@ public class Board {
    
        Date today = new Date();
 
+
        SimpleDateFormat date = new SimpleDateFormat("yyyy/MM/dd");
        boardRegDate = date.format(today);
    }
