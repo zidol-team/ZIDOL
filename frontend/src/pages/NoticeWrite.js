@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import './Ckeditor.css';
 
 function NoticeWrite() {
   const [qnaContent, setQnaContent] = useState({
@@ -44,7 +45,7 @@ function NoticeWrite() {
       <br />
 
       <input
-        style={{ width: "500px", height: "40px", margin: "10px" }}
+        style={{ width: "90%", height: "40px", margin: "10px" }}
         onChange={getValue}
         placeholder="제목"
         type="text"

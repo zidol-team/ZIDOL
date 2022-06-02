@@ -45,7 +45,6 @@ public class BoardController {
 		System.out.println(params.get("qnaContent"));
 		Board board = params.get("qnaContent");
 		boardService.insertBoard(board);
-
 		result.put("boardCode", board.getBoardCode());
 		return result;
 	}
@@ -96,8 +95,8 @@ public class BoardController {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
 
-		dataResponse.setStatus(StatusEnum.OK.statusCode);
-		dataResponse.setMessage(StatusEnum.OK.code);
+		//dataResponse.setStatus(StatusEnum.OK.statusCode);
+		//dataResponse.setMessage(StatusEnum.OK.code);
 		dataResponse.setData(boardService.findAllBoard(pageable));
 
 		return new ResponseEntity<>(dataResponse, headers, HttpStatus.OK);
