@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -28,5 +29,13 @@ public class Achievement {
 	@ManyToOne
 	@JoinColumn(name = "cs_code")
 	private CS cs;
+
+	@Builder
+	public Achievement(long achievementCode, User user, CS cs) {
+		super();
+		this.achievementCode = achievementCode;
+		this.user = user;
+		this.cs = cs;
+	}	
 	
 }

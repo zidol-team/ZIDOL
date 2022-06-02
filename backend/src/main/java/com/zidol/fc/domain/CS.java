@@ -34,8 +34,9 @@ public class CS {
 	private String csName;
 
 	@Builder
-	public CS(long csCode, String csType, String csName) {
+	public CS(List<Achievement> users, long csCode, @NotNull String csType, @NotNull String csName) {
 		super();
+		this.users = users;
 		this.csCode = csCode;
 		this.csType = csType;
 		this.csName = csName;
