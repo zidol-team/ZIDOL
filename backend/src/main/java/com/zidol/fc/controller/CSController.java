@@ -25,8 +25,8 @@ public class CSController {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(new MediaType("application","json",Charset.forName("UTF-8")));
 		
-		dataResponse.setStatus(StatusEnum.OK.status);
-		dataResponse.setMessage(StatusEnum.OK.code);
+		dataResponse.setStatus(StatusEnum.OK.getStatus());
+		dataResponse.setCode(StatusEnum.OK.getCode());
 		dataResponse.setData(csService.findAllCS());
 		
 		return new ResponseEntity<DataResponse>(dataResponse, headers, HttpStatus.OK);

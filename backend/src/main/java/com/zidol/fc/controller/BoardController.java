@@ -69,8 +69,8 @@ public class BoardController {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
 
-        dataResponse.setStatus(StatusEnum.OK.status);
-        dataResponse.setMessage(StatusEnum.OK.code);
+        dataResponse.setStatus(StatusEnum.OK.getStatus());
+        dataResponse.setCode(StatusEnum.OK.getCode());
         dataResponse.setData(boardService.findAllBoard(pageable));
 
         return new ResponseEntity<>(dataResponse, headers, HttpStatus.OK);
