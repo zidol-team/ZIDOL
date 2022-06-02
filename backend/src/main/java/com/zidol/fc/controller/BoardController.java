@@ -76,23 +76,23 @@ public class BoardController {
 		return result;
 	}
 	
-	//실험 Delete로 하는것
-	@DeleteMapping("/board-detail-delete2")
-	public Board boardDelete2(@RequestParam long boardCode) {
-		Board board = boardService.findByBoardCode(boardCode);
-		return board;
-	}
-
-	// 전체 리스트업 샘플
-	@GetMapping("/read-all")
-	public ResponseEntity<DataResponse> readAllBoard(@PageableDefault(page = 0, size = 10) Pageable pageable) {
-		DataResponse dataResponse = new DataResponse();
-		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
-
-		dataResponse.setData(boardService.findAllBoard(pageable));
-
-		return new ResponseEntity<>(dataResponse, headers, HttpStatus.OK);
-	}
+//	//실험 Delete로 하는것
+//	@DeleteMapping("/board-detail-delete2")
+//	public Board boardDelete2(@RequestParam long boardCode) {
+//		Board board = boardService.findByBoardCode(boardCode);
+//		return board;
+//	}
+//
+//	// 전체 리스트업 샘플
+//	@GetMapping("/read-all")
+//	public ResponseEntity<DataResponse> readAllBoard(@PageableDefault(page = 0, size = 10) Pageable pageable) {
+//		DataResponse dataResponse = new DataResponse();
+//		HttpHeaders headers = new HttpHeaders();
+//		headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+//
+//		dataResponse.setData(boardService.findAllBoard(pageable));
+//
+//		return new ResponseEntity<>(dataResponse, headers, HttpStatus.OK);
+//	}
 
 }

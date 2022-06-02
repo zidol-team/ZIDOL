@@ -33,7 +33,7 @@ function NoticeWrite() {
       .then((res) => res.json())
       .then((res) => {
         alert("등록완료");
-        // window.location = "/Notice";
+        window.location = "/Notice";
       });
   };
   return (
