@@ -1,32 +1,53 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { Link , useNavigate } from "react-router-dom";
+import CommonTable from "../components/CommonTable";
+import CommonTableColumn from "../components/CommonTableColumn";
+import CommonTableRow from "../components/CommonTableRow";
 
-function Notice() {
-  const [board, setboard] = useState({});
-  const profiletest = () => {
+const GetBoardList = () => {
+  const navigate = useNavigate();
+  const [board, setBoard] = useState([]);
+
+  useEffect(() => {
     fetch("/find-all-board", {
       method: "GET",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json;charset=UTF-8",
+      header: {
+        "content-type": "application/json",
       },
     })
       .then((res) => res.json())
-      .then((log) => console.log(log))
-      .then((data) => setboard(data));
-  };
+      .then((data) => {
+        setBoard(data.ListUp.content);
+      });
+  }, []);
 
+  const item = board.map((a, index) => (
+    <CommonTableRow>
+      <td>{a.boardCode}</td>
+      <td  onClick={() =>
+          navigate(`/NoticeDetail?boardCode=${a.boardCode}`, {
+            state: { board, boardCode: a.boardCode },
+          })
+        }>{a.boardTitle}</td>
+      <td>{a.user}</td>
+      <td>{a.boardRegDate}</td>
+    </CommonTableRow>
+  ));
+
+  return item;
+};
+
+function View() {
+  const item = GetBoardList();
+  const navigate = useNavigate();
   return (
-    <div>
-      <div>Notice</div>
-      <button onClick={profiletest}>test</button>
-      <div>
-        여기에 넣고싶어요
-        <table>
-          <th>제목</th>
-        </table>
-      </div>
-    </div>
+    <>
+      <button onClick={() => navigate(`/NoticeWrite`)}>글쓰기</button>
+      <CommonTable headersName={["글번호", "제목", "작성자", "등록일"]}>
+        {item}
+      </CommonTable>
+    </>
   );
 }
 
-export default Notice;
+export default View;

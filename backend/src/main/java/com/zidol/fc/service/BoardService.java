@@ -14,5 +14,23 @@ public class BoardService {
 	@Autowired
 	BoardRepository boardRepository;
 	
+	public Page<Board> findAllBoard(Pageable pageable) {
+		return boardRepository.findAll(pageable);
+	}
+	
+	public void insertBoard(Board board) {
+		boardRepository.save(board);
+	}
+	
+	public void modifyBoard(Board board) {
+		boardRepository.save(board);
+	}
 
+	public Board findByBoardCode(long boardCode) {
+		return boardRepository.findByBoardCode(boardCode);
+	}
+	
+	public void deleteBoard(long boardCode) {
+		 boardRepository.deleteById(boardCode);
+	}
 }
