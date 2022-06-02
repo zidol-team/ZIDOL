@@ -13,9 +13,14 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+
 const theme = createTheme();
 
 export default function SignInSide() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -38,17 +43,25 @@ export default function SignInSide() {
     };
     console.log("requestOptions : ", requestOptions);
 
-    fetch("/SignIn.act", requestOptions)
+    fetch("/sign-in.act", requestOptions)
       .then((res) => res.json())
       .then((res) => {
         console.log("res : ", res);
-        if (res.userEmail === false) {
-          alert("등록된 이메일이 없습니다.");
-        } else if (res.userPassword === false) {
-          alert("비밀번호가 틀렸습니다.");
+        if (res.code === "LOGIN_FAILED") {
+          alert(res.fieldErrors[0].message);
         } else {
-          alert("로그인 완료");
-          window.location = "/MyPage";
+          alert("로그인 성공했습니다.");
+          // console.log(res.data.userEmail);
+          // console.log(res.data.userName);
+          // console.log(res.data.userNickname);
+          navigate("/MyPage", {
+            state: {
+              userEmail: res.data.userEmail,
+              userName: res.data.userName,
+              userNickname: res.data.userNickname,
+              userCode: res.data.userCode,
+            },
+          });
         }
         // 쿠키저장 필요
       });

@@ -15,7 +15,7 @@ const SubjectInfo = ({}) => {
   보내야할 것(선택한 목록의 csCode) = location.state.csCode
   */
 
-  // console.log(location);
+  console.log(location.state);
   console.log(location.state.csCode);
   // console.log(location.state.selected);
   // console.log(algorithm);
@@ -47,16 +47,19 @@ const SubjectInfo = ({}) => {
       body: JSON.stringify({
         // userEmail, userPassword 전송
         csCode: csCode,
+        userCode: 1,
       }),
     };
     console.log("requestOptions : ", requestOptions);
 
-    fetch("/achievement.act", requestOptions);
-    // .then((res) => res.json())
-    // .then((res) => {
-    //res로 무엇을할지 나중에 작성
-    //
-    // });
+    fetch("/achievement.act", requestOptions)
+      .then((res) => res.json())
+      .then((res) => {
+        console.log("res : ");
+        console.log(res);
+        //res로 무엇을할지 나중에 작성
+        //
+      });
   };
 
   return (
