@@ -3,11 +3,13 @@ import React, { useLocation, useNavigate } from "react-router-dom";
 
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import './Ckeditor.css';
+
 
 function NoticeModify() {
   const location = useLocation();
   const navigate = useNavigate();
-  const sendboardCode = [location.state.boardCode];
+
 
   const [modifyContent, setModifyContent] = useState({
     boardTitle: location.state.boardTitle,

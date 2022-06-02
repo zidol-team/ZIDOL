@@ -1,6 +1,7 @@
-import React, { useLocation, useNavigate } from "react-router-dom";
+import React, { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "../components/NoticeDetail.css";
+import ReactHtmlParser from 'react-html-parser';
 
 const BoardDetail = ({}) => {
   const location = useLocation();
@@ -47,7 +48,7 @@ const BoardDetail = ({}) => {
         </div>
         <div className="voc-view-row">
           <label>내용</label>
-          <div>{board.boardContent}</div>
+          <div>{ReactHtmlParser(board.boardContent)}</div>
         </div>
       </div>
       <button
@@ -64,6 +65,13 @@ const BoardDetail = ({}) => {
         수정
       </button>
       <button onClick={deleteBoard}>삭제</button>
+      <button
+        onClick={() =>
+          navigate(`/Notice`)
+        }
+      >
+        목록
+      </button>
     </>
   );
 };
