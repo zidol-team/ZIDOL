@@ -1,9 +1,6 @@
 package com.zidol.fc.domain;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,6 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -30,6 +29,7 @@ public class Board {
    
    @ManyToOne
    @JoinColumn(name="user_code")
+   @JsonBackReference
    private User user;
    
    @Id
@@ -72,7 +72,4 @@ public class Board {
    
 
 
-
-
-   
 }
