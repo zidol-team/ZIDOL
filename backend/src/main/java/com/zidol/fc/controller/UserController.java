@@ -39,14 +39,14 @@ public class UserController {
 				.userName(params.get("userName")).userNickname(params.get("userNickname")).build();
 
 		if (userService.insertUser(user) != null) {
-			dataResponse.setStatus(StatusEnum.OK.statusCode);
+			dataResponse.setStatus(StatusEnum.OK.status);
 			dataResponse.setMessage(StatusEnum.OK.code);
 			dataResponse.setData(user);
 			
 			return new ResponseEntity<DataResponse>(dataResponse, headers, HttpStatus.OK);
 		} else {
 			singUpFailed.put("user", false);
-			dataResponse.setStatus(StatusEnum.OK.statusCode);
+			dataResponse.setStatus(StatusEnum.OK.status);
 			dataResponse.setMessage(StatusEnum.OK.code);
 			dataResponse.setData(singUpFailed);
 			
@@ -67,7 +67,7 @@ public class UserController {
 		if (user == null) {
 			// 이메일 계정이 존재하지 않는 경우
 			singInFailed.put("userEmail", false);
-			dataResponse.setStatus(StatusEnum.OK.statusCode);
+			dataResponse.setStatus(StatusEnum.OK.status);
 			dataResponse.setMessage(StatusEnum.OK.code);
 			dataResponse.setData(singInFailed);
 			
@@ -76,7 +76,7 @@ public class UserController {
 		
 		if (user.getUserPassword().equals(params.get("userPassword"))) {
 			session.setAttribute("user", user);
-			dataResponse.setStatus(StatusEnum.OK.statusCode);
+			dataResponse.setStatus(StatusEnum.OK.status);
 			dataResponse.setMessage(StatusEnum.OK.code);
 			dataResponse.setData(user);
 			
@@ -85,7 +85,7 @@ public class UserController {
 			// 비밀번호가 틀렸을 경우
 			singInFailed.put("userEmail", true);
 			singInFailed.put("userPassword", false);
-			dataResponse.setStatus(StatusEnum.OK.statusCode);
+			dataResponse.setStatus(StatusEnum.OK.status);
 			dataResponse.setMessage(StatusEnum.OK.code);
 			dataResponse.setData(singInFailed);
 			
@@ -107,14 +107,14 @@ public class UserController {
 		if (user == null) {
 			// 이메일 계정이 존재하지 않는 경우
 			result.put("userEmail", true);
-			dataResponse.setStatus(StatusEnum.OK.statusCode);
+			dataResponse.setStatus(StatusEnum.OK.status);
 			dataResponse.setMessage(StatusEnum.OK.code);
 			dataResponse.setData(result);
 			
 			return new ResponseEntity<DataResponse>(dataResponse, headers, HttpStatus.OK);
 		} else {
 			result.put("userEmail", false);
-			dataResponse.setStatus(StatusEnum.OK.statusCode);
+			dataResponse.setStatus(StatusEnum.OK.status);
 			dataResponse.setMessage(StatusEnum.OK.code);
 			dataResponse.setData(result);
 			
