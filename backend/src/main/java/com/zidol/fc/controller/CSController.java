@@ -46,7 +46,7 @@ public class CSController {
 		System.out.println(params.get("userEmail"));
 		
 		User user = userService.findByUserEmail(params.get("csCode"));
-		CS cs = csService.find
+		//CS cs = csService.find
 		
 		DataResponse dataResponse = new DataResponse();
 		HttpHeaders headers = new HttpHeaders();
