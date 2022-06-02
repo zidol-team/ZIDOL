@@ -45,7 +45,6 @@ public class BoardController {
 		System.out.println(params.get("qnaContent"));
 		Board board = params.get("qnaContent");
 		boardService.insertBoard(board);
-
 		result.put("boardCode", board.getBoardCode());
 		return result;
 	}
