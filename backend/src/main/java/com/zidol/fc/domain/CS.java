@@ -24,7 +24,7 @@ import lombok.Setter;
 public class CS {
 	
 	@OneToMany(mappedBy = "cs")
-	@JsonManagedReference
+	@JsonManagedReference(value = "cs")
 	private List<Achievement> users;
 
 	@Id
