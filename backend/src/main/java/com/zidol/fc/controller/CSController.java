@@ -45,15 +45,11 @@ public class CSController {
 	@PostMapping("/achievement.act")
 	public ResponseEntity<DataResponse> achievement(@RequestBody Map<String, Long> params) {
 		
-<<<<<<< HEAD
-		User user = userService.findByUserEmail(params.get("csCode"));
-		//CS cs = csService.find
-=======
+
 		User user = userService.findByUserCode(params.get("userCode"));
 		CS cs = csService.findByCsCode(params.get("csCode"));
 		Achievement achievement = Achievement.builder().user(user).cs(cs).build();
->>>>>>> 012880cb6f68cdf3630defea258ef396966e1346
-		
+
 		DataResponse dataResponse = new DataResponse();
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(new MediaType("application","json",Charset.forName("UTF-8")));

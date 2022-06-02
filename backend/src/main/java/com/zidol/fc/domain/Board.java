@@ -1,6 +1,7 @@
 package com.zidol.fc.domain;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -49,30 +50,27 @@ public class Board {
    
    @NotNull
    @Column
-   private String boardRegDate;
+   private LocalDate boardRegDate;
    
    @PrePersist
    @PreUpdate
    public void createdAt() {
    
-       Date today = new Date();
-
-
-       SimpleDateFormat date = new SimpleDateFormat("yyyy/MM/dd");
-       boardRegDate = date.format(today);
+       this.boardRegDate = LocalDate.now();
    }
-   
    @Builder
    public Board(User user, long boardCode, @NotNull String boardType, @NotNull String boardTitle,
-         @NotNull String boardContent, @NotNull String boardRegDate) {
-      super();
-      this.user = user;
-      this.boardCode = boardCode;
-      this.boardType = boardType;
-      this.boardTitle = boardTitle;
-      this.boardContent = boardContent;
-      this.boardRegDate = boardRegDate;
-   }
+		@NotNull String boardContent, @NotNull LocalDate boardRegDate) {
+	super();
+	this.user = user;
+	this.boardCode = boardCode;
+	this.boardType = boardType;
+	this.boardTitle = boardTitle;
+	this.boardContent = boardContent;
+	this.boardRegDate = boardRegDate;
+}
+   
+
 
 
 

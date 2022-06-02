@@ -63,7 +63,7 @@ public class BoardController {
 	// 게시글 상세페이지 이동
 	@GetMapping("/board-detail")
 	public Board boardDetail(@RequestParam long boardCode) {
-		Board board = boardService.findBoardCode(boardCode);
+		Board board = boardService.findByBoardCode(boardCode);
 		System.out.println(boardCode);
 		return board;
 	}
@@ -84,7 +84,7 @@ public class BoardController {
 	//실험 Delete로 하는것
 	@DeleteMapping("/board-detail-delete2")
 	public Board boardDelete2(@RequestParam long boardCode) {
-		Board board = boardService.findBoardCode(boardCode);
+		Board board = boardService.findByBoardCode(boardCode);
 		return board;
 	}
 
