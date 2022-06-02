@@ -1,8 +1,6 @@
-package com.zidol.fc.domain;
+package com.zidol.fc.controller;
 
 import lombok.Data;
-
-import javax.persistence.Entity;
 
 @Data
 public class DataResponse {

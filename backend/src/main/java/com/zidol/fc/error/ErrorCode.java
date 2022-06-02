@@ -1,9 +1,9 @@
-package com.zidol.fc.controller;
+package com.zidol.fc.error;
 
 import lombok.Getter;
 
 @Getter
-public enum ErrorStatusEnum {
+public enum ErrorCode {
 	LOGIN_FAILED(404, "LOGIN_FAILED"),
 	DUPLICATED_ID(505, "DUPLICATED_ID"),
 	INVALID_PARAM(400, "INVALID_PARAM");
@@ -11,7 +11,7 @@ public enum ErrorStatusEnum {
 	private int status;
 	private String code;
 	
-	ErrorStatusEnum(int status, String code) {
+	ErrorCode(int status, String code) {
 		this.status = status;
 		this.code = code;
 	}

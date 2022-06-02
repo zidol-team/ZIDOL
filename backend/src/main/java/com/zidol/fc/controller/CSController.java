@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.zidol.fc.domain.DataResponse;
 import com.zidol.fc.service.CSService;
 
 @RestController
@@ -25,8 +24,8 @@ public class CSController {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(new MediaType("application","json",Charset.forName("UTF-8")));
 		
-		dataResponse.setStatus(StatusEnum.OK.getStatus());
-		dataResponse.setCode(StatusEnum.OK.getCode());
+		dataResponse.setStatus(StatusCode.OK.getStatus());
+		dataResponse.setCode(StatusCode.OK.getCode());
 		dataResponse.setData(csService.findAllCS());
 		
 		return new ResponseEntity<DataResponse>(dataResponse, headers, HttpStatus.OK);

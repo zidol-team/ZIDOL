@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.zidol.fc.domain.Board;
-import com.zidol.fc.domain.DataResponse;
 import com.zidol.fc.service.BoardService;
 
 @RestController
@@ -69,8 +68,8 @@ public class BoardController {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
 
-        dataResponse.setStatus(StatusEnum.OK.getStatus());
-        dataResponse.setCode(StatusEnum.OK.getCode());
+        dataResponse.setStatus(StatusCode.OK.getStatus());
+        dataResponse.setCode(StatusCode.OK.getCode());
         dataResponse.setData(boardService.findAllBoard(pageable));
 
         return new ResponseEntity<>(dataResponse, headers, HttpStatus.OK);

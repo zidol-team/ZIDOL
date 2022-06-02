@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.zidol.fc.domain.DataResponse;
 import com.zidol.fc.domain.User;
+import com.zidol.fc.error.ErrorResponse;
 import com.zidol.fc.service.UserService;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -28,29 +28,30 @@ public class UserController {
 	UserService userService;
 
 	@PostMapping("/sign-up")
-	public ResponseEntity<DataResponse> signUp(@RequestBody Map<String, String> params) {
-		Map<String, Boolean> singUpFailed = new HashMap<>();
-		
+	public ResponseEntity<DataResponse> signUp(@RequestBody Map<String, String> params) {		
 		DataResponse dataResponse = new DataResponse();
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
 
 		User user = User.builder().userEmail(params.get("userEmail")).userPassword(params.get("userPassword"))
 				.userName(params.get("userName")).userNickname(params.get("userNickname")).build();
-
+		
+		if(userService.findByUserEmail(params.get("userEmail")) != null) {
+			ErrorResponse.CustomFieldError customFieldError = new ErrorResponse.CustomFieldError("User", params.get("userEmail"), "아이디 중복");
+			throw new DuplicateIdException(customFieldError);
+		}
+		
 		if (userService.insertUser(user) != null) {
-			dataResponse.setStatus(StatusEnum.OK.getStatus());
-			dataResponse.setCode(StatusEnum.OK.getCode());
+			dataResponse.setStatus(StatusCode.OK.getStatus());
+			dataResponse.setCode(StatusCode.OK.getCode());
 			dataResponse.setData(user);
 			
 			return new ResponseEntity<DataResponse>(dataResponse, headers, HttpStatus.OK);
 		} else {
-			singUpFailed.put("user", false);
-			dataResponse.setStatus(StatusEnum.OK.getStatus());
-			dataResponse.setCode(StatusEnum.OK.getCode());
-			dataResponse.setData(singUpFailed);
+			dataResponse.setStatus(StatusCode.NOT_FOUND.getStatus());
+			dataResponse.setCode(StatusCode.NOT_FOUND.getCode());
 			
-			return new ResponseEntity<DataResponse>(dataResponse, headers, HttpStatus.OK);
+			return new ResponseEntity<DataResponse>(dataResponse, headers, HttpStatus.NOT_FOUND);
 		}
 	}
 
@@ -67,8 +68,8 @@ public class UserController {
 		if (user == null) {
 			// 이메일 계정이 존재하지 않는 경우
 			singInFailed.put("userEmail", false);
-			dataResponse.setStatus(StatusEnum.OK.getStatus());
-			dataResponse.setCode(StatusEnum.OK.getCode());
+			dataResponse.setStatus(StatusCode.OK.getStatus());
+			dataResponse.setCode(StatusCode.OK.getCode());
 			dataResponse.setData(singInFailed);
 			
 			return new ResponseEntity<DataResponse>(dataResponse, headers, HttpStatus.OK);
@@ -76,8 +77,8 @@ public class UserController {
 		
 		if (user.getUserPassword().equals(params.get("userPassword"))) {
 			session.setAttribute("user", user);
-			dataResponse.setStatus(StatusEnum.OK.getStatus());
-			dataResponse.setCode(StatusEnum.OK.getCode());
+			dataResponse.setStatus(StatusCode.OK.getStatus());
+			dataResponse.setCode(StatusCode.OK.getCode());
 			dataResponse.setData(user);
 			
 			return new ResponseEntity<DataResponse>(dataResponse, headers, HttpStatus.OK);
@@ -85,8 +86,8 @@ public class UserController {
 			// 비밀번호가 틀렸을 경우
 			singInFailed.put("userEmail", true);
 			singInFailed.put("userPassword", false);
-			dataResponse.setStatus(StatusEnum.OK.getStatus());
-			dataResponse.setCode(StatusEnum.OK.getCode());
+			dataResponse.setStatus(StatusCode.OK.getStatus());
+			dataResponse.setCode(StatusCode.OK.getCode());
 			dataResponse.setData(singInFailed);
 			
 			return new ResponseEntity<DataResponse>(dataResponse, headers, HttpStatus.OK);
@@ -107,15 +108,15 @@ public class UserController {
 		if (user == null) {
 			// 이메일 계정이 존재하지 않는 경우
 			result.put("userEmail", true);
-			dataResponse.setStatus(StatusEnum.OK.getStatus());
-			dataResponse.setCode(StatusEnum.OK.getCode());
+			dataResponse.setStatus(StatusCode.OK.getStatus());
+			dataResponse.setCode(StatusCode.OK.getCode());
 			dataResponse.setData(result);
 			
 			return new ResponseEntity<DataResponse>(dataResponse, headers, HttpStatus.OK);
 		} else {
 			result.put("userEmail", false);
-			dataResponse.setStatus(StatusEnum.OK.getStatus());
-			dataResponse.setCode(StatusEnum.OK.getCode());
+			dataResponse.setStatus(StatusCode.OK.getStatus());
+			dataResponse.setCode(StatusCode.OK.getCode());
 			dataResponse.setData(result);
 			
 			return new ResponseEntity<DataResponse>(dataResponse, headers, HttpStatus.OK);
