@@ -80,7 +80,7 @@ const CsStudy = () => {
 
   return (
     <Container
-      maxWidth="lg"
+      maxwidth="lg"
       style={{
         justifyContent: "center",
         alignItems: "center",
