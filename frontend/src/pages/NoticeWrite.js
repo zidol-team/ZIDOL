@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import './Ckeditor.css';
+import "./Ckeditor.css";
 
 function NoticeWrite() {
   const [qnaContent, setQnaContent] = useState({
@@ -20,23 +20,20 @@ function NoticeWrite() {
   const PostSubmit = (event) => {
     event.preventDefault();
 
-    const requestOptions = {
+    fetch("/insert-board", {
       method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json;charset=UTF-8",
       },
       body: JSON.stringify({
-        qnaContent,
+        qnaContent: qnaContent,
       }),
-    };
-
-    fetch("/insert-board", requestOptions)
+    })
       .then((res) => res.json())
       .then((res) => {
-        console.log("res : ", res);
         alert("등록완료");
-        window.location = "/Notice";
+        // window.location = "/Notice";
       });
   };
   return (
