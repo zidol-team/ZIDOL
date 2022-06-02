@@ -24,6 +24,9 @@ public class User {
 	@OneToMany(mappedBy = "user")
 	private List<Board> board;
 	
+	@OneToMany(mappedBy = "user")
+	private List<Achievement> css;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long userCode;
