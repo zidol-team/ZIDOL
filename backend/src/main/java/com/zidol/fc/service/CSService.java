@@ -1,7 +1,9 @@
 package com.zidol.fc.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,17 +35,20 @@ public class CSService {
 		return achievementRepository.save(achievement);
 	}
 	
-	public List<Achievement> findByUser1(User user) {
-		return achievementRepository.findByUser(user);
-	}
-	
-	public List<CS> findByUser2(User user) {
+	public Map<String, Object> findByUser(User user) {
+		Map<String, Object> result = new HashMap<>();
+		List<Achievement> achievements = achievementRepository.findByUser(user);
 		List<CS> css = new ArrayList<>();
 		
 		for(Achievement achievement : achievementRepository.findByUser(user)) {
 			css.add(achievement.getCs());
 		}
-		return css;
+		
+		result.put("achievements", achievements);
+		result.put("css", css);
+		
+		
+		return result;
 	}
 
 }

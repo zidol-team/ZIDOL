@@ -73,18 +73,13 @@ public class CSController {
 	public ResponseEntity<DataResponse> findAllAchievement(@RequestBody Map<String, Long> param) {
 		
 		User user = userService.findByUserCode(param.get("userCode"));
-		List<Achievement> achievements = csService.findByUser1(user);
-		List<CS> css = csService.findByUser2(user);
-		Map<String, Object> result = new HashMap<>();
-		result.put("achievements", achievements);
-		result.put("css", css);
-		
+		Map<String, Object> result = csService.findByUser(user);
 		
 		DataResponse dataResponse = new DataResponse();
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
 		
-		if(achievements != null) {
+		if(result != null) {
 			dataResponse.setStatus(StatusCode.OK.getStatus());
 			dataResponse.setCode(StatusCode.OK.getCode());
 			dataResponse.setData(result);
