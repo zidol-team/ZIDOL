@@ -17,6 +17,7 @@
     "buffer": "^6.0.3",
     "react": "^18.1.0",
     "react-bootstrap": "^2.4.0",
+    "react-calendar": "^3.7.0",
     "react-dom": "^18.1.0",
     "react-html-parser": "^2.0.2",
     "react-redux": "^8.0.2",
@@ -49,9 +50,5 @@
       "last 1 safari version"
     ]
   },
-<<<<<<< HEAD
-  "proxy": "http://192.168.35.133:8282"
-=======
   "proxy": "http://112.172.225.17:8282"
->>>>>>> branch 'develop' of https://github.com/zidol-team/ZIDOL.git
 }

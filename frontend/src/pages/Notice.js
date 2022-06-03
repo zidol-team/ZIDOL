@@ -22,7 +22,7 @@ const GetBoardList = () => {
   }, []);
 
   const item = board.map((a, index) => (
-    <CommonTableRow>
+    <CommonTableRow key={index}>
       <td>{a.boardCode}</td>
       <td  onClick={() =>
           navigate(`/NoticeDetail?boardCode=${a.boardCode}`, {
