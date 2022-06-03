@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link , useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import CommonTable from "../components/CommonTable";
 import CommonTableColumn from "../components/CommonTableColumn";
 import CommonTableRow from "../components/CommonTableRow";
@@ -22,13 +22,17 @@ const GetBoardList = () => {
   }, []);
 
   const item = board.map((a, index) => (
-    <CommonTableRow>
+    <CommonTableRow key={index}>
       <td>{a.boardCode}</td>
-      <td  onClick={() =>
+      <td
+        onClick={() =>
           navigate(`/NoticeDetail?boardCode=${a.boardCode}`, {
             state: { board, boardCode: a.boardCode },
           })
-        }>{a.boardTitle}</td>
+        }
+      >
+        {a.boardTitle}
+      </td>
       <td>{a.user}</td>
       <td>{a.boardRegDate}</td>
     </CommonTableRow>

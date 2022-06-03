@@ -15,7 +15,6 @@ function MyPage() {
   console.log(user);
 
   useEffect(() => {
-    //
     setUser(location.state);
   }, []);
 
