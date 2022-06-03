@@ -1,6 +1,7 @@
 package com.zidol.fc.controller;
 
 import java.nio.charset.Charset;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -72,23 +73,23 @@ public class CSController {
 	public ResponseEntity<DataResponse> findAllAchievement(@RequestBody Map<String, Long> param) {
 		
 		User user = userService.findByUserCode(param.get("userCode"));
-		List<Achievement> achievements = csService.findByUser(user);
+		Map<String, Object> result = csService.findByUser(user);
 		
 		DataResponse dataResponse = new DataResponse();
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
 		
-		if(achievements != null) {
+		if(result != null) {
 			dataResponse.setStatus(StatusCode.OK.getStatus());
 			dataResponse.setCode(StatusCode.OK.getCode());
-			dataResponse.setData(dataResponse);
+			dataResponse.setData(result);
+			
+			return new ResponseEntity<DataResponse>(dataResponse, headers, HttpStatus.OK);
 		} else {
 			dataResponse.setStatus(StatusCode.NOT_FOUND.getStatus());
 			dataResponse.setCode(StatusCode.NOT_FOUND.getCode());
 			
 			return new ResponseEntity<DataResponse>(dataResponse, headers, HttpStatus.NOT_FOUND);
 		}
-		
-		return new ResponseEntity<DataResponse>(dataResponse, headers, HttpStatus.OK);
 	}
 }
