@@ -1,11 +1,17 @@
 package com.zidol.fc.domain;
 
+import java.time.LocalDate;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -33,13 +39,24 @@ public class Achievement {
 	@JoinColumn(name = "cs_code")
 	@JsonBackReference(value = "cs")
 	private CS cs;
+	
+	@NotNull
+	@Column
+	private LocalDate achievementRegDate;
+	
+	@PrePersist
+	@PreUpdate
+	public void createdAt() {
+		this.achievementRegDate = LocalDate.now();
+	}
 
 	@Builder
-	public Achievement(long achievementCode, User user, CS cs) {
+	public Achievement(long achievementCode, User user, CS cs, @NotNull LocalDate achievementRegDate) {
 		super();
 		this.achievementCode = achievementCode;
 		this.user = user;
 		this.cs = cs;
-	}	
+		this.achievementRegDate = achievementRegDate;
+	}
 	
 }
