@@ -1,0 +1,31 @@
+pages폴더 설명
+
+Home.js
+첫화면,
+로그인, 회원가입으로 가는 페이지
+
+SignIn.js
+로그인 페이지
+
+SignUp.js
+회원가입 페이지
+
+FindIdPw.js
+아이디, 비밀번호 찾는 페이지
+
+MyPage.js
+마이페이지
+
+CsStudy.js
+CS에 관련된 어떤 과목이 있는지 보여주는 페이지
+버튼 클릭시 => SubjectDetail.js
+
+SubjectDetail.js
+과목 선택시 해당 과목이 갖고있는 목차를 보여주는 페이지
+목차 클릭시 => SubjectInfo.js
+
+SubjectInfo.js
+목차에 해당하는 공부내용을 보여주는 페이지
+
+FourZeroFour.js
+해당 페이지가 없을때(404) 페이지

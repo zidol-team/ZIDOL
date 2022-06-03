@@ -13,34 +13,58 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 const theme = createTheme();
 
 export default function SignInSide() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
-      email: data.get("email"),
-      password: data.get("password"),
+      email: data.get("userEmail"),
+      password: data.get("userPassword"),
     });
+
+    const requestOptions = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json;charset=UTF-8",
+      },
+      body: JSON.stringify({
+        // userEmail, userPassword 전송
+        userEmail: data.get("userEmail"),
+        userPassword: data.get("userPassword"),
+      }),
+    };
+    console.log("requestOptions : ", requestOptions);
+
+    fetch("/sign-in.act", requestOptions)
+      .then((res) => res.json())
+      .then((res) => {
+        console.log("res : ", res);
+        if (res.code === "LOGIN_FAILED") {
+          alert(res.fieldErrors[0].message);
+        } else {
+          alert("로그인 성공했습니다.");
+          // console.log(res.data.userEmail);
+          // console.log(res.data.userName);
+          // console.log(res.data.userNickname);
+          navigate("/MyPage", {
+            state: {
+              userEmail: res.data.userEmail,
+              userName: res.data.userName,
+              userNickname: res.data.userNickname,
+              userCode: res.data.userCode,
+            },
+          });
+        }
+        // 쿠키저장 필요
+      });
   };
 
   return (
@@ -89,9 +113,9 @@ export default function SignInSide() {
                 margin="normal"
                 required
                 fullWidth
-                id="email"
+                id="userEmail"
                 label="Email Address"
-                name="email"
+                name="userEmail"
                 autoComplete="email"
                 autoFocus
               />
@@ -99,16 +123,13 @@ export default function SignInSide() {
                 margin="normal"
                 required
                 fullWidth
-                name="password"
+                name="userPassword"
                 label="Password"
                 type="password"
-                id="password"
+                id="userPassword"
                 autoComplete="current-password"
               />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              />
+
               <Button
                 type="submit"
                 fullWidth
@@ -129,7 +150,6 @@ export default function SignInSide() {
                   </Link>
                 </Grid>
               </Grid>
-              <Copyright sx={{ mt: 5 }} />
             </Box>
           </Box>
         </Grid>

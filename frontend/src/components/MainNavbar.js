@@ -9,18 +9,11 @@ const MainNavbar = () => {
       {/* 네비게이션 바 */}
       <Navbar bg="dark" variant="dark">
         <Container>
-          <Navbar.Brand href="#home">Navbar</Navbar.Brand>
+          <Navbar.Brand>Navbar</Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link
               onClick={() => {
-                navigate("/");
-              }}
-            >
-              Home
-            </Nav.Link>
-            <Nav.Link
-              onClick={() => {
-                navigate("/csstudy");
+                navigate("/cs-study");
               }}
             >
               CS Study
