@@ -33,7 +33,7 @@ public class CSService {
 		return achievementRepository.save(achievement);
 	}
 	
-	public List<Achievement> findByUser(User user) {
+	public List<Achievement> findByUser1(User user) {
 		return achievementRepository.findByUser(user);
 	}
 	
