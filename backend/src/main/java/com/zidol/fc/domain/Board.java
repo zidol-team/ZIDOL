@@ -45,7 +45,7 @@ public class Board {
 	private String boardTitle;
 
 	@NotNull
-	@Column
+	@Column(columnDefinition = "TEXT")
 	private String boardContent;
 
 	@NotNull
