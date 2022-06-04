@@ -2,6 +2,7 @@ import { useState } from "react";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import "./Ckeditor.css";
+import Button from '@mui/material/Button';
 
 function NoticeWrite() {
   const [qnaContent, setQnaContent] = useState({
@@ -63,7 +64,7 @@ function NoticeWrite() {
           });
         }}
       />
-      <button onClick={PostSubmit}>등록</button>
+      <Button variant="outlined" onClick={PostSubmit}>등록</Button>
     </div>
   );
 }

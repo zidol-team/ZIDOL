@@ -1,7 +1,10 @@
 import React, { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "../components/NoticeDetail.css";
+import Button from '@mui/material/Button';
+import DeleteIcon from '@mui/icons-material/Delete';
 import ReactHtmlParser from 'react-html-parser';
+
 
 const BoardDetail = ({}) => {
   const location = useLocation();
@@ -47,11 +50,12 @@ const BoardDetail = ({}) => {
           <label>{board.boardRegDate}</label>
         </div>
         <div className="voc-view-row">
-          <label>내용</label>
-          <div>{ReactHtmlParser(board.boardContent)}</div>
+         
+         
         </div>
+        <div className="content">{ReactHtmlParser(board.boardContent)}</div>
       </div>
-      <button
+      <Button variant="outlined"
         onClick={() =>
           navigate(`/NoticeModify`, {
             state: {
@@ -63,15 +67,17 @@ const BoardDetail = ({}) => {
         }
       >
         수정
-      </button>
-      <button onClick={deleteBoard}>삭제</button>
-      <button
+      </Button>
+      <Button variant="outlined" startIcon={<DeleteIcon />}  onClick={deleteBoard}>
+        삭제
+      </Button>
+      <Button variant="outlined"
         onClick={() =>
           navigate(`/Notice`)
         }
       >
         목록
-      </button>
+      </Button>
     </>
   );
 };

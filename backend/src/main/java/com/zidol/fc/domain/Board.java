@@ -29,7 +29,7 @@ public class Board {
 
 	@ManyToOne
 	@JoinColumn(name = "user_code")
-	@JsonBackReference
+	@JsonBackReference(value = "user-board")
 	private User user;
 
 	@Id
