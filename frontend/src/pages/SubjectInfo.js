@@ -5,6 +5,7 @@ import DataStructure from "../data/dataStructure";
 
 const SubjectInfo = ({}) => {
   const location = useLocation();
+  const navigate = useNavigate();
   const csCode = location.state.csCode;
 
   const [algorithm, setAlgorithm] = useState(Algorithm);
@@ -72,6 +73,9 @@ const SubjectInfo = ({}) => {
         //res로 무엇을할지 나중에 작성
         //
       });
+
+    alert("학습 완료");
+    navigate(-1);
   };
 
   return (
