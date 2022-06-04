@@ -51,19 +51,24 @@ export default function SignInSide() {
           alert(res.fieldErrors[0].message);
         } else {
           alert("로그인 성공했습니다.");
+          // 로컬스토리지 저장
+          localStorage.setItem("userEmail", res.data.userEmail);
+          localStorage.setItem("userName", res.data.userName);
+          localStorage.setItem("userNickname", res.data.userNickname);
+          localStorage.setItem("userCode", res.data.userCode);
+
           // console.log(res.data.userEmail);
           // console.log(res.data.userName);
           // console.log(res.data.userNickname);
           navigate("/MyPage", {
-            state: {
-              userEmail: res.data.userEmail,
-              userName: res.data.userName,
-              userNickname: res.data.userNickname,
-              userCode: res.data.userCode,
-            },
+            // state: {
+            //   userEmail: res.data.userEmail,
+            //   userName: res.data.userName,
+            //   userNickname: res.data.userNickname,
+            //   userCode: res.data.userCode,
+            // },
           });
         }
-        // 쿠키저장 필요
       });
   };
 
