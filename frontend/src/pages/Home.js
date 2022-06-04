@@ -18,9 +18,10 @@ function Home() {
           <Col>
             <div>왼쪽화면</div>
             <Link to="/SignIn">로그인하기</Link>
+            <br />
             <Link to="/SignUp">회원가입하기</Link>
           </Col>
-          <Col>오른쪽화면</Col>
+          <Col>사진 들어갈곳</Col>
         </Row>
       </Container>
     </div>
