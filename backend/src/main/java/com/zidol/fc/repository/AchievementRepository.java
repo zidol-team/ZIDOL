@@ -10,4 +10,5 @@ import com.zidol.fc.domain.User;
 public interface AchievementRepository extends JpaRepository<Achievement, Long> {
 	
 	public List<Achievement> findByUser(User user);
+	
 }

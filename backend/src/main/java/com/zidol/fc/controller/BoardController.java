@@ -76,6 +76,13 @@ public class BoardController {
 		return result;
 	}
 	
+	@PostMapping("/reply-insert")
+	public Map<String, Long> insertReply(@RequestBody Map<String, Long> params){
+		Map<String, Long> result = new HashMap<>();
+		
+		return result;
+	}
+	
 //	//실험 Delete로 하는것
 //	@DeleteMapping("/board-detail-delete2")
 //	public Board boardDelete2(@RequestParam long boardCode) {

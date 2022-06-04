@@ -7,12 +7,16 @@ import org.springframework.stereotype.Service;
 
 import com.zidol.fc.domain.Board;
 import com.zidol.fc.repository.BoardRepository;
+import com.zidol.fc.repository.ReplyRepository;
 
 @Service
 public class BoardService {
 
 	@Autowired
 	BoardRepository boardRepository;
+	
+	@Autowired
+	private ReplyRepository replyRepository;
 	
 	public Page<Board> findAllBoard(Pageable pageable) {
 		return boardRepository.findAll(pageable);
@@ -34,3 +38,6 @@ public class BoardService {
 		 boardRepository.deleteById(boardCode);
 	}
 }
+
+
+
