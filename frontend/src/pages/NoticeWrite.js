@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import './Ckeditor.css';
+import "./Ckeditor.css";
 
 function NoticeWrite() {
   const [qnaContent, setQnaContent] = useState({

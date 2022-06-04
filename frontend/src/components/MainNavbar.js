@@ -30,7 +30,7 @@ const MainNavbar = () => {
                 navigate("/notice");
               }}
             >
-              공지사항
+              질문 게시판
             </Nav.Link>
             <Nav.Link
               onClick={() => {
