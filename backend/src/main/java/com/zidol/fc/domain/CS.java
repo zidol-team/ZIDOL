@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -22,6 +23,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 public class CS {
+	
+	@OneToOne(mappedBy = "cs")
+	private CSContent csContent;
 	
 	@OneToMany(mappedBy = "cs")
 	@JsonManagedReference(value = "cs")

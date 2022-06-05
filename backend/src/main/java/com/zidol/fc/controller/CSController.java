@@ -27,6 +27,20 @@ public class CSController {
 	
 	@Autowired
 	UserService userService;
+	
+	@GetMapping("/admin-cs-study.act")
+	public ResponseEntity<DataResponse> findAllCSForAdmin() {
+		
+		DataResponse dataResponse = new DataResponse();
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(new MediaType("application","json",Charset.forName("UTF-8")));
+		
+		dataResponse.setStatus(StatusCode.OK.getStatus());
+		dataResponse.setCode(StatusCode.OK.getCode());
+		dataResponse.setData(csService.findAll());
+		
+		return new ResponseEntity<DataResponse>(dataResponse, headers, HttpStatus.OK);
+	}
 
 	@GetMapping("/cs-study.act")
 	public ResponseEntity<DataResponse> findAllCS() {
@@ -90,4 +104,5 @@ public class CSController {
 			return new ResponseEntity<DataResponse>(dataResponse, headers, HttpStatus.NOT_FOUND);
 		}
 	}
+	
 }
