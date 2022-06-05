@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.zidol.fc.domain.Achievement;
 import com.zidol.fc.domain.CS;
 import com.zidol.fc.domain.User;
+import com.zidol.fc.error.ErrorResponse;
+import com.zidol.fc.error.ErrorResponse.CustomFieldError;
+import com.zidol.fc.error.achievement.DuplicatedAchievementException;
 import com.zidol.fc.service.CSService;
 import com.zidol.fc.service.UserService;
 
@@ -62,6 +65,12 @@ public class CSController {
 		User user = userService.findByUserCode(params.get("userCode"));	
 		CS cs = csService.findByCsCode(params.get("csCode"));
 		Achievement achievement = Achievement.builder().user(user).cs(cs).build();
+		
+		// 중복 검사
+		if(csService.duplicatedAchievement(params.get("userCode"), params.get("csCode")) != null) {
+			ErrorResponse.CustomFieldError customFieldError  = new CustomFieldError("Achievement", String.valueOf(params.get("csCode")), "이미 공부한 내용입니다.");
+			throw new DuplicatedAchievementException(customFieldError);
+		}
 
 		DataResponse dataResponse = new DataResponse();
 		HttpHeaders headers = new HttpHeaders();

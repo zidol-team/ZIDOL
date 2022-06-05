@@ -34,6 +34,10 @@ public class CSService {
 	public Achievement insertAchievement(Achievement achievement) {
 		return achievementRepository.save(achievement);
 	}
+	
+	public Achievement duplicatedAchievement(long userCode, long csCode) {
+		return achievementRepository.duplicatedAchievement(userCode, csCode);
+	}
 
 	public Map<String, Object> findByUser(User user) {
 		Map<String, Object> result = new HashMap<>();
@@ -50,6 +54,7 @@ public class CSService {
 		return result;
 	}
 
+	//작업중
 	public Map<String, Integer> findByType(User user) {
 		Map<String, Integer> result = new HashMap<>();
 		String[] csTypes = new String[] { "알고리즘", "자료구조", "컴퓨터구조", "데이터베이스", "네트워크", "운영체제", "디자인패턴" };
