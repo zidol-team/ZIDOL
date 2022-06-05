@@ -113,5 +113,18 @@ public class CSController {
 			return new ResponseEntity<DataResponse>(dataResponse, headers, HttpStatus.NOT_FOUND);
 		}
 	}
+	
+	@PostMapping("/count-cs.act")
+	public ResponseEntity<DataResponse> countCS(@RequestBody Map<String, Long> param) {
+		DataResponse dataResponse = new DataResponse();
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+		
+		dataResponse.setStatus(StatusCode.OK.getStatus());
+		dataResponse.setCode(StatusCode.OK.getCode());
+		dataResponse.setData(csService.countByCsType(param.get("userCode")));
+		
+		return new ResponseEntity<DataResponse>(dataResponse, headers, HttpStatus.OK);
+	}
 
 }
