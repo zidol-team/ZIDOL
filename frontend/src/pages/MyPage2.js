@@ -1,10 +1,20 @@
-import React, { useContext, useEffect, useState, PureComponent } from "react";
+import React, {
+  useEffect,
+  useState,
+  PureComponent,
+  createContext,
+  useContext,
+} from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Percentage from "../components/Percentage";
+import { TotalContext } from "../context/TotalContext";
+import ChartCompIndividual from "../components/ChartCompIndividual";
+import ChartCompWhole from "../components/ChartCompWhole";
 
 function Mypage2() {
   const location = useLocation();
   const navigate = useNavigate();
+
   /*
   location.state 정보
   userEmail: res.data.userEmail,
@@ -14,7 +24,13 @@ function Mypage2() {
 
   const [user, setUser] = useState({});
   const [css, setCss] = useState([]);
-  const [res2, setRes2] = useState([]);
+  const [total, setTotal] = useState([]);
+  const [done, setDone] = useState([]);
+  // const dataContext = createContext(total);
+  // 자식에 전달해야할 데이터들
+  // const totalData = useContext(dataContext);
+
+  // console.log(totalData);
 
   const [algorithmCount, setAlgorithmCount] = useState(0);
   const [dataStructureCount, setDataStructureCount] = useState(0);
@@ -78,7 +94,11 @@ function Mypage2() {
         console.log("res2 : ");
         console.log(res2);
 
-        setRes2(res2);
+        setTotal({
+          total: res2.data.total,
+          done: res2.data.done,
+          percent: res2.data.percent,
+        });
       });
   }, []);
 
@@ -114,34 +134,50 @@ function Mypage2() {
   };
 
   return (
-    <>
-      <h1>MyPage2</h1>
-      <div>{user.userEmail}</div>
-      <div>{user.userName}</div>
-      <div>{user.userNickname}</div>
-      <div></div>
-      <button
-        onClick={() => {
-          alert("로그아웃 되었습니다.");
-          deleteLocalStorage();
-          navigate("/");
-        }}
-      >
-        로그아웃 버튼
-      </button>
-      <div>퍼센트</div>
-      <button
-        onClick={() => {
-          countValue();
-        }}
-      >
-        카운트 확인 버튼
-      </button>
+    <TotalContext.Provider value={total}>
+      <>
+        <h1>MyPage2</h1>
+        <div>{user.userEmail}</div>
+        <div>{user.userName}</div>
+        <div>{user.userNickname}</div>
+        <div></div>
+        <button
+          onClick={() => {
+            alert("로그아웃 되었습니다.");
+            deleteLocalStorage();
+            navigate("/");
+          }}
+        >
+          로그아웃 버튼
+        </button>
+        <div>퍼센트</div>
+        <button
+          onClick={() => {
+            countValue();
+          }}
+        >
+          카운트 확인 버튼
+        </button>
+        <button
+          onClick={() => {
+            console.log(total);
+            console.log(done);
+          }}
+        >
+          total, done 확인버튼
+        </button>
 
-      <div>
-        <Percentage data={res2}></Percentage>
-      </div>
-    </>
+        <div>
+          <Percentage></Percentage>
+        </div>
+        <div>
+          <ChartCompWhole></ChartCompWhole>
+        </div>
+        <div>
+          <ChartCompIndividual></ChartCompIndividual>
+        </div>
+      </>
+    </TotalContext.Provider>
   );
 }
 

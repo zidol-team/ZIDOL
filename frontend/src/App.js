@@ -11,7 +11,7 @@ import NoticeModify from "./pages/NoticeModify";
 import Mypage from "./pages/MyPage";
 import Mypage2 from "./pages/MyPage2";
 import FourZeroFour from "./pages/FourZeroFour";
-import ChartComp from "./pages/ChartComp.tsx";
+
 import MainNavbar from "./components/MainNavbar";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
@@ -147,7 +147,6 @@ function App() {
           element={<NoticeModify></NoticeModify>}
         ></Route>
         <Route path="*" element={<FourZeroFour></FourZeroFour>}></Route>
-        <Route path="/chart" element={<ChartComp></ChartComp>}></Route>
       </Routes>
     </div>
   );
