@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.zidol.fc.domain.Board;
+import com.zidol.fc.domain.Reply;
 import com.zidol.fc.domain.User;
 import com.zidol.fc.error.ErrorResponse;
 import com.zidol.fc.error.board.DeleteByUnauthUserException;
@@ -90,7 +91,7 @@ public class BoardController {
 		if (Long.parseLong(params.get("userCode")) == user.getUserCode()) {
 			dataResponse.setStatus(StatusCode.OK.getStatus());
 			dataResponse.setCode(StatusCode.OK.getCode());
-			dataResponse.setData(boardService.modifyBoard(board));
+			dataResponse.setData(boardService.updateBoard(board));
 
 			return new ResponseEntity<DataResponse>(dataResponse, headers, HttpStatus.OK);
 		} else {
@@ -135,6 +136,7 @@ public class BoardController {
 		User user = board.getUser();
 
 		if (params.get("userCode") == user.getUserCode()) {
+			boardService.deleteAllReply(board.getReply());
 			boardService.deleteBoard(params.get("boardCode"));
 			dataResponse.setStatus(StatusCode.OK.getStatus());
 			dataResponse.setCode(StatusCode.OK.getCode());
@@ -148,11 +150,29 @@ public class BoardController {
 
 	}
 
-	@PostMapping("/reply-insert")
-	public Map<String, Long> insertReply(@RequestBody Map<String, Long> params) {
-		Map<String, Long> result = new HashMap<>();
+	@PostMapping("/insert-reply.act")
+	public ResponseEntity<DataResponse> insertReply(@RequestBody Map<String, String> params) {
+		DataResponse dataResponse = new DataResponse();
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
 
-		return result;
+		User user = userService.findByUserCode(Long.parseLong(params.get("userCode")));
+		Board board = boardService.findByBoardCode(Long.parseLong(params.get("boardCode")));
+		Reply reply = Reply.builder().user(user).board(board).replyContent(params.get("replyContent")).build();
+
+		if (boardService.insertReply(reply) != null) {
+			dataResponse.setStatus(StatusCode.OK.getStatus());
+			dataResponse.setCode(StatusCode.OK.getCode());
+			dataResponse.setData(board);
+
+			return new ResponseEntity<DataResponse>(dataResponse, headers, HttpStatus.OK);
+		} else {
+			dataResponse.setStatus(StatusCode.NOT_FOUND.getStatus());
+			dataResponse.setCode(StatusCode.NOT_FOUND.getCode());
+
+			return new ResponseEntity<DataResponse>(dataResponse, headers, HttpStatus.NOT_FOUND);
+		}
+
 	}
 
 //	//실험 Delete로 하는것
