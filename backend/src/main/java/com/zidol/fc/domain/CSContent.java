@@ -39,10 +39,11 @@ public class CSContent {
 	public void createdAt() {
 		this.csRegdate = LocalDate.now();
 	}
-	
+
 	@Builder
-	public CSContent(long csContentCode, @NotNull String csContent, @NotNull LocalDate csRegdate) {
+	public CSContent(CS cs, long csContentCode, @NotNull String csContent, @NotNull LocalDate csRegdate) {
 		super();
+		this.cs = cs;
 		this.csContentCode = csContentCode;
 		this.csContent = csContent;
 		this.csRegdate = csRegdate;

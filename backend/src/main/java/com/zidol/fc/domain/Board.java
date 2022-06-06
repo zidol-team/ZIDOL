@@ -37,7 +37,7 @@ public class Board {
 	private User user;
 	
 	@OneToMany(mappedBy = "board")
-	@JsonManagedReference
+	@JsonManagedReference(value = "board-reply")
 	private List<Reply> reply;
 	
 
@@ -68,17 +68,16 @@ public class Board {
 	}
 
 	@Builder
-	public Board(User user, long boardCode, @NotNull String boardType, @NotNull String boardTitle,
+	public Board(User user, List<Reply> reply, long boardCode, @NotNull String boardType, @NotNull String boardTitle,
 			@NotNull String boardContent, @NotNull LocalDate boardRegDate) {
 		super();
 		this.user = user;
+		this.reply = reply;
 		this.boardCode = boardCode;
 		this.boardType = boardType;
 		this.boardTitle = boardTitle;
 		this.boardContent = boardContent;
 		this.boardRegDate = boardRegDate;
 	}
-
-	
 
 }
