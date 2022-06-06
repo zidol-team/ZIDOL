@@ -9,6 +9,7 @@ import NoticeDetail from "./pages/NoticeDetail";
 import NoticeWrite from "./pages/NoticeWrite";
 import NoticeModify from "./pages/NoticeModify";
 import Mypage from "./pages/MyPage";
+import Mypage2 from "./pages/MyPage2";
 import FourZeroFour from "./pages/FourZeroFour";
 import MainNavbar from "./components/MainNavbar";
 import SignIn from "./pages/SignIn";
@@ -61,6 +62,15 @@ function App() {
             <>
               <MainNavbar></MainNavbar>
               <Mypage></Mypage>
+            </>
+          }
+        ></Route>
+        <Route
+          path="/mypage2"
+          element={
+            <>
+              <MainNavbar></MainNavbar>
+              <Mypage2></Mypage2>
             </>
           }
         ></Route>

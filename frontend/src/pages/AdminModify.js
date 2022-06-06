@@ -5,7 +5,7 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import "./Ckeditor.css";
 
-function NoticeModify() {
+function AdminModify() {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -68,4 +68,8 @@ function NoticeModify() {
     </div>
   );
 }
+<<<<<<< HEAD
 export default NoticeModify;
+=======
+export default AdminModify;
+>>>>>>> 163f087c3ee93af71d1384dd78a279b915b4a5a6
