@@ -56,7 +56,7 @@ public class Board {
 	@NotNull
 	@Column(columnDefinition = "TEXT")
 	private String boardContent;
-
+	
 	@NotNull
 	@Column
 	private LocalDate boardRegDate;

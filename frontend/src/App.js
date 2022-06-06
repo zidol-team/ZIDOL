@@ -4,10 +4,10 @@ import "./App.css";
 import { Routes, Route, Link, useNavigate, Outlet } from "react-router-dom";
 
 import Home from "./pages/Home";
-import Notice from "./pages/Notice";
-import NoticeDetail from "./pages/NoticeDetail";
-import NoticeWrite from "./pages/NoticeWrite";
-import NoticeModify from "./pages/NoticeModify";
+import Board from "./pages/Board";
+import BoardDetail from "./pages/BoardDetail";
+import BoardWrite from "./pages/BoardWrite";
+import BoardModify from "./pages/BoardModify";
 import Mypage from "./pages/MyPage";
 import Mypage2 from "./pages/MyPage2";
 import FourZeroFour from "./pages/FourZeroFour";
@@ -19,7 +19,7 @@ import SubjectDetail from "./pages/SubjectDetail";
 import SubjectInfo from "./pages/SubjectInfo";
 import Algorithm from "./data/algorithm";
 import DataStructure from "./data/dataStructure";
-
+import Fnq from "./pages/Fnq";
 // 확인
 function App() {
   const [algorithm, setAlgorithm] = useState(Algorithm);
@@ -44,11 +44,11 @@ function App() {
           }
         ></Route>
         <Route
-          path="/notice"
+          path="/Board"
           element={
             <>
               <MainNavbar></MainNavbar>
-              <Notice></Notice>
+              <Board></Board>
             </>
           }
         ></Route>
@@ -111,40 +111,44 @@ function App() {
           }
         ></Route>
         <Route
-          path="NoticeWrite"
+          path="BoardWrite"
           element={
             <>
               <MainNavbar></MainNavbar>
-              <NoticeWrite></NoticeWrite>
+              <BoardWrite></BoardWrite>
             </>
           }
         ></Route>
 
         <Route
-          path="NoticeDetail"
+          path="BoardDetail"
           element={
             <>
               <MainNavbar></MainNavbar>
-              <NoticeDetail></NoticeDetail>
+              <BoardDetail></BoardDetail>
             </>
           }
         ></Route>
-        <Route path="/notice" element={<Notice></Notice>}></Route>
+
+        <Route
+          path="Fnq"
+          element={
+            <>
+              <MainNavbar></MainNavbar>
+              <Fnq></Fnq>
+            </>
+          }
+        ></Route>
+
+        <Route path="/notice" element={<Board></Board>}></Route>
         <Route path="/mypage" element={<Mypage></Mypage>}></Route>
         <Route path="/SignIn" element={<SignIn></SignIn>}></Route>
         <Route path="/SignUp" element={<SignUp></SignUp>}></Route>
         <Route
-          path="/NoticeDetail"
-          element={<NoticeDetail></NoticeDetail>}
+          path="/BoardModify"
+          element={<BoardModify></BoardModify>}
         ></Route>
-        <Route
-          path="/NoticeWrite"
-          element={<NoticeWrite></NoticeWrite>}
-        ></Route>
-        <Route
-          path="/NoticeModify"
-          element={<NoticeModify></NoticeModify>}
-        ></Route>
+
         <Route path="*" element={<FourZeroFour></FourZeroFour>}></Route>
       </Routes>
     </div>

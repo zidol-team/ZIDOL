@@ -25,6 +25,10 @@ public class BoardService {
 		return boardRepository.findAll(pageable);
 	}
 	
+	public Board findByBoardCode(long boardCode) {
+		return boardRepository.findByBoardCode(boardCode);
+	}
+	
 	public Board insertBoard(Board board) {
 		return boardRepository.save(board);
 	}
@@ -32,17 +36,13 @@ public class BoardService {
 	public Board updateBoard(Board board) {
 		return boardRepository.save(board);
 	}
-
-	public Board findByBoardCode(long boardCode) {
-		return boardRepository.findByBoardCode(boardCode);
-	}
 	
 	public void deleteBoard(long boardCode) {
 		boardRepository.deleteById(boardCode);
 	}
 	
-	public void deleteAllReply(List<Reply> reply) {
-		replyRepository.deleteAllInBatch(reply);
+	public Reply findByReplyCode(long replyCode) {
+		return replyRepository.findByReplyCode(replyCode);
 	}
 	
 	public Reply insertReply(Reply reply) {
@@ -57,6 +57,9 @@ public class BoardService {
 		replyRepository.deleteById(replyCode);
 	}
 	
+	public void deleteAllReply(List<Reply> reply) {
+		replyRepository.deleteAllInBatch(reply);
+	}
 }
 
 
