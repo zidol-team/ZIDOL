@@ -3,7 +3,7 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import "./Ckeditor.css";
 
-function NoticeWrite() {
+function AdminWrite() {
   const [qnaContent, setQnaContent] = useState({
     boardTitle: "",
     boardContent: "",
@@ -33,7 +33,7 @@ function NoticeWrite() {
       .then((res) => res.json())
       .then((res) => {
         alert("등록완료");
-        window.location = "/Notice";
+        window.location = "/Admin";
       });
   };
   return (
@@ -64,4 +64,4 @@ function NoticeWrite() {
     </div>
   );
 }
-export default NoticeWrite;
+export default AdminWrite;

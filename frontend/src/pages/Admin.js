@@ -9,7 +9,7 @@ const GetBoardList = () => {
   const [board, setBoard] = useState([]);
 
   useEffect(() => {
-    fetch("/find-all-board.act", {
+    fetch("/find-all-board", {
       method: "GET",
       header: {
         "content-type": "application/json",
@@ -26,7 +26,7 @@ const GetBoardList = () => {
       <td>{a.boardCode}</td>
       <td
         onClick={() =>
-          navigate(`/NoticeDetail?boardCode=${a.boardCode}`, {
+          navigate(`/AdminDetail?boardCode=${a.boardCode}`, {
             state: { board, boardCode: a.boardCode },
           })
         }
@@ -46,7 +46,7 @@ function View() {
   const navigate = useNavigate();
   return (
     <>
-      <button onClick={() => navigate(`/NoticeWrite`)}>글쓰기</button>
+      <button onClick={() => navigate(`/AdminWrite`)}>글쓰기</button>
       <CommonTable headersName={["글번호", "제목", "작성자", "등록일"]}>
         {item}
       </CommonTable>
