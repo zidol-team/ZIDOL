@@ -29,7 +29,7 @@ public class BoardController {
 	BoardService boardService;
 	
 	// 게시글 전체 리스트업
-	@GetMapping("/find-all-board")
+	@GetMapping("/find-all-board.act")
 	public Map<String, Page<Board>> findAllBoard(@PageableDefault(page = 0, size = 10) Pageable pageable) {
 		Map<String, Page<Board>> result = new HashMap<>();
 		result.put("ListUp", boardService.findAllBoard(pageable));
@@ -37,7 +37,7 @@ public class BoardController {
 	}
 
 	// 게시글 작성
-	@PostMapping("/insert-board")
+	@PostMapping("/insert-board.act")
 	public Map<String, Long> insertBoard(@RequestBody Map<String, Board> params) {
 		Map<String, Long> result = new HashMap<>();
 		System.out.println(params.get("qnaContent"));
@@ -48,7 +48,7 @@ public class BoardController {
 	}
 
 	// 게시글 수정
-	@PostMapping("/board-modify")
+	@PostMapping("/board-modify.act")
 	public Map<String, Long> boardModify(@RequestBody Map<String, Board> params) {
 		Map<String, Long> result = new HashMap<>();
 		Board board = params.get("modifyContent");
@@ -59,7 +59,7 @@ public class BoardController {
 	}
 
 	// 게시글 상세페이지 이동
-	@GetMapping("/board-detail")
+	@GetMapping("/board-detail.act")
 	public Board boardDetail(@RequestParam long boardCode) {
 		Board board = boardService.findByBoardCode(boardCode);
 		System.out.println(boardCode);
@@ -67,7 +67,7 @@ public class BoardController {
 	}
 
 	//POST 방식으로 삭제 중
-	@PostMapping("/board-detail-delete")
+	@PostMapping("/board-detail-delete.act")
 	public Map<String, Long> boardDelete(@RequestBody Map<String, Long> params) {
 		Map<String, Long> result = new HashMap<>();
 		System.out.println(params);
@@ -77,14 +77,14 @@ public class BoardController {
 	}
 	
 	//실험 Delete로 하는것
-	@DeleteMapping("/board-detail-delete2")
+	@DeleteMapping("/board-detail-delete2.act")
 	public Board boardDelete2(@RequestParam long boardCode) {
 		Board board = boardService.findByBoardCode(boardCode);
 		return board;
 	}
 
 	// 전체 리스트업 샘플
-	@GetMapping("/read-all")
+	@GetMapping("/read-all.act")
 	public ResponseEntity<DataResponse> readAllBoard(@PageableDefault(page = 0, size = 10) Pageable pageable) {
 		DataResponse dataResponse = new DataResponse();
 		HttpHeaders headers = new HttpHeaders();
