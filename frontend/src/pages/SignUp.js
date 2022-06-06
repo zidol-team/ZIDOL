@@ -66,14 +66,14 @@ export default function SignUp() {
       };
       console.log("requestOptions : ", requestOptions);
 
-      fetch("/SignUp.act", requestOptions)
+      fetch("/sign-up.act", requestOptions)
         .then((res) => res.json())
         .then((res) => {
           console.log("res : ", res);
-          if (res.signUp === true) {
+          if (res.code === "OK") {
             alert("회원가입이 완료되었습니다.");
             window.location = "/SignIn";
-          } else {
+          } else if (res.code === "DUPLICATED_ID") {
             alert("회원가입이 완료되지 않았습니다. 다시 시도해 주세요.");
           }
         });

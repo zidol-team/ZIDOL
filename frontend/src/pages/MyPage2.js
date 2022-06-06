@@ -1,8 +1,7 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, PureComponent } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import Calendar from "./Calender";
 
-function MyPage() {
+function Mypage2() {
   const location = useLocation();
   const navigate = useNavigate();
   /*
@@ -61,12 +60,11 @@ function MyPage() {
 
   return (
     <>
-      <h1>MyPage</h1>
+      <h1>MyPage2</h1>
       <div>{user.userEmail}</div>
       <div>{user.userName}</div>
       <div>{user.userNickname}</div>
       <div></div>
-      <Calendar />
       <button
         onClick={() => {
           alert("로그아웃 되었습니다.");
@@ -76,8 +74,11 @@ function MyPage() {
       >
         로그아웃 버튼
       </button>
+      <div>차트</div>
+
+      <div>차트</div>
     </>
   );
 }
 
-export default MyPage;
+export default Mypage2;

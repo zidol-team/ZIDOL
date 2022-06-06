@@ -8,5 +8,7 @@ import com.zidol.fc.domain.CS;
 @Repository
 public interface CSRepository extends JpaRepository<CS, Long> {
 
-	public CS findByCsName(String csName);
+	public CS findByCsCode(long csCode);
+	
+	public int countByCsType(String csType);
 }

@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,9 +24,11 @@ import lombok.Setter;
 public class User {
 	
 	@OneToMany(mappedBy = "user")
+	@JsonManagedReference(value = "user-board")
 	private List<Board> board;
 	
 	@OneToMany(mappedBy = "user")
+	@JsonManagedReference(value = "user-cs")
 	private List<Achievement> css;
 	
 	@Id

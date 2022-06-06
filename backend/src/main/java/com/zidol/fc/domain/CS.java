@@ -2,12 +2,15 @@ package com.zidol.fc.domain;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -21,6 +24,7 @@ import lombok.Setter;
 public class CS {
 	
 	@OneToMany(mappedBy = "cs")
+	@JsonManagedReference(value = "cs")
 	private List<Achievement> users;
 
 	@Id
@@ -28,9 +32,11 @@ public class CS {
 	private long csCode;
 	
 	@NotNull
+	@Column
 	private String csType;
 	
 	@NotNull
+	@Column
 	private String csName;
 
 	@Builder
