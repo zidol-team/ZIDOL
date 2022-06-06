@@ -45,7 +45,7 @@ public class Board {
 	private String boardTitle;
 
 	@NotNull
-	@Column
+	@Column(columnDefinition = "TEXT")
 	private String boardContent;
 
 	@NotNull
@@ -69,5 +69,7 @@ public class Board {
 		this.boardContent = boardContent;
 		this.boardRegDate = boardRegDate;
 	}
+
+	
 
 }
