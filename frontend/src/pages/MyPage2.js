@@ -82,7 +82,7 @@ function Mypage2() {
       .then((res) => {
         console.log("res : ");
         console.log(res);
-        console.log(res.data.css);
+        // console.log(res.data.css);
 
         setCss(res.data.css);
       });
@@ -173,9 +173,9 @@ function Mypage2() {
         <div>
           <ChartCompWhole></ChartCompWhole>
         </div>
-        <div>
+        {/* <div>
           <ChartCompIndividual></ChartCompIndividual>
-        </div>
+        </div> */}
       </>
     </TotalContext.Provider>
   );

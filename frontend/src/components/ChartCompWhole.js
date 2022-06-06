@@ -24,16 +24,7 @@ export default function ChartCompWhole() {
   const [chartData, setChartData] = useState([]);
   const totalData = useContext(TotalContext);
   console.log(chartData);
-
-  useEffect(() => {
-    if (totalData != "undefined" && totalData != null) {
-      setChartData(totalData);
-    }
-
-    getWholePercent();
-
-    // 퍼센트에 해당하는 데이터들
-  }, [totalData]);
+  // console.log("hi");
 
   // totalData.done
   //   네트워크: 0
@@ -44,33 +35,11 @@ export default function ChartCompWhole() {
   // 자료구조: 3
   // 컴퓨터구조: 2
 
-  const getWholePercent = () => {
-    const totalCount =
-      chartData.total["네트워크"] +
-      chartData.total["데이터베이스"] +
-      chartData.total["디자인패턴"] +
-      chartData.total["알고리즘"] +
-      chartData.total["운영체제"] +
-      chartData.total["자료구조"] +
-      chartData.total["컴퓨터구조"];
-
-    const doneCount =
-      totalData.done["네트워크"] +
-      totalData.done["데이터베이스"] +
-      totalData.done["디자인패턴"] +
-      totalData.done["알고리즘"] +
-      totalData.done["운영체제"] +
-      totalData.done["자료구조"] +
-      totalData.done["컴퓨터구조"];
-    const wholePercent = (doneCount / totalCount) * 100;
-    console.log(wholePercent);
-  };
-
-  const checkData = () => {
-    console.log(totalData);
-    console.log(totalData.done);
-    console.log(totalData.total["네트워크"]);
-  };
+  // const checkData = () => {
+  //   console.log(totalData);
+  //   console.log(totalData.done);
+  //   console.log(totalData.total["네트워크"]);
+  // };
 
   // setChartData();
   // const chartData = totalData.percent;
@@ -101,19 +70,21 @@ export default function ChartCompWhole() {
     datasets: [
       {
         label: "Dataset 1",
-        data: [chartData],
+        data: [0],
         backgroundColor: "rgba(255, 99, 132, 0.5)",
       },
     ],
   };
   console.log();
 
+  useEffect(() => {}, []);
+
   return (
     <>
       <Bar options={options} data={data} />
       <button
         onClick={() => {
-          checkData();
+          // checkData();
         }}
       >
         버튼
