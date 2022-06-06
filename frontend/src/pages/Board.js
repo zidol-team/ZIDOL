@@ -18,7 +18,8 @@ const GetBoardList = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        setBoard(data.ListUp.content);
+        console.log(data.data.content);
+        setBoard(data.data.content);
         console.log(board);
       });
   }, []);
@@ -28,7 +29,7 @@ const GetBoardList = () => {
       <td>{a.boardCode}</td>
       <td
         onClick={() =>
-          navigate(`/NoticeDetail?boardCode=${a.boardCode}`, {
+          navigate(`/BoardDetail?boardCode=${a.boardCode}`, {
             state: { board, boardCode: a.boardCode },
           })
         }

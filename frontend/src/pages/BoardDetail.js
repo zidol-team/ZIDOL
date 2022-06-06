@@ -15,7 +15,7 @@ const BoardDetail = ({}) => {
   const deleteBoard = () => {
     const userCode = localStorage.getItem("userCode");
 
-    fetch("/board-detail-delete", {
+    fetch("/delete-board.act", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -27,7 +27,7 @@ const BoardDetail = ({}) => {
         userCode: userCode,
       }),
     }).then((ref) => {
-      navigate("/Notice");
+      navigate("/Board");
     });
   };
   useEffect(() => {
@@ -37,12 +37,13 @@ const BoardDetail = ({}) => {
       userName: localStorage.getItem("userName"),
       userNickname: localStorage.getItem("userNickname"),
     };
-    fetch(`/board-detail?boardCode=${changelocationCode}`, {
+    fetch(`/find-board.act?boardCode=${changelocationCode}`, {
       method: "GET",
     })
       .then((res) => res.json())
       .then((data) => {
-        setBoard(data);
+        console.log(data.data);
+        setBoard(data.data);
       });
   }, []);
 
@@ -50,43 +51,45 @@ const BoardDetail = ({}) => {
     <>
       <h2 align="center">게시글 상세정보</h2>
 
-      <div className="voc-view-wrapper">
-        <div className="voc-view-row">
+      <div className="view-wrapper">
+        <div className="view-row">
           <label>제목</label>
           <label>{board.boardTitle}</label>
         </div>
-        <div className="voc-view-row">
+        <div className="view-row">
           <label>작성일</label>
           <label>{board.boardRegDate}</label>
         </div>
-        <div className="voc-view-row"></div>
+        <div className="view-row"></div>
         <div className="content">{ReactHtmlParser(board.boardContent)}</div>
       </div>
 
-      <Button
-        variant="outlined"
-        onClick={() =>
-          navigate(`/NoticeModify`, {
-            state: {
-              boardTitle: board.boardTitle,
-              boardContent: board.boardContent,
-              boardCode: board.boardCode,
-            },
-          })
-        }
-      >
-        수정
-      </Button>
-      <Button
-        variant="outlined"
-        startIcon={<DeleteIcon />}
-        onClick={deleteBoard}
-      >
-        삭제
-      </Button>
-      <Button variant="outlined" onClick={() => navigate(`/Notice`)}>
-        목록
-      </Button>
+      <div style={{ marginTop: "20px", marginBottom: "20px" }}>
+        <Button
+          variant="outlined"
+          onClick={() =>
+            navigate(`/BoardModify`, {
+              state: {
+                boardTitle: board.boardTitle,
+                boardContent: board.boardContent,
+                boardCode: board.boardCode,
+              },
+            })
+          }
+        >
+          수정
+        </Button>
+        <Button
+          variant="outlined"
+          startIcon={<DeleteIcon />}
+          onClick={deleteBoard}
+        >
+          삭제
+        </Button>
+        <Button variant="outlined" onClick={() => navigate(`/Notice`)}>
+          목록
+        </Button>
+      </div>
       <Reply />
     </>
   );

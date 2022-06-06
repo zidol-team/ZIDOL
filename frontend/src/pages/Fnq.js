@@ -7,7 +7,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 export default function SimpleAccordion() {
   return (
-    <div style={{ marginTop: "50px" }}>
+    <div style={{ marginTop: "50px", marginLeft: "20%", marginRight: "20%" }}>
       <h2>공지사항</h2>
       <Accordion>
         <AccordionSummary

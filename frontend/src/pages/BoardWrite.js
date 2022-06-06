@@ -4,7 +4,7 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import "./Ckeditor.css";
 import Button from "@mui/material/Button";
 
-function NoticeWrite() {
+function BoardWrite() {
   const [qnaContent, setQnaContent] = useState({
     boardTitle: "",
     boardContent: "",
@@ -52,7 +52,7 @@ function NoticeWrite() {
         console.log(res);
 
         alert("등록완료");
-        window.location = "/Notice";
+        window.location = "/Board";
       });
   };
   return (
@@ -61,7 +61,7 @@ function NoticeWrite() {
       <br />
 
       <input
-        style={{ width: "90%", height: "40px", margin: "10px" }}
+        style={{ width: "70%", height: "40px", margin: "10px" }}
         onChange={getValue}
         placeholder="제목"
         type="text"
@@ -79,10 +79,14 @@ function NoticeWrite() {
           });
         }}
       />
-      <Button variant="outlined" onClick={PostSubmit}>
+      <Button
+        variant="outlined"
+        onClick={PostSubmit}
+        style={{ marginTop: "20px", marginBottom: "20px" }}
+      >
         등록
       </Button>
     </div>
   );
 }
-export default NoticeWrite;
+export default BoardWrite;

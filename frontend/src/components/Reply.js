@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import Grid from "@mui/material/Grid";
 
 const Reply = () => {
   const [reply, setReply] = useState("");
@@ -41,7 +43,7 @@ const Reply = () => {
   };
 
   return (
-    <div>
+    <div style={{ width: "100%" }}>
       {list.map((a, index) => (
         <tr key={index}>
           <td>{a.user}</td>
@@ -50,11 +52,22 @@ const Reply = () => {
           <Button onClick={"#"}>삭제</Button>
         </tr>
       ))}
+      <div style={{ width: "100%", justifyContent: "center", display: "flex" }}>
+        <TextField
+          id="standard-textarea"
+          value={reply}
+          onChange={changeReply}
+          label="댓글"
+          placeholder="댓글을 입력해주세요"
+          multiline
+          variant="standard"
+          style={{ width: "40%" }}
+        />
 
-      <input value={reply} onChange={changeReply}></input>
-      <Button variant="outlined" onClick={submitReply}>
-        댓글등록
-      </Button>
+        <Button variant="outlined" onClick={submitReply}>
+          댓글등록
+        </Button>
+      </div>
     </div>
   );
 };

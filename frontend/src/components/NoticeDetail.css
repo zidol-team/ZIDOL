@@ -1,26 +1,26 @@
-.voc-view-wrapper {
+.view-wrapper {
   width: 60%;
   margin: 0 auto;
 }
 
-.voc-view-go-list-btn {
+.view-go-list-btn {
   border: 0;
   padding: 10px;
   background-color: #ffd9d9;
 }
 
-.voc-view-row {
+.view-row {
   margin: 10px 0;
   display: flex;
 }
 
-.voc-view-row > label:first-child {
+.view-row > label:first-child {
   margin: 10px 0;
   width: 30%;
   font-weight: bold;
 }
 
-.voc-view-row > *:nth-child(2) {
+.view-row > *:nth-child(2) {
   margin: 10px 0;
   width: 70%;
 }
@@ -28,7 +28,6 @@
   align-items: center;
   margin: 0 auto;
   border-style: ridge;
-  border-radius: 10%;
   width: 80%;
-  height: 300px;
+  height: 200px;
 }
