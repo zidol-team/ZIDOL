@@ -1,34 +1,34 @@
 .voc-view-wrapper {
-    width: 60%;
-    margin: 0 auto;
+  width: 60%;
+  margin: 0 auto;
 }
 
 .voc-view-go-list-btn {
-    border: 0;
-    padding: 10px;
-    background-color: #ffd9d9;
+  border: 0;
+  padding: 10px;
+  background-color: #ffd9d9;
 }
 
 .voc-view-row {
-    margin: 10px 0;
-    display: flex;
+  margin: 10px 0;
+  display: flex;
 }
 
-.voc-view-row>label:first-child {
-    margin: 10px 0;
-    width: 30%;
-    font-weight: bold;
+.voc-view-row > label:first-child {
+  margin: 10px 0;
+  width: 30%;
+  font-weight: bold;
 }
 
-.voc-view-row>*:nth-child(2) {
-    margin: 10px 0;
-    width: 70%;
+.voc-view-row > *:nth-child(2) {
+  margin: 10px 0;
+  width: 70%;
 }
-.content{
-    align-items: center;
-    margin: 0 auto;
-    border-style: ridge;
-    border-radius: 10%;
-    width: 80%;
-    height: 500px;
+.content {
+  align-items: center;
+  margin: 0 auto;
+  border-style: ridge;
+  border-radius: 10%;
+  width: 80%;
+  height: 300px;
 }

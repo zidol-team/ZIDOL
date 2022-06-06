@@ -1,72 +1,62 @@
-import React, { useState } from "react";
-
+import React, { useState, useEffect } from "react";
+import Button from "@mui/material/Button";
 
 const Reply = () => {
-
-   
-
-    const [reply, setReply] = useState([]);
- 
-    const replyChange = (e) => {
-        
-        setReply(e.target.value);
-        console.log(reply)
-    };
-   
-    const addReply = () => {
-        fetch("/insert-reply",{
-            method: "POST",
-            body: JSON.stringify({
-                reply  
-              }),
-            })
-            .then((res) => res.json())
-            .then((res) => {
-              //console.log("res : ", res);
-              alert("등록완료");
-                  
-            });
-    };
-  /*
-    const removeReply = (ReplyCode) => { 
-      return setReply(reply.filter((reply) => reply.ReplyCode !== ReplyCode));
-    };
-  
-    const chagneReply = (ReplyCode, inputWord) => { 
-      return setComments(comments.map((comment) => {
-        if (comment.id === id) {
-          return {
-            ...comment,
-            content: inputWord,
-          };
-        }
-        return comment;
-      }));
-    };
-  */
-    return (
-      <div>
-        <input value={reply} onChange={replyChange}></input>
-        <button>
-          댓글달기
-        </button>
-        {/*
-        {reply.map((reply, index) => (
-          <CommentWrapper key={`${reply.userName}_${index}`}>
-            <UserInfoWrapper>
-              <p>{reply.userName}</p>
-              <Button onClick={removeReply}>삭제</Button>
-              <Button onClick={chagneReply}>
-                수정
-              </Button>
-            </UserInfoWrapper>
-            내용: {comment.content}
-          </CommentWrapper>
-        ))}
-        */}
-      </div>
-    );
+  const [reply, setReply] = useState("");
+  const [list, setList] = useState([]);
+  //list받아옴
+  useEffect(() => {
+    fetch("/#", {
+      method: "GET",
+      header: {
+        "content-type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setList(data);
+      });
+  }, []);
+  //댓글 보냄
+  const submitReply = () => {
+    fetch("/#", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json;charset=UTF-8",
+      },
+      body: JSON.stringify({
+        reply: reply,
+      }),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log("res : ", res);
+        alert("댓글등록완료");
+      });
   };
- 
-  export default Reply;
-  
+  const changeReply = (e) => {
+    setReply(e.target.value);
+    console.log(reply);
+  };
+
+  return (
+    <div>
+      {list.map((a, index) => (
+        <tr key={index}>
+          <td>{a.user}</td>
+          <td>{a.content}</td>
+          <Button onClick={"#"}>수정</Button>
+          <Button onClick={"#"}>삭제</Button>
+        </tr>
+      ))}
+
+      <input value={reply} onChange={changeReply}></input>
+      <Button variant="outlined" onClick={submitReply}>
+        댓글등록
+      </Button>
+    </div>
+  );
+};
+
+export default Reply;

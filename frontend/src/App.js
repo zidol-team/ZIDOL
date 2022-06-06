@@ -19,7 +19,7 @@ import SubjectDetail from "./pages/SubjectDetail";
 import SubjectInfo from "./pages/SubjectInfo";
 import Algorithm from "./data/algorithm";
 import DataStructure from "./data/dataStructure";
-import Calendar from "./pages/Calender";
+import Fnq from "./pages/Fnq";
 // 확인
 function App() {
   const [algorithm, setAlgorithm] = useState(Algorithm);
@@ -129,14 +129,17 @@ function App() {
             </>
           }
         ></Route>
-                 <Route
-          path="/Calendar"
+
+        <Route
+          path="Fnq"
           element={
             <>
-          <MainNavbar></MainNavbar>
-          <Calendar></Calendar>
-          </>}
+              <MainNavbar></MainNavbar>
+              <Fnq></Fnq>
+            </>
+          }
         ></Route>
+
         <Route path="/notice" element={<Notice></Notice>}></Route>
         <Route path="/mypage" element={<Mypage></Mypage>}></Route>
         <Route path="/SignIn" element={<SignIn></SignIn>}></Route>

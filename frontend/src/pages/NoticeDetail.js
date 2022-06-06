@@ -1,10 +1,10 @@
 import React, { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "../components/NoticeDetail.css";
-import Button from '@mui/material/Button';
-import DeleteIcon from '@mui/icons-material/Delete';
-import ReactHtmlParser from 'react-html-parser';
-
+import Button from "@mui/material/Button";
+import DeleteIcon from "@mui/icons-material/Delete";
+import ReactHtmlParser from "react-html-parser";
+import Reply from "../components/Reply";
 
 const BoardDetail = ({}) => {
   const location = useLocation();
@@ -13,6 +13,8 @@ const BoardDetail = ({}) => {
   const [board, setBoard] = useState([]);
 
   const deleteBoard = () => {
+    const userCode = localStorage.getItem("userCode");
+
     fetch("/board-detail-delete", {
       method: "POST",
       headers: {
@@ -21,12 +23,20 @@ const BoardDetail = ({}) => {
       },
       body: JSON.stringify({
         boardCode: changelocationCode,
+        // userEmail, userPassword 전송
+        userCode: userCode,
       }),
     }).then((ref) => {
       navigate("/Notice");
     });
   };
   useEffect(() => {
+    const userInfo = {
+      userCode: localStorage.getItem("userCode"),
+      userEmail: localStorage.getItem("userEmail"),
+      userName: localStorage.getItem("userName"),
+      userNickname: localStorage.getItem("userNickname"),
+    };
     fetch(`/board-detail?boardCode=${changelocationCode}`, {
       method: "GET",
     })
@@ -49,13 +59,12 @@ const BoardDetail = ({}) => {
           <label>작성일</label>
           <label>{board.boardRegDate}</label>
         </div>
-        <div className="voc-view-row">
-         
-         
-        </div>
+        <div className="voc-view-row"></div>
         <div className="content">{ReactHtmlParser(board.boardContent)}</div>
       </div>
-      <Button variant="outlined"
+
+      <Button
+        variant="outlined"
         onClick={() =>
           navigate(`/NoticeModify`, {
             state: {
@@ -68,16 +77,17 @@ const BoardDetail = ({}) => {
       >
         수정
       </Button>
-      <Button variant="outlined" startIcon={<DeleteIcon />}  onClick={deleteBoard}>
+      <Button
+        variant="outlined"
+        startIcon={<DeleteIcon />}
+        onClick={deleteBoard}
+      >
         삭제
       </Button>
-      <Button variant="outlined"
-        onClick={() =>
-          navigate(`/Notice`)
-        }
-      >
+      <Button variant="outlined" onClick={() => navigate(`/Notice`)}>
         목록
       </Button>
+      <Reply />
     </>
   );
 };

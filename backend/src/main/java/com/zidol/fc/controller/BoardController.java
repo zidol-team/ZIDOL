@@ -21,12 +21,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.zidol.fc.domain.Board;
 import com.zidol.fc.service.BoardService;
+import com.zidol.fc.service.UserService;
 
 @RestController
 public class BoardController {
 
 	@Autowired
 	BoardService boardService;
+	
+	@Autowired
+	UserService userService;
 	
 	// 게시글 전체 리스트업
 	@GetMapping("/find-all-board")
@@ -38,10 +42,19 @@ public class BoardController {
 
 	// 게시글 작성
 	@PostMapping("/insert-board")
-	public Map<String, Long> insertBoard(@RequestBody Map<String, Board> params) {
+	public Map<String, Long> insertBoard(@RequestBody Map<String, Object> params) {
 		Map<String, Long> result = new HashMap<>();
 		System.out.println(params.get("qnaContent"));
-		Board board = params.get("qnaContent");
+		Board board = (Board) params.get("board");
+		long userCode = (long) params.get("userCode");
+		if(userService.findByUserCode(userCode) != null) {
+			boardService.insertBoard(board);
+			result.put("boardCode", board.getBoardCode());
+			return result;
+		}else {
+			//return 400
+		}
+		
 		boardService.insertBoard(board);
 		result.put("boardCode", board.getBoardCode());
 		return result;
@@ -49,9 +62,9 @@ public class BoardController {
 
 	// 게시글 수정
 	@PostMapping("/board-modify")
-	public Map<String, Long> boardModify(@RequestBody Map<String, Board> params) {
+	public Map<String, Long> boardModify(@RequestBody Map<String, Object> params) {
 		Map<String, Long> result = new HashMap<>();
-		Board board = params.get("modifyContent");
+		Board board = (Board) params.get("modifyContent");
 		System.out.println(params.get("modifyContent"));
 		boardService.modifyBoard(board);
 		result.put("boardCode", board.getBoardCode());
