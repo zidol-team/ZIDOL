@@ -34,7 +34,7 @@ public class BoardController {
 	UserService userService;
 	
 	// 게시글 전체 리스트업
-	@GetMapping("/find-all-board")
+	@GetMapping("/find-all-board.act")
 	public Map<String, Page<Board>> findAllBoard(@PageableDefault(page = 0, size = 10) Pageable pageable) {
 		Map<String, Page<Board>> result = new HashMap<>();
 		result.put("ListUp", boardService.findAllBoard(pageable));

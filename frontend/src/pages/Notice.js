@@ -9,7 +9,7 @@ const GetBoardList = () => {
   const [board, setBoard] = useState([]);
 
   useEffect(() => {
-    fetch("/find-all-board", {
+    fetch("/find-all-board.act", {
       method: "GET",
       header: {
         "content-type": "application/json",
