@@ -20,13 +20,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.zidol.fc.domain.Board;
+import com.zidol.fc.domain.User;
 import com.zidol.fc.service.BoardService;
+import com.zidol.fc.service.UserService;
 
 @RestController
 public class BoardController {
 
 	@Autowired
 	BoardService boardService;
+	
+	@Autowired
+	UserService userService;
 	
 	// 게시글 전체 리스트업
 	@GetMapping("/find-all-board.act")
@@ -40,10 +45,18 @@ public class BoardController {
 	@PostMapping("/insert-board.act")
 	public Map<String, Long> insertBoard(@RequestBody Map<String, Board> params) {
 		Map<String, Long> result = new HashMap<>();
-		System.out.println(params.get("qnaContent"));
-		Board board = params.get("qnaContent");
-		boardService.insertBoard(board);
-		result.put("boardCode", board.getBoardCode());
+		System.out.println(params.get("board"));
+		Board board = (Board) params.get("board");
+		long userCode = (long) params.get("userCode");
+		User user = userService.findByUserCode(userCode);
+		
+		if(user != null) {
+			boardService.insertBoard(board);
+			result.put("boardCode", board.getBoardCode());
+			return result;
+		}else {
+			//return 404;
+		}
 		return result;
 	}
 
@@ -51,11 +64,17 @@ public class BoardController {
 	@PostMapping("/board-modify.act")
 	public Map<String, Long> boardModify(@RequestBody Map<String, Board> params) {
 		Map<String, Long> result = new HashMap<>();
-		Board board = params.get("modifyContent");
-		System.out.println(params.get("modifyContent"));
-		boardService.modifyBoard(board);
-		result.put("boardCode", board.getBoardCode());
-		return result;
+		Board board = (Board) params.get("modifyContent");
+		long userCode = (long) params.get("userCode");
+		User user = userService.findByUserCode(userCode);	
+		if(user != null) {
+			boardService.modifyBoard(board);
+			result.put("boardCode", board.getBoardCode());
+			return result;
+		}else {
+			//return 505;
+			return null;
+		}
 	}
 
 	// 게시글 상세페이지 이동
@@ -76,23 +95,30 @@ public class BoardController {
 		return result;
 	}
 	
-	//실험 Delete로 하는것
-	@DeleteMapping("/board-detail-delete2.act")
-	public Board boardDelete2(@RequestParam long boardCode) {
-		Board board = boardService.findByBoardCode(boardCode);
-		return board;
+	@PostMapping("/reply-insert")
+	public Map<String, Long> insertReply(@RequestBody Map<String, Long> params){
+		Map<String, Long> result = new HashMap<>();
+		
+		return result;
 	}
-
-	// 전체 리스트업 샘플
-	@GetMapping("/read-all.act")
-	public ResponseEntity<DataResponse> readAllBoard(@PageableDefault(page = 0, size = 10) Pageable pageable) {
-		DataResponse dataResponse = new DataResponse();
-		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
-
-		dataResponse.setData(boardService.findAllBoard(pageable));
-
-		return new ResponseEntity<>(dataResponse, headers, HttpStatus.OK);
-	}
+	
+//	//실험 Delete로 하는것
+//	@DeleteMapping("/board-detail-delete2")
+//	public Board boardDelete2(@RequestParam long boardCode) {
+//		Board board = boardService.findByBoardCode(boardCode);
+//		return board;
+//	}
+//
+//	// 전체 리스트업 샘플
+//	@GetMapping("/read-all")
+//	public ResponseEntity<DataResponse> readAllBoard(@PageableDefault(page = 0, size = 10) Pageable pageable) {
+//		DataResponse dataResponse = new DataResponse();
+//		HttpHeaders headers = new HttpHeaders();
+//		headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+//
+//		dataResponse.setData(boardService.findAllBoard(pageable));
+//
+//		return new ResponseEntity<>(dataResponse, headers, HttpStatus.OK);
+//	}
 
 }
