@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+import Calendar from "./Calender";
 
 function MyPage() {
   const location = useLocation();
@@ -65,6 +66,7 @@ function MyPage() {
       <div>{user.userName}</div>
       <div>{user.userNickname}</div>
       <div></div>
+      <Calendar />
       <button
         onClick={() => {
           alert("로그아웃 되었습니다.");

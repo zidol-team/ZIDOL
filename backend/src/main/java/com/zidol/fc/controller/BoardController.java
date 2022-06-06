@@ -1,7 +1,6 @@
 package com.zidol.fc.controller;
 
 import java.nio.charset.Charset;
-import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,13 +10,16 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.zidol.fc.domain.Board;
+import com.zidol.fc.domain.Reply;
 import com.zidol.fc.domain.User;
 import com.zidol.fc.error.ErrorResponse;
 import com.zidol.fc.error.board.DeleteByUnauthUserException;
@@ -48,6 +50,30 @@ public class BoardController {
 		return new ResponseEntity<DataResponse>(dataResponse, headers, HttpStatus.OK);
 	}
 
+	// 게시글 상세페이지 이동
+	@GetMapping("/find-board.act")
+	public ResponseEntity<DataResponse> findBoard(@RequestParam long boardCode) {
+		DataResponse dataResponse = new DataResponse();
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+
+		Board board = boardService.findByBoardCode(boardCode);
+
+		if (board != null) {
+			dataResponse.setStatus(StatusCode.OK.getStatus());
+			dataResponse.setCode(StatusCode.OK.getCode());
+			dataResponse.setData(board);
+
+			return new ResponseEntity<DataResponse>(dataResponse, headers, HttpStatus.OK);
+		} else {
+			dataResponse.setStatus(StatusCode.NOT_FOUND.getStatus());
+			dataResponse.setCode(StatusCode.NOT_FOUND.getCode());
+
+			return new ResponseEntity<DataResponse>(dataResponse, headers, HttpStatus.NOT_FOUND);
+		}
+
+	}
+
 	// 게시글 작성
 	@PostMapping("/insert-board.act")
 	public ResponseEntity<DataResponse> insertBoard(@RequestBody Map<String, String> params) {
@@ -75,22 +101,22 @@ public class BoardController {
 	}
 
 	// 게시글 수정
-	@PostMapping("/board-modify.act")
-	public ResponseEntity<DataResponse> boardModify(@RequestBody Map<String, String> params) {
+	@PutMapping("/update-board.act")
+	public ResponseEntity<DataResponse> updateBoard(@RequestBody Map<String, String> params) {
 		DataResponse dataResponse = new DataResponse();
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
 
 		Board board = boardService.findByBoardCode(Long.parseLong(params.get("boardCode")));
 		User user = board.getUser();
-		
+
 		board.setBoardTitle(params.get("boardTitle"));
 		board.setBoardContent(params.get("boardContent"));
 
 		if (Long.parseLong(params.get("userCode")) == user.getUserCode()) {
 			dataResponse.setStatus(StatusCode.OK.getStatus());
 			dataResponse.setCode(StatusCode.OK.getCode());
-			dataResponse.setData(boardService.modifyBoard(board));
+			dataResponse.setData(boardService.updateBoard(board));
 
 			return new ResponseEntity<DataResponse>(dataResponse, headers, HttpStatus.OK);
 		} else {
@@ -100,16 +126,43 @@ public class BoardController {
 		}
 	}
 
-	// 게시글 상세페이지 이동
-	@GetMapping("/board-detail.act")
-	public ResponseEntity<DataResponse> boardDetail(@RequestParam long boardCode) {
+	// 게시글 삭제
+	@DeleteMapping("/delete-board.act")
+	public ResponseEntity<DataResponse> deleteBoard(@RequestBody Map<String, Long> params) {
 		DataResponse dataResponse = new DataResponse();
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
 
-		Board board = boardService.findByBoardCode(boardCode);
+		Board board = boardService.findByBoardCode(params.get("boardCode"));
+		User user = board.getUser();
 
-		if (board != null) {
+		if (params.get("userCode") == user.getUserCode()) {
+			boardService.deleteAllReply(board.getReply());
+			boardService.deleteBoard(params.get("boardCode"));
+			dataResponse.setStatus(StatusCode.OK.getStatus());
+			dataResponse.setCode(StatusCode.OK.getCode());
+
+			return new ResponseEntity<DataResponse>(dataResponse, headers, HttpStatus.OK);
+		} else {
+			ErrorResponse.CustomFieldError customFieldError = new ErrorResponse.CustomFieldError("Board",
+					String.valueOf(params.get("userCode")), "작성자만 글을 삭제할 수 있습니다.");
+			throw new DeleteByUnauthUserException(customFieldError);
+		}
+
+	}
+
+	// 댓글 등록
+	@PostMapping("/insert-reply.act")
+	public ResponseEntity<DataResponse> insertReply(@RequestBody Map<String, String> params) {
+		DataResponse dataResponse = new DataResponse();
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+
+		User user = userService.findByUserCode(Long.parseLong(params.get("userCode")));
+		Board board = boardService.findByBoardCode(Long.parseLong(params.get("boardCode")));
+		Reply reply = Reply.builder().user(user).board(board).replyContent(params.get("replyContent")).build();
+
+		if (boardService.insertReply(reply) != null) {
 			dataResponse.setStatus(StatusCode.OK.getStatus());
 			dataResponse.setCode(StatusCode.OK.getCode());
 			dataResponse.setData(board);
@@ -124,54 +177,51 @@ public class BoardController {
 
 	}
 
-	// POST 방식으로 삭제 중
-	@PostMapping("/board-detail-delete.act")
-	public ResponseEntity<DataResponse> boardDelete(@RequestBody Map<String, Long> params) {
+	// 댓글 수정
+	@PutMapping("/update-reply.act")
+	public ResponseEntity<DataResponse> updateReply(@RequestBody Map<String, String> params) {
 		DataResponse dataResponse = new DataResponse();
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
 
-		Board board = boardService.findByBoardCode(params.get("boardCode"));
-		User user = board.getUser();
+		Reply reply = boardService.findByReplyCode(Long.parseLong(params.get("replyCode")));
+		User user = reply.getUser();
 
-		if (params.get("userCode") == user.getUserCode()) {
-			boardService.deleteBoard(params.get("boardCode"));
+		reply.setReplyContent(params.get("boardTitle"));
+
+		if (Long.parseLong(params.get("userCode")) == user.getUserCode()) {
 			dataResponse.setStatus(StatusCode.OK.getStatus());
 			dataResponse.setCode(StatusCode.OK.getCode());
-			
+			dataResponse.setData(boardService.updateReply(reply));
+
 			return new ResponseEntity<DataResponse>(dataResponse, headers, HttpStatus.OK);
-		}else {
-			ErrorResponse.CustomFieldError customFieldError = new ErrorResponse.CustomFieldError("Board",
-					String.valueOf(params.get("userCode")), "작성자만 글을 삭제할 수 있습니다.");
+		} else {
+			ErrorResponse.CustomFieldError customFieldError = new ErrorResponse.CustomFieldError("Reply",
+					params.get("userCode"), "작성자만 댓글을 수정할 수 있습니다.");
+			throw new UpdateByUnauthUserException(customFieldError);
+		}
+	}
+
+	// 댓글 삭제
+	@DeleteMapping("/delete-reply.act")
+	public ResponseEntity<DataResponse> deleteReply(@RequestBody Map<String, Long> params) {
+		DataResponse dataResponse = new DataResponse();
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+
+		Reply reply = boardService.findByReplyCode(params.get("replyCode"));
+		User user = reply.getUser();
+
+		if (params.get("userCode") == user.getUserCode()) {
+			boardService.deleteReply(params.get("replyCode"));
+			dataResponse.setStatus(StatusCode.OK.getStatus());
+			dataResponse.setCode(StatusCode.OK.getCode());
+
+			return new ResponseEntity<DataResponse>(dataResponse, headers, HttpStatus.OK);
+		} else {
+			ErrorResponse.CustomFieldError customFieldError = new ErrorResponse.CustomFieldError("Reply",
+					String.valueOf(params.get("userCode")), "작성자만 댓글을 삭제할 수 있습니다.");
 			throw new DeleteByUnauthUserException(customFieldError);
 		}
-
 	}
-
-	@PostMapping("/reply-insert")
-	public Map<String, Long> insertReply(@RequestBody Map<String, Long> params) {
-		Map<String, Long> result = new HashMap<>();
-
-		return result;
-	}
-
-//	//실험 Delete로 하는것
-//	@DeleteMapping("/board-detail-delete2")
-//	public Board boardDelete2(@RequestParam long boardCode) {
-//		Board board = boardService.findByBoardCode(boardCode);
-//		return board;
-//	}
-//
-//	// 전체 리스트업 샘플
-//	@GetMapping("/read-all")
-//	public ResponseEntity<DataResponse> readAllBoard(@PageableDefault(page = 0, size = 10) Pageable pageable) {
-//		DataResponse dataResponse = new DataResponse();
-//		HttpHeaders headers = new HttpHeaders();
-//		headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
-//
-//		dataResponse.setData(boardService.findAllBoard(pageable));
-//
-//		return new ResponseEntity<>(dataResponse, headers, HttpStatus.OK);
-//	}
-
 }

@@ -27,8 +27,13 @@ import lombok.Setter;
 public class Reply {
 	
 	@ManyToOne
+	@JoinColumn(name = "user_code")
+	@JsonBackReference(value = "user-reply")
+	private User user;
+	
+	@ManyToOne
 	@JoinColumn(name = "board_code")
-	@JsonBackReference
+	@JsonBackReference(value = "board-reply")
 	private Board board;
 	
 	@Id
@@ -50,10 +55,14 @@ public class Reply {
 	}
 
 	@Builder
-	public Reply(long replyCode, @NotNull String replyContent, @NotNull LocalDate replyRegdate) {
+	public Reply(User user, Board board, long replyCode, @NotNull String replyContent,
+			@NotNull LocalDate replyRegdate) {
 		super();
+		this.user = user;
+		this.board = board;
 		this.replyCode = replyCode;
 		this.replyContent = replyContent;
 		this.replyRegdate = replyRegdate;
 	}
+
 }
