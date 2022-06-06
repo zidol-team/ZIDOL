@@ -54,7 +54,7 @@ function View() {
           {item}
         </CommonTable>
         <div style={{ marginTop: "50px" }}>
-          <Button variant="outlined" onClick={() => navigate(`/NoticeWrite`)}>
+          <Button variant="outlined" onClick={() => navigate(`/BoardWrite`)}>
             글쓰기
           </Button>
         </div>
