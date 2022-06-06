@@ -149,7 +149,7 @@ public class BoardController {
 
 	}
 
-	// 리플 등록
+	// 댓글 등록
 	@PostMapping("/insert-reply.act")
 	public ResponseEntity<DataResponse> insertReply(@RequestBody Map<String, String> params) {
 		DataResponse dataResponse = new DataResponse();
@@ -175,7 +175,7 @@ public class BoardController {
 
 	}
 
-	// 리플 수정
+	// 댓글 수정
 	@PostMapping("/update-reply.act")
 	public ResponseEntity<DataResponse> updateReply(@RequestBody Map<String, String> params) {
 		DataResponse dataResponse = new DataResponse();
