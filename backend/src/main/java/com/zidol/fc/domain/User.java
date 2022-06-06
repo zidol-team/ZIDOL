@@ -28,6 +28,10 @@ public class User {
 	private List<Board> board;
 	
 	@OneToMany(mappedBy = "user")
+	@JsonManagedReference(value = "user-reply")
+	private List<Reply> reply;
+	
+	@OneToMany(mappedBy = "user")
 	@JsonManagedReference(value = "user-cs")
 	private List<Achievement> css;
 	
@@ -52,10 +56,11 @@ public class User {
 	private String userNickname;
 
 	@Builder
-	public User(List<Board> board, List<Achievement> css, long userCode, @NotNull String userEmail,
+	public User(List<Board> board, List<Reply> reply, List<Achievement> css, long userCode, @NotNull String userEmail,
 			@NotNull String userPassword, @NotNull String userName, @NotNull String userNickname) {
 		super();
 		this.board = board;
+		this.reply = reply;
 		this.css = css;
 		this.userCode = userCode;
 		this.userEmail = userEmail;
