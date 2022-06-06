@@ -21,7 +21,7 @@ const Reply = () => {
   }, []);
   //댓글 보냄
   const submitReply = () => {
-    fetch("/#", {
+    fetch("/insert-reply.act", {
       method: "POST",
       headers: {
         Accept: "application/json",
