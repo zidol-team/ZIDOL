@@ -18,6 +18,10 @@ import SubjectDetail from "./pages/SubjectDetail";
 import SubjectInfo from "./pages/SubjectInfo";
 import Algorithm from "./data/algorithm";
 import DataStructure from "./data/dataStructure";
+import Admin from "./pages/Admin";
+import AdminWrite from "./pages/AdminWrite";
+import AdminDetail from "./pages/AdminDetail";
+import AdminModify from "./pages/AdminModify";
 
 // 확인
 function App() {
@@ -134,6 +138,16 @@ function App() {
         <Route
           path="/NoticeModify"
           element={<NoticeModify></NoticeModify>}
+        ></Route>
+        <Route path="/Admin" element={<Admin></Admin>}></Route>
+        <Route path="/AdminWrite" element={<AdminWrite></AdminWrite>}></Route>
+        <Route
+          path="/AdminDetail"
+          element={<AdminDetail></AdminDetail>}
+        ></Route>
+        <Route
+          path="/AdminModify"
+          element={<AdminModify></AdminModify>}
         ></Route>
         <Route path="*" element={<FourZeroFour></FourZeroFour>}></Route>
       </Routes>
