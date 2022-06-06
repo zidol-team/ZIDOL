@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.zidol.fc.domain.Board;
 import com.zidol.fc.repository.BoardRepository;
 import com.zidol.fc.repository.ReplyRepository;
-import com.zidol.fc.repository.UserRepository;
 
 @Service
 public class BoardService {
@@ -23,12 +22,12 @@ public class BoardService {
 		return boardRepository.findAll(pageable);
 	}
 	
-	public void insertBoard(Board board) {
-		boardRepository.save(board);
+	public Board insertBoard(Board board) {
+		return boardRepository.save(board);
 	}
 	
-	public void modifyBoard(Board board) {
-		boardRepository.save(board);
+	public Board modifyBoard(Board board) {
+		return boardRepository.save(board);
 	}
 
 	public Board findByBoardCode(long boardCode) {
@@ -36,7 +35,7 @@ public class BoardService {
 	}
 	
 	public void deleteBoard(long boardCode) {
-		 boardRepository.deleteById(boardCode);
+		boardRepository.deleteById(boardCode);
 	}
 	
 }
