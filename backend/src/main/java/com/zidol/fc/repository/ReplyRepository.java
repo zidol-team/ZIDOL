@@ -8,4 +8,5 @@ import com.zidol.fc.domain.Reply;
 @Repository
 public interface ReplyRepository extends JpaRepository<Reply, Long>{
 	
+	public Reply findByReplyCode(long replyCode);
 }
