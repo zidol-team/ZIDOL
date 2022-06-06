@@ -48,6 +48,4 @@ public class CSContent {
 		this.csRegdate = csRegdate;
 	}
 	
-	
-	
 }

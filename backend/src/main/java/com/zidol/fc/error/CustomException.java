@@ -1,5 +1,6 @@
 package com.zidol.fc.error;
 
+
 import java.io.Serial;
 
 import lombok.Getter;
