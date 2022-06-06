@@ -24,39 +24,36 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity
-public class Achievement {
+public class Reply {
+	
+	@ManyToOne
+	@JoinColumn(name = "board_code")
+	@JsonBackReference
+	private Board board;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long achievementCode;
-	
-	@ManyToOne
-	@JoinColumn(name = "user_code")
-	@JsonBackReference(value = "user-cs")
-	private User user;
-	
-	@ManyToOne
-	@JoinColumn(name = "cs_code")
-	@JsonBackReference(value = "cs")
-	private CS cs;
+	private long replyCode;
 	
 	@NotNull
 	@Column
-	private LocalDate achievementRegDate;
+	private String replyContent;
+	
+	@NotNull
+	@Column
+	private LocalDate replyRegdate;
 	
 	@PrePersist
 	@PreUpdate
 	public void createdAt() {
-		this.achievementRegDate = LocalDate.now();
+		this.replyRegdate = LocalDate.now();
 	}
 
 	@Builder
-	public Achievement(long achievementCode, User user, CS cs, @NotNull LocalDate achievementRegDate) {
+	public Reply(long replyCode, @NotNull String replyContent, @NotNull LocalDate replyRegdate) {
 		super();
-		this.achievementCode = achievementCode;
-		this.user = user;
-		this.cs = cs;
-		this.achievementRegDate = achievementRegDate;
+		this.replyCode = replyCode;
+		this.replyContent = replyContent;
+		this.replyRegdate = replyRegdate;
 	}
-	
 }
