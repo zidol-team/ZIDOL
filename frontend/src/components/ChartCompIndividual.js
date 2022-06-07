@@ -10,6 +10,7 @@ import {
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
 import { TotalContext } from "../context/TotalContext";
+import "./ChartCompIndividual.css";
 
 ChartJS.register(
   CategoryScale,
@@ -25,16 +26,10 @@ export default function ChartCompIndividual() {
   const [chartLabel, setChartLabel] = useState("");
   const [chartData, setChartData] = useState(0);
   const totalData = useContext(TotalContext);
-  const csTypes = [
-    "알고리즘",
-    "자료구조",
-    "컴퓨터구조",
-    "데이터베이스",
-    "네트워크",
-    "운영체제",
-    "면접질문",
-    "디자인패턴",
-  ];
+  const [success, setSuccess] = useState(false);
+
+  const csTypes1 = ["알고리즘", "자료구조", "컴퓨터구조", "데이터베이스"];
+  const csTypes2 = ["네트워크", "운영체제", "면접질문", "디자인패턴"];
 
   const getIndividualData = () => {
     //
@@ -48,14 +43,10 @@ export default function ChartCompIndividual() {
         max: 100,
       },
     },
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         position: "top",
-      },
-
-      title: {
-        display: true,
-        text: "개별 과목 진도 확인",
       },
     },
   };
@@ -86,12 +77,27 @@ export default function ChartCompIndividual() {
     setChartData(individualChartData[csType]);
   };
 
-  const csCheckButton = csTypes.map((csType, index) => (
+  const csCheckButton1 = csTypes1.map((csType, index) => (
     <div key={index}>
       <button
         onClick={() => {
           setCsTypeChart(csType, index);
+          setSuccess(true);
         }}
+        className="csNameButton"
+      >
+        {csType}
+      </button>
+    </div>
+  ));
+  const csCheckButton2 = csTypes2.map((csType, index) => (
+    <div key={index}>
+      <button
+        onClick={() => {
+          setCsTypeChart(csType, index);
+          setSuccess(true);
+        }}
+        className="csNameButton"
       >
         {csType}
       </button>
@@ -100,9 +106,37 @@ export default function ChartCompIndividual() {
 
   return (
     <>
-      <Bar options={options} data={data} width={"500"} height={"300"} />
-
-      {csCheckButton}
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-around",
+        }}
+      >
+        {csCheckButton1}
+      </div>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-around",
+        }}
+      >
+        {csCheckButton2}
+      </div>
+      <div>
+        <Bar options={options} data={data} />
+      </div>
+      <div>
+        {success === true ? (
+          <>
+            <div>전체 {totalData.total[chartLabel]} 개 항목 중</div>
+            <div>{totalData.done[chartLabel]} 개 완료</div>
+          </>
+        ) : (
+          <></>
+        )}
+      </div>
     </>
   );
 }
