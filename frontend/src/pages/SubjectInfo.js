@@ -23,18 +23,9 @@ const SubjectInfo = ({}, index) => {
   보내야할 것(선택한 목록의 csCode) = location.state.csCode
   */
 
-  console.log(studyData.csContent.csContent);
-  // console.log(location.state);
-  // console.log(dataStructure);
-  // console.log(location.state.csContent);
-  // console.log(location.state.selected);
-  // console.log(algorithm);
-
   // 선택한 목차와 내용을 저장한 데이터의 title과 같은지 비교
   // const mapSubjectInfo = studyData.map((a, index) => {
-  // console.log(a.content);
   // if (location.state.selected === a.title) {
-  //   // console.log(a.content);
   //   return <div key={index}>{a.content}</div>;
   // }
   // });
@@ -55,10 +46,7 @@ const SubjectInfo = ({}, index) => {
 
   // 버튼 눌렀을때 전송 (csCode)
   const handleSubmit = (event) => {
-    // event.preventDefault();
-    // const data = new FormData(event.currentTarget);
     console.log("csCode " + csCode + " 클릭했음");
-
     const requestOptions = {
       method: "POST",
       headers: {
@@ -92,10 +80,8 @@ const SubjectInfo = ({}, index) => {
     <>
       <h1>{location.state.csType}</h1>
       <h3>{location.state.selected}</h3>
-      {/* <div>{mapSubjectInfo}</div> */}
       <span align="left">
         <ReactMarkdown rehypePlugins={[rehypeRaw]} children={item2} />,
-        {/* {ReactHtmlParser(csList.csContent)}/ */}
       </span>
 
       <button
