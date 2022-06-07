@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+import "./SubjectDetail.css";
 
 const SubjectDetail = ({}) => {
   const navigate = useNavigate();
@@ -17,6 +18,7 @@ const SubjectDetail = ({}) => {
       return (
         <div
           key={index}
+          className="subjectList"
           onClick={() => {
             navigate(`/cs-study/subject-detail/${a.csType}/${a.csCode}`, {
               state: {
@@ -29,11 +31,9 @@ const SubjectDetail = ({}) => {
                 csType: a.csType,
                 csCode: a.csCode,
                 csContent: a.csContent,
-                // studyData: studyData,
                 selected: a.csName,
               },
             });
-            // alert("클릭적용");
           }}
         >
           {a.csName}
@@ -44,8 +44,14 @@ const SubjectDetail = ({}) => {
 
   return (
     <>
-      <h1>선택과목 : {location.state.csType}</h1>
-      <div>{mapStudyData}</div>
+      <div className="subjectDetailContainer">
+        <div className="subjectDetailContainer">
+          <div className="subjectDetailTitle">
+            <h1>{location.state.csType}</h1>
+          </div>
+          <div className="listContainer">{mapStudyData}</div>
+        </div>
+      </div>
     </>
   );
 };

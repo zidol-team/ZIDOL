@@ -5,6 +5,7 @@ import DataStructure from "../data/dataStructure";
 
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
+import "./SubjectInfo.css";
 
 const SubjectInfo = ({}, index) => {
   const location = useLocation();
@@ -78,19 +79,32 @@ const SubjectInfo = ({}, index) => {
 
   return (
     <>
-      <h1>{location.state.csType}</h1>
-      <h3>{location.state.selected}</h3>
-      <span align="left">
-        <ReactMarkdown rehypePlugins={[rehypeRaw]} children={item2} />,
-      </span>
+      <div className="subjectInfoContainer">
+        <div className="subjectInfoMainContainer">
+          <div className="subjectInfoHeader">
+            <div className="csTypeTitle">
+              <h1>{location.state.csType}</h1>
+            </div>
+            <div className="csTypeSelected">
+              <h3>{location.state.selected}</h3>
+            </div>
+          </div>
+          <span align="left">
+            <ReactMarkdown rehypePlugins={[rehypeRaw]} children={item2} />,
+          </span>
 
-      <button
-        onClick={() => {
-          handleSubmit();
-        }}
-      >
-        공부완료
-      </button>
+          <div className="studyDoneButtonContainer">
+            <button
+              className="studyDoneButton"
+              onClick={() => {
+                handleSubmit();
+              }}
+            >
+              공부완료
+            </button>
+          </div>
+        </div>
+      </div>
     </>
   );
 };
