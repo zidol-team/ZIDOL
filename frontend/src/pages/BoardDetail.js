@@ -11,46 +11,55 @@ const BoardDetail = ({}) => {
   const navigate = useNavigate();
   const changelocationCode = location.state.boardCode;
   const [board, setBoard] = useState([]);
+  const [list, setList] = useState([]);
+  const userName = localStorage.getItem("userName");
+  const userCode = localStorage.getItem("userCode");
 
-  const deleteBoard = () => {
-    const userCode = localStorage.getItem("userCode");
-
-    fetch("/delete-board.act", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json;charset=UTF-8",
-      },
-      body: JSON.stringify({
-        boardCode: changelocationCode,
-        // userEmail, userPassword 전송
-        userCode: userCode,
-      }),
-    }).then((ref) => {
-      navigate("/Board");
-    });
-  };
   useEffect(() => {
-    const userInfo = {
-      userCode: localStorage.getItem("userCode"),
-      userEmail: localStorage.getItem("userEmail"),
-      userName: localStorage.getItem("userName"),
-      userNickname: localStorage.getItem("userNickname"),
-    };
     fetch(`/find-board.act?boardCode=${changelocationCode}`, {
       method: "GET",
     })
       .then((res) => res.json())
       .then((data) => {
         console.log(data.data);
+        console.log(data.data.reply);
         setBoard(data.data);
+        setList(data.data.reply);
       });
-  }, []);
+  }, [list]);
+
+  const deleteBoard = () => {
+    fetch("/delete-board.act", {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json;charset=UTF-8",
+      },
+      body: JSON.stringify({
+        boardCode: changelocationCode,
+        userCode: userCode,
+      }),
+    }).then((ref) => {
+      navigate("/Board");
+    });
+  };
+  const deleteReply = (replyCode) => {
+    console.log(replyCode);
+    fetch("/delete-reply.act", {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json;charset=UTF-8",
+      },
+      body: JSON.stringify({
+        replyCode: replyCode,
+        userCode: userCode,
+      }),
+    }).then((ref) => {});
+  };
 
   return (
     <>
-      <h2 align="center">게시글 상세정보</h2>
-
       <div className="view-wrapper">
         <div className="view-row">
           <label>제목</label>
@@ -86,11 +95,26 @@ const BoardDetail = ({}) => {
         >
           삭제
         </Button>
-        <Button variant="outlined" onClick={() => navigate(`/Notice`)}>
+        <Button variant="outlined" onClick={() => navigate(`/Board`)}>
           목록
         </Button>
+        <div
+          style={{ width: "80%", marginLeft: "500px", marginRight: "500px" }}
+        >
+          {list.map((a, index) => (
+            <tr key={index}>
+              <td>{userName}</td>
+              <td style={{ marginRight: "100px" }}>{a.replyContent}</td>
+              <td>{a.replyRegdate}</td>
+
+              <td>
+                <Button onClick={() => deleteReply(a.replyCode)}>삭제</Button>
+              </td>
+            </tr>
+          ))}
+        </div>
+        <Reply board={board} />
       </div>
-      <Reply />
     </>
   );
 };

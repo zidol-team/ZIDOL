@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import CommonTable from "../components/CommonTable";
-import CommonTableColumn from "../components/CommonTableColumn";
 import CommonTableRow from "../components/CommonTableRow";
 import Button from "@mui/material/Button";
 
@@ -20,7 +19,6 @@ const GetBoardList = () => {
       .then((data) => {
         console.log(data.data.content);
         setBoard(data.data.content);
-        console.log(board);
       });
   }, []);
 
@@ -54,7 +52,7 @@ function View() {
           {item}
         </CommonTable>
         <div style={{ marginTop: "50px" }}>
-          <Button variant="outlined" onClick={() => navigate(`/NoticeWrite`)}>
+          <Button variant="outlined" onClick={() => navigate(`/BoardWrite`)}>
             글쓰기
           </Button>
         </div>
