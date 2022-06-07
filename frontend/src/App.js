@@ -11,6 +11,7 @@ import BoardModify from "./pages/BoardModify";
 import Mypage from "./pages/MyPage";
 import Mypage2 from "./pages/MyPage2";
 import FourZeroFour from "./pages/FourZeroFour";
+
 import MainNavbar from "./components/MainNavbar";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";

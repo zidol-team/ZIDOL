@@ -49,7 +49,7 @@ function MyPage() {
     };
     console.log("requestOptions : ", requestOptions);
 
-    fetch("/achievement.act", requestOptions)
+    fetch("/find-all-achievement.act", requestOptions)
       .then((res) => res.json())
       .then((res) => {
         console.log("res : ");
