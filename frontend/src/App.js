@@ -34,8 +34,8 @@ function App() {
       {/* 라우터 */}
       <Routes>
         <Route exact path="/" element={<Home></Home>}></Route>
-        <Route path="/signin" element={<SignIn></SignIn>}></Route>
-        <Route path="/signup" element={<SignUp></SignUp>}></Route>
+        <Route path="/SignIn" element={<SignIn></SignIn>}></Route>
+        <Route path="/SignUp" element={<SignUp></SignUp>}></Route>
         <Route
           path="/cs-study"
           element={
@@ -136,8 +136,7 @@ function App() {
 
         <Route path="/notice" element={<Board></Board>}></Route>
         <Route path="/mypage" element={<Mypage></Mypage>}></Route>
-        <Route path="/SignIn" element={<SignIn></SignIn>}></Route>
-        <Route path="/SignUp" element={<SignUp></SignUp>}></Route>
+
         <Route
           path="/BoardModify"
           element={<BoardModify></BoardModify>}
