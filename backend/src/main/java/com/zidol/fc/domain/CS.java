@@ -25,6 +25,7 @@ import lombok.Setter;
 public class CS {
 	
 	@OneToOne(mappedBy = "cs")
+	@JsonManagedReference(value = "cs-content")
 	private CSContent csContent;
 	
 	@OneToMany(mappedBy = "cs")

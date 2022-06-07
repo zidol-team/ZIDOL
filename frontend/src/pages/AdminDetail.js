@@ -1,34 +1,32 @@
 import React, { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import ReactHtmlParser from "react-html-parser";
+import "../components/NoticeDetail.css";
+import Button from "@mui/material/Button";
 
-const BoardDetail = ({}) => {
+import ReactMarkdown from "react-markdown";
+import rehypeRaw from "rehype-raw";
+
+const AdminDetail = ({}) => {
   const location = useLocation();
   const navigate = useNavigate();
-  const changelocationCode = location.state.boardCode;
-  const [board, setBoard] = useState([]);
+  const changelocationCode = location.state.csCode;
+  const [csList, setcsList] = useState([]);
 
-  const deleteBoard = () => {
-    fetch("/board-detail-delete", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json;charset=UTF-8",
-      },
-      body: JSON.stringify({
-        boardCode: changelocationCode,
-      }),
-    }).then((ref) => {
-      navigate("/Admin");
-    });
-  };
+  const item2 = `${csList.csContent}`;
   useEffect(() => {
-    fetch(`/board-detail?boardCode=${changelocationCode}`, {
+    const userInfo = {
+      userCode: localStorage.getItem("userCode"),
+      userEmail: localStorage.getItem("userEmail"),
+      userName: localStorage.getItem("userName"),
+      userNickname: localStorage.getItem("userNickname"),
+    };
+    fetch(`/find-admin-cs.act?csCode=${changelocationCode}`, {
       method: "GET",
     })
       .then((res) => res.json())
       .then((data) => {
-        setBoard(data);
+        // console.log(data.data);
+        setcsList(data.data);
       });
   }, []);
 
@@ -36,37 +34,44 @@ const BoardDetail = ({}) => {
     <>
       <h2 align="center">게시글 상세정보</h2>
 
-      <div className="voc-view-wrapper">
-        <div className="voc-view-row">
+      <div className="view-wrapper">
+        <div className="view-row">
           <label>제목</label>
-          <label>{board.boardTitle}</label>
+          <label>{csList.csName}</label>
         </div>
-        <div className="voc-view-row">
+        <div className="view-row">
           <label>작성일</label>
-          <label>{board.boardRegDate}</label>
+          <label>{csList.csRegdate}</label>
         </div>
-        <div className="voc-view-row">
-          <label>내용</label>
-          <div>{ReactHtmlParser(board.boardContent)}</div>
-        </div>
+        <div className="view-row"></div>
+        <span align="left">
+          <ReactMarkdown rehypePlugins={[rehypeRaw]} children={item2} />,
+          {/* {ReactHtmlParser(csList.csContent)}/ */}
+        </span>
       </div>
-      <button
-        onClick={() =>
-          navigate(`/AdminModify`, {
-            state: {
-              boardTitle: board.boardTitle,
-              boardContent: board.boardContent,
-              boardCode: board.boardCode,
-            },
-          })
-        }
-      >
-        수정
-      </button>
-      <button onClick={deleteBoard}>삭제</button>
-      <button onClick={() => navigate(`/Admin`)}>목록</button>
+
+      <div style={{ marginTop: "20px", marginBottom: "20px" }}>
+        <Button
+          variant="outlined"
+          onClick={() =>
+            navigate(`/AdminModify`, {
+              state: {
+                csName: csList.csName,
+                csContent: csList.csContent,
+                csCode: csList.csCode,
+              },
+            })
+          }
+        >
+          수정
+        </Button>
+
+        <Button variant="outlined" onClick={() => navigate(`/Admin`)}>
+          목록
+        </Button>
+      </div>
     </>
   );
 };
 
-export default BoardDetail;
+export default AdminDetail;
