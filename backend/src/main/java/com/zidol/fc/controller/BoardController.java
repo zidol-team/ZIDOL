@@ -165,7 +165,7 @@ public class BoardController {
 		if (boardService.insertReply(reply) != null) {
 			dataResponse.setStatus(StatusCode.OK.getStatus());
 			dataResponse.setCode(StatusCode.OK.getCode());
-			dataResponse.setData(board);
+			dataResponse.setData(reply);
 
 			return new ResponseEntity<DataResponse>(dataResponse, headers, HttpStatus.OK);
 		} else {

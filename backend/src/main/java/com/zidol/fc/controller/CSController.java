@@ -31,23 +31,21 @@ public class CSController {
 	@Autowired
 	UserService userService;
 
-	@GetMapping("/admin-cs-study.act")
-	public ResponseEntity<DataResponse> findAllCSForAdmin() {
-
+	@GetMapping("/find-all-admin-cs.act")
+	public ResponseEntity<DataResponse> findAllAdminCS() {
 		DataResponse dataResponse = new DataResponse();
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
 
 		dataResponse.setStatus(StatusCode.OK.getStatus());
 		dataResponse.setCode(StatusCode.OK.getCode());
-		dataResponse.setData(csService.findAll());
+		dataResponse.setData(csService.findAllAdminCS());
 
 		return new ResponseEntity<DataResponse>(dataResponse, headers, HttpStatus.OK);
 	}
 
-	@GetMapping("/cs-study.act")
+	@GetMapping("/find-all-cs.act")
 	public ResponseEntity<DataResponse> findAllCS() {
-
 		DataResponse dataResponse = new DataResponse();
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
@@ -90,9 +88,8 @@ public class CSController {
 		}
 	}
 
-	@PostMapping("/achievement.act")
+	@PostMapping("/find-all-achievement.act")
 	public ResponseEntity<DataResponse> findAllAchievement(@RequestBody Map<String, Long> param) {
-
 		User user = userService.findByUserCode(param.get("userCode"));
 		Map<String, Object> result = csService.findByUser(user);
 
