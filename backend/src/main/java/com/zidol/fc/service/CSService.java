@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.zidol.fc.domain.Achievement;
 import com.zidol.fc.domain.CS;
+import com.zidol.fc.domain.Temp;
 import com.zidol.fc.domain.User;
 import com.zidol.fc.repository.AchievementRepository;
 import com.zidol.fc.repository.CSRepository;
@@ -79,6 +80,10 @@ public class CSService {
 		result.put("percent", percent);
 		
 		return result;
+	}
+	
+	public List<Temp> findAllAdminCS() {
+		return csRepository.findAllAdminCS();
 	}
 
 }
