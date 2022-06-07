@@ -39,6 +39,13 @@ const MainNavbar = () => {
             >
               마이페이지
             </Nav.Link>
+            <Nav.Link
+              onClick={() => {
+                navigate("/Fnq");
+              }}
+            >
+              Fnq
+            </Nav.Link>
           </Nav>
         </Container>
       </Navbar>

@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import CommonTable from "../components/CommonTable";
 import CommonTableColumn from "../components/CommonTableColumn";
 import CommonTableRow from "../components/CommonTableRow";
+import Button from "@mui/material/Button";
 
 const GetBoardList = () => {
   const navigate = useNavigate();
@@ -17,7 +18,9 @@ const GetBoardList = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        setBoard(data.ListUp.content);
+        console.log(data.data.content);
+        setBoard(data.data.content);
+        console.log(board);
       });
   }, []);
 
@@ -26,7 +29,7 @@ const GetBoardList = () => {
       <td>{a.boardCode}</td>
       <td
         onClick={() =>
-          navigate(`/NoticeDetail?boardCode=${a.boardCode}`, {
+          navigate(`/BoardDetail?boardCode=${a.boardCode}`, {
             state: { board, boardCode: a.boardCode },
           })
         }
@@ -46,10 +49,16 @@ function View() {
   const navigate = useNavigate();
   return (
     <>
-      <button onClick={() => navigate(`/NoticeWrite`)}>글쓰기</button>
-      <CommonTable headersName={["글번호", "제목", "작성자", "등록일"]}>
-        {item}
-      </CommonTable>
+      <div style={{ marginTop: "50px" }}>
+        <CommonTable headersName={["글번호", "제목", "작성자", "등록일"]}>
+          {item}
+        </CommonTable>
+        <div style={{ marginTop: "50px" }}>
+          <Button variant="outlined" onClick={() => navigate(`/NoticeWrite`)}>
+            글쓰기
+          </Button>
+        </div>
+      </div>
     </>
   );
 }
