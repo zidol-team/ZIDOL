@@ -2,7 +2,7 @@ package com.zidol.fc.domain;
 
 import java.time.LocalDate;
 
-public interface Temp {
+public interface AdminCS {
 	
 	long getCsCode();
 	String getCsName();

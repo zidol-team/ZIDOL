@@ -71,7 +71,6 @@ public class BoardController {
 
 			return new ResponseEntity<DataResponse>(dataResponse, headers, HttpStatus.NOT_FOUND);
 		}
-
 	}
 
 	// 게시글 작성
