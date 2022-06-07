@@ -3,18 +3,14 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useState } from "react";
-// import { Container, Row, Col } from "react-bootstrap";
-import { Routes, Route, useNavigate, Outlet } from "react-router-dom";
+
+import { Routes, Route, useNavigate, Outlet, Link } from "react-router-dom";
 
 const theme = createTheme();
 // 정규식
@@ -150,12 +146,12 @@ export default function SignUp() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign Up
+              회 원 가 입
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="#" variant="body2">
-                  Already have an account? Sign in
+                <Link to="/signin" variant="body2">
+                  이미 계정이 있으십니까? 로그인하기
                 </Link>
               </Grid>
             </Grid>

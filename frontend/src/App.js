@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Navbar, Container, Nav } from "react-bootstrap";
-import "./App.css";
+
 import { Routes, Route, Link, useNavigate, Outlet } from "react-router-dom";
 
 import Home from "./pages/Home";
@@ -9,11 +9,12 @@ import BoardDetail from "./pages/BoardDetail";
 import BoardWrite from "./pages/BoardWrite";
 import BoardModify from "./pages/BoardModify";
 import Mypage from "./pages/MyPage";
-import Mypage2 from "./pages/MyPage2";
+
 import FourZeroFour from "./pages/FourZeroFour";
 
 import MainNavbar from "./components/MainNavbar";
 import SignIn from "./pages/SignIn";
+
 import SignUp from "./pages/SignUp";
 import CsStudy from "./pages/CsStudy";
 import SubjectDetail from "./pages/SubjectDetail";
@@ -62,15 +63,7 @@ function App() {
             </>
           }
         ></Route>
-        <Route
-          path="/mypage2"
-          element={
-            <>
-              <MainNavbar></MainNavbar>
-              <Mypage2></Mypage2>
-            </>
-          }
-        ></Route>
+
         <Route
           path="cs-study/subject-detail"
           element={
