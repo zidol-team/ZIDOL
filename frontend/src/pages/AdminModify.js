@@ -68,8 +68,4 @@ function AdminModify() {
     </div>
   );
 }
-<<<<<<< HEAD
-export default NoticeModify;
-=======
 export default AdminModify;
->>>>>>> 163f087c3ee93af71d1384dd78a279b915b4a5a6

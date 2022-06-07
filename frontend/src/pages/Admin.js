@@ -46,7 +46,7 @@ function View() {
   return (
     <>
       <button onClick={() => navigate(`/AdminWrite`)}>글쓰기</button>
-      <CommonTable headersName={["글번호", "제목", "작성자", "등록일"]}>
+      <CommonTable headersName={["글번호", "제목", "작성자"]}>
         {item}
       </CommonTable>
     </>
