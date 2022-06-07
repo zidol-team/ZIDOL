@@ -1,5 +1,6 @@
 package com.zidol.fc.error.user;
 
+
 import java.io.Serial;
 
 import com.zidol.fc.error.CustomException;

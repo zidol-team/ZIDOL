@@ -1,7 +1,6 @@
 import React, { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import "../components/NoticeDetail.css";
-import ReactHtmlParser from 'react-html-parser';
+import ReactHtmlParser from "react-html-parser";
 
 const BoardDetail = ({}) => {
   const location = useLocation();
@@ -20,7 +19,7 @@ const BoardDetail = ({}) => {
         boardCode: changelocationCode,
       }),
     }).then((ref) => {
-      navigate("/Notice");
+      navigate("/Admin");
     });
   };
   useEffect(() => {
@@ -53,7 +52,7 @@ const BoardDetail = ({}) => {
       </div>
       <button
         onClick={() =>
-          navigate(`/NoticeModify`, {
+          navigate(`/AdminModify`, {
             state: {
               boardTitle: board.boardTitle,
               boardContent: board.boardContent,
@@ -65,13 +64,7 @@ const BoardDetail = ({}) => {
         수정
       </button>
       <button onClick={deleteBoard}>삭제</button>
-      <button
-        onClick={() =>
-          navigate(`/Notice`)
-        }
-      >
-        목록
-      </button>
+      <button onClick={() => navigate(`/Admin`)}>목록</button>
     </>
   );
 };

@@ -1,6 +1,8 @@
 package com.zidol.fc.domain;
 
 import java.time.LocalDate;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,11 +10,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -29,8 +33,13 @@ public class Board {
 
 	@ManyToOne
 	@JoinColumn(name = "user_code")
-	@JsonBackReference
+	@JsonBackReference(value = "user-board")
 	private User user;
+	
+	@OneToMany(mappedBy = "board")
+	@JsonManagedReference(value = "board-reply")
+	private List<Reply> reply;
+	
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,7 +54,7 @@ public class Board {
 	private String boardTitle;
 
 	@NotNull
-	@Column
+	@Column(columnDefinition = "TEXT")
 	private String boardContent;
 	
 	@NotNull
@@ -59,10 +68,11 @@ public class Board {
 	}
 
 	@Builder
-	public Board(User user, long boardCode, @NotNull String boardType, @NotNull String boardTitle,
+	public Board(User user, List<Reply> reply, long boardCode, @NotNull String boardType, @NotNull String boardTitle,
 			@NotNull String boardContent, @NotNull LocalDate boardRegDate) {
 		super();
 		this.user = user;
+		this.reply = reply;
 		this.boardCode = boardCode;
 		this.boardType = boardType;
 		this.boardTitle = boardTitle;

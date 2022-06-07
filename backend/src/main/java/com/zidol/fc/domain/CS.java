@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -23,8 +24,11 @@ import lombok.Setter;
 @Entity
 public class CS {
 	
+	@OneToOne(mappedBy = "cs")
+	private CSContent csContent;
+	
 	@OneToMany(mappedBy = "cs")
-	@JsonManagedReference
+	@JsonManagedReference(value = "cs")
 	private List<Achievement> users;
 
 	@Id
@@ -40,8 +44,10 @@ public class CS {
 	private String csName;
 
 	@Builder
-	public CS(List<Achievement> users, long csCode, @NotNull String csType, @NotNull String csName) {
+	public CS(CSContent csContent, List<Achievement> users, long csCode, @NotNull String csType,
+			@NotNull String csName) {
 		super();
+		this.csContent = csContent;
 		this.users = users;
 		this.csCode = csCode;
 		this.csType = csType;

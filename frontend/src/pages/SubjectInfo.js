@@ -5,9 +5,12 @@ import DataStructure from "../data/dataStructure";
 
 const SubjectInfo = ({}) => {
   const location = useLocation();
+  const navigate = useNavigate();
   const csCode = location.state.csCode;
+
   const [algorithm, setAlgorithm] = useState(Algorithm);
   const [dataStructure, setDataStructure] = useState(DataStructure);
+  const [user, setUser] = useState({});
 
   /* 
   선택된 리스트 = location.state.selected
@@ -29,7 +32,17 @@ const SubjectInfo = ({}) => {
   });
 
   useEffect(() => {
-    //
+    const userInfo = {
+      userCode: localStorage.getItem("userCode"),
+      userEmail: localStorage.getItem("userEmail"),
+      userName: localStorage.getItem("userName"),
+      userNickname: localStorage.getItem("userNickname"),
+    };
+    // 로그인 정보 저장
+    setUser((user) => {
+      return { ...user, ...userInfo };
+    });
+    console.log(user);
   }, []);
 
   // 버튼 눌렀을때 전송 (csCode)
@@ -47,12 +60,12 @@ const SubjectInfo = ({}) => {
       body: JSON.stringify({
         // userEmail, userPassword 전송
         csCode: csCode,
-        userCode: 1,
+        userCode: user.userCode,
       }),
     };
     console.log("requestOptions : ", requestOptions);
 
-    fetch("/achievement.act", requestOptions)
+    fetch("/insert-achievement.act", requestOptions)
       .then((res) => res.json())
       .then((res) => {
         console.log("res : ");
@@ -60,6 +73,9 @@ const SubjectInfo = ({}) => {
         //res로 무엇을할지 나중에 작성
         //
       });
+
+    alert("학습 완료");
+    navigate(-1);
   };
 
   return (

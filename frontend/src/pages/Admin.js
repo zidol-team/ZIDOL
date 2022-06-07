@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link , useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import CommonTable from "../components/CommonTable";
 import CommonTableColumn from "../components/CommonTableColumn";
 import CommonTableRow from "../components/CommonTableRow";
@@ -24,11 +24,15 @@ const GetBoardList = () => {
   const item = board.map((a, index) => (
     <CommonTableRow key={index}>
       <td>{a.boardCode}</td>
-      <td  onClick={() =>
-          navigate(`/NoticeDetail?boardCode=${a.boardCode}`, {
+      <td
+        onClick={() =>
+          navigate(`/AdminDetail?boardCode=${a.boardCode}`, {
             state: { board, boardCode: a.boardCode },
           })
-        }>{a.boardTitle}</td>
+        }
+      >
+        {a.boardTitle}
+      </td>
       <td>{a.user}</td>
       <td>{a.boardRegDate}</td>
     </CommonTableRow>
@@ -42,7 +46,7 @@ function View() {
   const navigate = useNavigate();
   return (
     <>
-      <button onClick={() => navigate(`/NoticeWrite`)}>글쓰기</button>
+      <button onClick={() => navigate(`/AdminWrite`)}>글쓰기</button>
       <CommonTable headersName={["글번호", "제목", "작성자", "등록일"]}>
         {item}
       </CommonTable>
