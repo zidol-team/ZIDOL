@@ -31,6 +31,7 @@ const BoardDetail = ({}) => {
       });
   }, [list2]);
 
+
   const deleteBoard = () => {
     console.log(changelocationCode);
     fetch("/delete-board.act", {
@@ -130,8 +131,8 @@ const BoardDetail = ({}) => {
         <Button
           variant="outlined"
           startIcon={<DeleteIcon />}
-          onClick={() => deleteBoard()}
-        >
+          onClick={() => deleteBoard()
+>
           삭제
         </Button>
         <Button variant="outlined" onClick={() => navigate(`/Board`)}>
@@ -140,7 +141,9 @@ const BoardDetail = ({}) => {
         <div
           style={{ width: "80%", marginLeft: "500px", marginRight: "500px" }}
         >
+
           {list1.map((a, index) => (
+
             <tr key={index}>
               <td>{userName}</td>
               <td>{a.replyContent}</td>

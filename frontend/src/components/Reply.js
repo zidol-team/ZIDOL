@@ -50,7 +50,7 @@ const Reply = (props) => {
         style={{ width: "40%" }}
       />
 
-      <Button variant="outlined" onClick={submitReply}>
+      <Button variant="outlined" onClick={() => submitReply()}>
         댓글등록
       </Button>
     </div>

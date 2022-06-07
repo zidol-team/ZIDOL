@@ -32,15 +32,6 @@ function Mypage2() {
 
   // console.log(totalData);
 
-  const [algorithmCount, setAlgorithmCount] = useState(0);
-  const [dataStructureCount, setDataStructureCount] = useState(0);
-  const [computerStructureCount, setComputerStructureCount] = useState(0);
-  const [databaseCount, setDatabaseCount] = useState(0);
-  const [networkCount, setNetworkCount] = useState(0);
-  const [computerOperatingCount, setComputerOperatingCount] = useState(0);
-  const [interviewCount, setInterviewCount] = useState(0);
-  const [designpatternCount, setDesignpatternCount] = useState(0);
-
   // 로그아웃, localstorage 데이터 삭제
   const deleteLocalStorage = () => {
     localStorage.removeItem("userCode");
@@ -57,7 +48,7 @@ function Mypage2() {
       userNickname: localStorage.getItem("userNickname"),
     };
     const userCode = localStorage.getItem("userCode");
-    // 로그인 정보 저장(지금안되는중)
+    // 로그인 정보 저장
     setUser((user) => {
       return { ...user, ...userInfo };
     });

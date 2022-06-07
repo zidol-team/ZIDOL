@@ -126,7 +126,7 @@ export default function ChartCompWhole() {
     ],
   };
   console.log();
-
+  //
   useEffect(() => {
     setChartData(totalData);
   }, [totalData]);
