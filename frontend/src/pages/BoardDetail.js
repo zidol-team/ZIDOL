@@ -12,6 +12,7 @@ const BoardDetail = ({}) => {
   const changelocationCode = location.state.boardCode;
   const [board, setBoard] = useState([]);
   const [list, setList] = useState([]);
+
   const userName = localStorage.getItem("userName");
   const userCode = localStorage.getItem("userCode");
 
@@ -24,9 +25,11 @@ const BoardDetail = ({}) => {
         console.log(data.data);
         console.log(data.data.reply);
         setBoard(data.data);
-        setList(data.data.reply);
       });
-  }, [list]);
+  }, []);
+  useEffect(() => {
+    setList(board.reply);
+  }, [board, list]);
 
   const deleteBoard = () => {
     fetch("/delete-board.act", {
@@ -91,7 +94,9 @@ const BoardDetail = ({}) => {
         <Button
           variant="outlined"
           startIcon={<DeleteIcon />}
-          onClick={deleteBoard}
+          onClick={() => {
+            deleteBoard();
+          }}
         >
           삭제
         </Button>
@@ -101,7 +106,7 @@ const BoardDetail = ({}) => {
         <div
           style={{ width: "80%", marginLeft: "500px", marginRight: "500px" }}
         >
-          {list.map((a, index) => (
+          {list?.map((a, index) => (
             <tr key={index}>
               <td>{userName}</td>
               <td style={{ marginRight: "100px" }}>{a.replyContent}</td>

@@ -26,7 +26,7 @@ function MyCalendar() {
     });
     console.log(user);
 
-    fetch("/achievement.act", {
+    fetch("/find-all-achievement.act", {
       method: "POST",
       headers: {
         Accept: "application/json",

@@ -34,17 +34,17 @@ const MainNavbar = () => {
             </Nav.Link>
             <Nav.Link
               onClick={() => {
-                navigate("/mypage");
-              }}
-            >
-              마이페이지
-            </Nav.Link>
-            <Nav.Link
-              onClick={() => {
                 navigate("/Fnq");
               }}
             >
               공지사항
+            </Nav.Link>
+            <Nav.Link
+              onClick={() => {
+                navigate("/mypage");
+              }}
+            >
+              마이페이지
             </Nav.Link>
           </Nav>
         </Container>
