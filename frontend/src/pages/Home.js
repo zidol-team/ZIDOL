@@ -11,14 +11,14 @@ function Home() {
       </div>
       <div className="loginContainer">
         <div>
-          <button to="/SignIn" className="loginText">
+          <Link to="/SignIn" className="loginText">
             로그인하기
-          </button>
+          </Link>
         </div>
         <div>
-          <button to="/SignUp" className="loginText">
+          <Link to="/SignUp" className="loginText">
             회원가입하기
-          </button>
+          </Link>
         </div>
       </div>
     </div>
