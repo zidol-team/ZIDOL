@@ -48,14 +48,16 @@ function View() {
   return (
     <>
       <div style={{ marginTop: "50px" }}>
+        <Button
+          variant="outlined"
+          onClick={() => navigate(`/BoardWrite`)}
+          style={{ float: "right" }}
+        >
+          글쓰기
+        </Button>
         <CommonTable headersName={["글번호", "제목", "작성자", "등록일"]}>
           {item}
         </CommonTable>
-        <div style={{ marginTop: "50px" }}>
-          <Button variant="outlined" onClick={() => navigate(`/BoardWrite`)}>
-            글쓰기
-          </Button>
-        </div>
       </div>
     </>
   );

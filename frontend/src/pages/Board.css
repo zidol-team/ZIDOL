@@ -1,0 +1,43 @@
+.container {
+  text-align: center;
+}
+
+.content {
+  align-items: center;
+  margin: 0 auto;
+  border-style: ridge;
+  width: 65vh;
+  height: 300px;
+  border-radius: 10px;
+}
+.buttons {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.buttonw {
+  margin-left: auto;
+  margin-right: auto;
+  align-items: center;
+}
+
+.table {
+  margin-top: 30px;
+  border-collapse: separate;
+  width: 70vh;
+  height: 80px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.form-control {
+  width: 65vh;
+  height: 5vh;
+
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10px;
+}
+.replycontent {
+  width: 65vh;
+  height: 10vh;
+}
