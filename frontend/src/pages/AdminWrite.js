@@ -2,13 +2,15 @@ import { useState } from "react";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import "./Ckeditor.css";
+import Button from "@mui/material/Button";
 
-function AdminWrite() {
+function BoardWrite() {
   const [qnaContent, setQnaContent] = useState({
     boardTitle: "",
     boardContent: "",
-    boardType: "",
+    boardType: "질문게시판",
   });
+  const [user, setUser] = useState("");
 
   const getValue = (e) => {
     const { name, value } = e.target;
@@ -17,21 +19,38 @@ function AdminWrite() {
       [name]: value,
     });
   };
-  const PostSubmit = (event) => {
-    event.preventDefault();
+  const userInfo = {
+    userCode: localStorage.getItem("userCode"),
+    userEmail: localStorage.getItem("userEmail"),
+    userName: localStorage.getItem("userName"),
+    userNickname: localStorage.getItem("userNickname"),
+  };
 
-    fetch("/insert-board", {
+  console.log(localStorage.getItem("userCode"));
+
+  const PostSubmit = (event) => {
+    //event.preventDefault();
+    const userCode = localStorage.getItem("userCode");
+    console.log(userCode);
+    fetch("/insert-board.act", {
       method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json;charset=UTF-8",
       },
       body: JSON.stringify({
-        qnaContent: qnaContent,
+        boardTitle: qnaContent.boardTitle,
+        boardContent: qnaContent.boardContent,
+        boardType: qnaContent.boardType,
+        // userEmail, userPassword 전송
+        userCode: userCode,
       }),
     })
       .then((res) => res.json())
       .then((res) => {
+        console.log("res : ");
+        console.log(res);
+
         alert("등록완료");
         window.location = "/Admin";
       });
@@ -42,7 +61,7 @@ function AdminWrite() {
       <br />
 
       <input
-        style={{ width: "90%", height: "40px", margin: "10px" }}
+        style={{ width: "70%", height: "40px", margin: "10px" }}
         onChange={getValue}
         placeholder="제목"
         type="text"
@@ -60,8 +79,14 @@ function AdminWrite() {
           });
         }}
       />
-      <button onClick={PostSubmit}>등록</button>
+      <Button
+        variant="outlined"
+        onClick={PostSubmit}
+        style={{ marginTop: "20px", marginBottom: "20px" }}
+      >
+        등록
+      </Button>
     </div>
   );
 }
-export default AdminWrite;
+export default BoardWrite;

@@ -4,7 +4,6 @@ import Algorithm from "../data/algorithm";
 import ReactMarkdown from "react-markdown";
 import styled from "@emotion/styled";
 import rehypeRaw from "rehype-raw";
-import ReactDom from "react-dom";
 
 const input = `## 컴퓨터의 구성
 
