@@ -21,10 +21,39 @@ ChartJS.register(
 );
 
 export default function ChartCompWhole() {
-  const [chartData, setChartData] = useState([]);
   const totalData = useContext(TotalContext);
-  console.log(chartData);
-  // console.log("hi");
+  const [wholePercent, setWholePercent] = useState(0);
+  const [chartData, setChartData] = useState({
+    total: {
+      네트워크: 10,
+      운영체제: 15,
+      자료구조: 9,
+      데이터베이스: 11,
+      컴퓨터구조: 6,
+      디자인패턴: 9,
+      알고리즘: 16,
+    },
+    done: {
+      네트워크: 1,
+      운영체제: 3,
+      자료구조: 5,
+      데이터베이스: 4,
+      컴퓨터구조: 2,
+      디자인패턴: 2,
+      알고리즘: 7,
+    },
+    percent: {
+      네트워크: 10,
+      운영체제: 20,
+      자료구조: 55.55555555555556,
+      데이터베이스: 36.36363636363637,
+      컴퓨터구조: 33.33333333333333,
+      디자인패턴: 22.22222222222222,
+      알고리즘: 43.75,
+    },
+  });
+  // console.log(chartData);
+  // console.log(chartData.total["네트워크"]);
 
   // totalData.done
   //   네트워크: 0
@@ -35,23 +64,45 @@ export default function ChartCompWhole() {
   // 자료구조: 3
   // 컴퓨터구조: 2
 
-  // const checkData = () => {
-  //   console.log(totalData);
-  //   console.log(totalData.done);
-  //   console.log(totalData.total["네트워크"]);
-  // };
-
-  // setChartData();
-  // const chartData = totalData.percent;
+  const getWholePercent = () => {
+    console.log(chartData);
+    if (chartData !== undefined) {
+      const totalCount =
+        chartData.total["네트워크"] +
+        chartData.total["데이터베이스"] +
+        chartData.total["디자인패턴"] +
+        chartData.total["알고리즘"] +
+        chartData.total["운영체제"] +
+        chartData.total["자료구조"] +
+        chartData.total["컴퓨터구조"];
+      const doneCount =
+        totalData.done["네트워크"] +
+        totalData.done["데이터베이스"] +
+        totalData.done["디자인패턴"] +
+        totalData.done["알고리즘"] +
+        totalData.done["운영체제"] +
+        totalData.done["자료구조"] +
+        totalData.done["컴퓨터구조"];
+      const wholePercent = (doneCount / totalCount) * 100;
+      console.log(wholePercent);
+      setWholePercent(wholePercent);
+    }
+  };
 
   const options = {
     indexAxis: "y",
+    scales: {
+      xAxis: {
+        min: 0,
+        max: 100,
+      },
+    },
     elements: {
       bar: {
         borderWidth: 2,
       },
     },
-    responsive: true,
+    responsive: false,
     plugins: {
       legend: {
         position: "right",
@@ -66,29 +117,28 @@ export default function ChartCompWhole() {
 
   const data = {
     labels,
-    scales: (0, 100),
     datasets: [
       {
         label: "Dataset 1",
-        data: [0],
+        data: [wholePercent],
         backgroundColor: "rgba(255, 99, 132, 0.5)",
       },
     ],
   };
   console.log();
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    setChartData(totalData);
+  }, [totalData]);
+  useEffect(() => {
+    setTimeout(getWholePercent, 1000);
+  }, [chartData]);
 
   return (
     <>
-      <Bar options={options} data={data} />
-      <button
-        onClick={() => {
-          // checkData();
-        }}
-      >
-        버튼
-      </button>
+      <div>
+        <Bar options={options} data={data} height={100} />
+      </div>
     </>
   );
 }

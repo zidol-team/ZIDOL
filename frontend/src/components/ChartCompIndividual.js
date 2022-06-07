@@ -21,47 +21,11 @@ ChartJS.register(
 );
 
 export default function ChartCompIndividual() {
-  const [chartData, setChartData] = useState([]);
+  const [individualChartData, setIndividualChartData] = useState({});
+  const [chartLabel, setChartLabel] = useState("");
+  const [chartData, setChartData] = useState(0);
   const totalData = useContext(TotalContext);
-
-  useEffect(() => {
-    setPercentData();
-    // 퍼센트에 해당하는 데이터들
-    console.log(chartData);
-  }, []);
-
-  const checkPercent = () => {
-    console.log(chartData["네트워크"]);
-    console.log(chartData["데이터베이스"]);
-    console.log(chartData["디자인패턴"]);
-    console.log(chartData["알고리즘"]);
-    console.log(chartData["운영체제"]);
-    console.log(chartData["네트워크"]);
-    console.log(chartData["자료구조"]);
-    console.log(chartData["컴퓨터구조"]);
-  };
-
-  const setPercentData = () => {
-    setChartData(totalData.percent);
-  };
-
-  // setChartData();
-  // const chartData = totalData.percent;
-
-  const options = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: "top",
-      },
-
-      title: {
-        display: true,
-        text: "Chart.js Bar Chart",
-      },
-    },
-  };
-  const labels = [
+  const csTypes = [
     "알고리즘",
     "자료구조",
     "컴퓨터구조",
@@ -72,37 +36,73 @@ export default function ChartCompIndividual() {
     "디자인패턴",
   ];
 
+  const getIndividualData = () => {
+    //
+  };
+
+  const options = {
+    responsive: false,
+    scales: {
+      yAxis: {
+        min: 0,
+        max: 100,
+      },
+    },
+    plugins: {
+      legend: {
+        position: "top",
+      },
+
+      title: {
+        display: true,
+        text: "개별 과목 진도 확인",
+      },
+    },
+  };
+  const labels = [chartLabel];
+
   const data = {
     labels,
     datasets: [
       {
-        label: "Dataset 1",
-        data: [
-          // chartData["네트워크"],
-          // chartData["데이터베이스"],
-          // chartData["디자인패턴"],
-          // chartData["알고리즘"],
-          // chartData["운영체제"],
-          // chartData["네트워크"],
-          // chartData["자료구조"],
-          // chartData["컴퓨터구조"],
-        ],
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
+        label: chartLabel,
+        data: [chartData],
+        backgroundColor: "rgba(132, 99, 255, 0.5)",
       },
     ],
   };
-  console.log();
+
+  useEffect(() => {
+    setIndividualChartData(totalData.percent);
+    console.log(individualChartData);
+  }, [totalData]);
+  useEffect(() => {
+    setTimeout(getIndividualData, 1000);
+  }, [individualChartData]);
+
+  const setCsTypeChart = (csType, index) => {
+    console.log(csType);
+    setChartLabel(csType);
+    setChartData(individualChartData[csType]);
+  };
+
+  const csCheckButton = csTypes.map((csType, index) => (
+    <div key={index}>
+      <button
+        onClick={() => {
+          setCsTypeChart(csType, index);
+        }}
+      >
+        {csType}
+      </button>
+    </div>
+  ));
 
   return (
     <>
-      <Bar options={options} data={data} />
-      <button
-        onClick={() => {
-          checkPercent();
-        }}
-      >
-        퍼센트 확인 버튼
-      </button>
+      <Bar options={options} data={data} width={"500"} height={"300"} />
+
+      {csCheckButton}
     </>
   );
 }

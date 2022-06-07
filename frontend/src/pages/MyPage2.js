@@ -6,7 +6,7 @@ import React, {
   useContext,
 } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import Percentage from "../components/Percentage";
+
 import { TotalContext } from "../context/TotalContext";
 import ChartCompIndividual from "../components/ChartCompIndividual";
 import ChartCompWhole from "../components/ChartCompWhole";
@@ -77,7 +77,7 @@ function Mypage2() {
 
     console.log("requestOptions : ", requestOptions);
 
-    fetch("/achievement.act", requestOptions)
+    fetch("/find-all-achievement.act", requestOptions)
       .then((res) => res.json())
       .then((res) => {
         console.log("res : ");
@@ -101,37 +101,7 @@ function Mypage2() {
         });
       });
   }, []);
-
-  const countValue = () => {
-    css.map((a, index) => {
-      console.log(a.csType);
-      if (a.csType === "알고리즘") {
-        setAlgorithmCount(algorithmCount + 1);
-      } else if (a.csType === "자료구조") {
-        setDataStructureCount(dataStructureCount + 1);
-      } else if (a.csType === "컴퓨터구조") {
-        setComputerStructureCount(computerStructureCount + 1);
-      } else if (a.csType === "데이터베이스") {
-        setDatabaseCount(databaseCount + 1);
-      } else if (a.csType === "네트워크") {
-        setNetworkCount(networkCount + 1);
-      } else if (a.csType === "운영체제") {
-        setComputerOperatingCount(computerOperatingCount + 1);
-      } else if (a.csType === "면접질문") {
-        setInterviewCount(interviewCount + 1);
-      } else if (a.csType === "디자인패턴") {
-        setDesignpatternCount(designpatternCount + 1);
-      }
-      console.log(algorithmCount);
-      console.log(dataStructureCount);
-      console.log(computerStructureCount);
-      console.log(databaseCount);
-      console.log(networkCount);
-      console.log(computerOperatingCount);
-      console.log(interviewCount);
-      console.log(designpatternCount);
-    });
-  };
+  useEffect(() => {}, [total]);
 
   return (
     <TotalContext.Provider value={total}>
@@ -150,32 +120,13 @@ function Mypage2() {
         >
           로그아웃 버튼
         </button>
-        <div>퍼센트</div>
-        <button
-          onClick={() => {
-            countValue();
-          }}
-        >
-          카운트 확인 버튼
-        </button>
-        <button
-          onClick={() => {
-            console.log(total);
-            console.log(done);
-          }}
-        >
-          total, done 확인버튼
-        </button>
 
-        <div>
-          <Percentage></Percentage>
-        </div>
         <div>
           <ChartCompWhole></ChartCompWhole>
         </div>
-        {/* <div>
+        <div>
           <ChartCompIndividual></ChartCompIndividual>
-        </div> */}
+        </div>
       </>
     </TotalContext.Provider>
   );
