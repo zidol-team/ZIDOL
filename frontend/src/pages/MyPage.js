@@ -1,6 +1,15 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, {
+  useEffect,
+  useState,
+  PureComponent,
+  createContext,
+  useContext,
+} from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Calendar from "./Calender";
+import { TotalContext } from "../context/TotalContext";
+import ChartCompIndividual from "../components/ChartCompIndividual";
+import ChartCompWhole from "../components/ChartCompWhole";
 
 function MyPage() {
   const location = useLocation();
@@ -13,6 +22,9 @@ function MyPage() {
  */
 
   const [user, setUser] = useState({});
+  const [css, setCss] = useState([]);
+  const [total, setTotal] = useState([]);
+  const [done, setDone] = useState([]);
 
   // localstorage 데이터 삭제
   const deleteLocalStorage = () => {
@@ -30,7 +42,7 @@ function MyPage() {
       userNickname: localStorage.getItem("userNickname"),
     };
     const userCode = localStorage.getItem("userCode");
-    // 로그인 정보 저장(지금안되는중)
+    // 로그인 정보 저장
     setUser((user) => {
       return { ...user, ...userInfo };
     });
@@ -49,34 +61,58 @@ function MyPage() {
     };
     console.log("requestOptions : ", requestOptions);
 
-    fetch("/achievement.act", requestOptions)
+    fetch("/find-all-achievement.act", requestOptions)
       .then((res) => res.json())
       .then((res) => {
         console.log("res : ");
         console.log(res);
-        //res로 무엇을할지 나중에 작성
-        //
+
+        setCss(res.data.css);
+      });
+    // 전체 항목 갯수와 완료갯수 받는곳
+    fetch("/count-cs.act", requestOptions)
+      .then((res2) => res2.json())
+      .then((res2) => {
+        console.log("res2 : ");
+        console.log(res2);
+
+        setTotal({
+          total: res2.data.total,
+          done: res2.data.done,
+          percent: res2.data.percent,
+        });
       });
   }, []);
 
   return (
-    <>
-      <h1>MyPage</h1>
-      <div>{user.userEmail}</div>
-      <div>{user.userName}</div>
-      <div>{user.userNickname}</div>
-      <div></div>
-      <Calendar />
-      <button
-        onClick={() => {
-          alert("로그아웃 되었습니다.");
-          deleteLocalStorage();
-          navigate("/");
-        }}
-      >
-        로그아웃 버튼
-      </button>
-    </>
+    <TotalContext.Provider value={total}>
+      <>
+        <h1>MyPage</h1>
+        <div>{user.userEmail}</div>
+        <div>{user.userName}</div>
+        <div>{user.userNickname}</div>
+        <div>
+          <button
+            onClick={() => {
+              alert("로그아웃 되었습니다.");
+              deleteLocalStorage();
+              navigate("/");
+            }}
+          >
+            로그아웃 버튼
+          </button>
+        </div>
+        <div>
+          <Calendar />
+        </div>
+        <div>
+          <ChartCompWhole></ChartCompWhole>
+        </div>
+        <div>
+          <ChartCompIndividual></ChartCompIndividual>
+        </div>
+      </>
+    </TotalContext.Provider>
   );
 }
 

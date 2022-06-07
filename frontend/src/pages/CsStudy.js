@@ -35,7 +35,7 @@ const CsStudy = () => {
     };
     // console.log("requestOptions : ", requestOptions);
 
-    const data = await fetch("/cs-study.act", requestOptions)
+    const data = await fetch("/find-all-cs.act", requestOptions)
       .then((res) => res.json())
       .then((res) => {
         console.log("res : ", res);

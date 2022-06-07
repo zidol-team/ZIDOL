@@ -52,7 +52,11 @@ function BoardWrite() {
         console.log(res);
 
         alert("등록완료");
-        window.location = "/Board";
+        if (qnaContent.boardContent != "") {
+          window.location = "/Board";
+        } else {
+          alert("글을 입력해주세요");
+        }
       });
   };
   return (

@@ -70,12 +70,14 @@ const SubjectInfo = ({}) => {
       .then((res) => {
         console.log("res : ");
         console.log(res);
-        //res로 무엇을할지 나중에 작성
-        //
-      });
 
-    alert("학습 완료");
-    navigate(-1);
+        if (res.code === "DUPLICATED_ACHIEVEMENT") {
+          alert(res.fieldErrors[0].message);
+        } else {
+          alert("학습 완료");
+          navigate(-1);
+        }
+      });
   };
 
   return (
