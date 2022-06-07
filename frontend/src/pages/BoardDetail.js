@@ -4,6 +4,7 @@ import "../components/NoticeDetail.css";
 import Button from "@mui/material/Button";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ReactHtmlParser from "react-html-parser";
+import TextField from "@mui/material/TextField";
 import Reply from "../components/Reply";
 
 const BoardDetail = ({}) => {
@@ -11,7 +12,9 @@ const BoardDetail = ({}) => {
   const navigate = useNavigate();
   const changelocationCode = location.state.boardCode;
   const [board, setBoard] = useState([]);
-  const [list, setList] = useState([]);
+  const [reply, setReply] = useState("");
+  const [list1, setList1] = useState([]);
+  const [list2, setList2] = useState([]);
   const userName = localStorage.getItem("userName");
   const userCode = localStorage.getItem("userCode");
 
@@ -24,11 +27,12 @@ const BoardDetail = ({}) => {
         console.log(data.data);
         console.log(data.data.reply);
         setBoard(data.data);
-        setList(data.data.reply);
+        setList1(data.data.reply);
       });
-  }, [list]);
+  }, [list2]);
 
   const deleteBoard = () => {
+    console.log(changelocationCode);
     fetch("/delete-board.act", {
       method: "DELETE",
       headers: {
@@ -56,6 +60,39 @@ const BoardDetail = ({}) => {
         userCode: userCode,
       }),
     }).then((ref) => {});
+
+    const newList = list1.filter((data) => {
+      return data.replyCode !== replyCode;
+    });
+    setList2(newList);
+  };
+  //댓글 보냄
+  const submitReply = () => {
+    const userCode = localStorage.getItem("userCode");
+
+    fetch("/insert-reply.act", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json;charset=UTF-8",
+      },
+      body: JSON.stringify({
+        replyContent: reply,
+        userCode: userCode,
+        boardCode: board.boardCode,
+      }),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log("res : ", res);
+        setReply("");
+        setList2(list1);
+        alert("댓글등록완료");
+      });
+  };
+  const changeReply = (e) => {
+    setReply(e.target.value);
+    console.log(reply);
   };
 
   return (
@@ -70,7 +107,9 @@ const BoardDetail = ({}) => {
           <label>{board.boardRegDate}</label>
         </div>
         <div className="view-row"></div>
-        <div className="content">{ReactHtmlParser(board.boardContent)}</div>
+        <div className="content">
+          <label>{ReactHtmlParser(board.boardContent)}</label>
+        </div>
       </div>
 
       <div style={{ marginTop: "20px", marginBottom: "20px" }}>
@@ -91,7 +130,7 @@ const BoardDetail = ({}) => {
         <Button
           variant="outlined"
           startIcon={<DeleteIcon />}
-          onClick={deleteBoard}
+          onClick={() => deleteBoard()}
         >
           삭제
         </Button>
@@ -101,10 +140,10 @@ const BoardDetail = ({}) => {
         <div
           style={{ width: "80%", marginLeft: "500px", marginRight: "500px" }}
         >
-          {list.map((a, index) => (
+          {list1.map((a, index) => (
             <tr key={index}>
               <td>{userName}</td>
-              <td style={{ marginRight: "100px" }}>{a.replyContent}</td>
+              <td>{a.replyContent}</td>
               <td>{a.replyRegdate}</td>
 
               <td>
@@ -113,7 +152,20 @@ const BoardDetail = ({}) => {
             </tr>
           ))}
         </div>
-        <Reply board={board} />
+        <TextField
+          id="standard-textarea"
+          value={reply}
+          onChange={changeReply}
+          label="댓글"
+          placeholder="댓글을 입력해주세요"
+          multiline
+          variant="standard"
+          style={{ width: "40%" }}
+        />
+
+        <Button variant="outlined" onClick={submitReply}>
+          댓글등록
+        </Button>
       </div>
     </>
   );
