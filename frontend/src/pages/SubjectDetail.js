@@ -185,7 +185,6 @@ const SubjectDetail = ({}) => {
     <>
       <h1>선택과목 : {location.state.csType}</h1>
       <div>{mapStudyData}</div>
-      <ReactMarkdown rehypePlugins={[rehypeRaw]} children={input} />,
     </>
   );
 };
