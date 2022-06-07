@@ -2,13 +2,8 @@ import React, { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "../components/NoticeDetail.css";
 import Button from "@mui/material/Button";
-import DeleteIcon from "@mui/icons-material/Delete";
-import ReactHtmlParser from "react-html-parser";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 import ReactMarkdown from "react-markdown";
-import styled from "@emotion/styled";
 import rehypeRaw from "rehype-raw";
 
 const AdminDetail = ({}) => {

@@ -3,33 +3,41 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Algorithm from "../data/algorithm";
 import DataStructure from "../data/dataStructure";
 
-const SubjectInfo = ({}) => {
+import ReactMarkdown from "react-markdown";
+import rehypeRaw from "rehype-raw";
+
+const SubjectInfo = ({}, index) => {
   const location = useLocation();
   const navigate = useNavigate();
   const csCode = location.state.csCode;
+  const studyData = location.state;
 
   const [algorithm, setAlgorithm] = useState(Algorithm);
   const [dataStructure, setDataStructure] = useState(DataStructure);
   const [user, setUser] = useState({});
 
+  const item2 = `${studyData.csContent.csContent}`;
   /* 
   선택된 리스트 = location.state.selected
   전체 공부 데이터 = location.state.studyData
   보내야할 것(선택한 목록의 csCode) = location.state.csCode
   */
 
-  console.log(location.state);
-  console.log(location.state.csCode);
+  console.log(studyData.csContent.csContent);
+  // console.log(location.state);
+  // console.log(dataStructure);
+  // console.log(location.state.csContent);
   // console.log(location.state.selected);
   // console.log(algorithm);
 
   // 선택한 목차와 내용을 저장한 데이터의 title과 같은지 비교
-  const mapSubjectInfo = dataStructure.map((a, index) => {
-    if (location.state.selected === a.title) {
-      console.log(a.content);
-      return <div key={index}>{a.content}</div>;
-    }
-  });
+  // const mapSubjectInfo = studyData.map((a, index) => {
+  // console.log(a.content);
+  // if (location.state.selected === a.title) {
+  //   // console.log(a.content);
+  //   return <div key={index}>{a.content}</div>;
+  // }
+  // });
 
   useEffect(() => {
     const userInfo = {
@@ -84,7 +92,12 @@ const SubjectInfo = ({}) => {
     <>
       <h1>{location.state.csType}</h1>
       <h3>{location.state.selected}</h3>
-      <div>{mapSubjectInfo}</div>
+      {/* <div>{mapSubjectInfo}</div> */}
+      <span align="left">
+        <ReactMarkdown rehypePlugins={[rehypeRaw]} children={item2} />,
+        {/* {ReactHtmlParser(csList.csContent)}/ */}
+      </span>
+
       <button
         onClick={() => {
           handleSubmit();
