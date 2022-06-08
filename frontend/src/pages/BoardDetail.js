@@ -1,11 +1,11 @@
 import React, { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import "../components/NoticeDetail.css";
+
 import Button from "@mui/material/Button";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ReactHtmlParser from "react-html-parser";
 import TextField from "@mui/material/TextField";
-import Reply from "../components/Reply";
+import "../pages/Board.css";
 
 const BoardDetail = ({}) => {
   const location = useLocation();
@@ -24,15 +24,14 @@ const BoardDetail = ({}) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data.data);
-        console.log(data.data.reply);
+        console.log(data);
+
         setBoard(data.data);
         setList1(data.data.reply);
       });
   }, [list2]);
 
   const deleteBoard = () => {
-    console.log(changelocationCode);
     fetch("/delete-board.act", {
       method: "DELETE",
       headers: {
@@ -48,7 +47,6 @@ const BoardDetail = ({}) => {
     });
   };
   const deleteReply = (replyCode) => {
-    console.log(replyCode);
     fetch("/delete-reply.act", {
       method: "DELETE",
       headers: {
@@ -84,7 +82,6 @@ const BoardDetail = ({}) => {
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log("res : ", res);
         setReply("");
         setList2(list1);
         alert("댓글등록완료");
@@ -92,80 +89,93 @@ const BoardDetail = ({}) => {
   };
   const changeReply = (e) => {
     setReply(e.target.value);
-    console.log(reply);
   };
 
   return (
     <>
-      <div className="view-wrapper">
-        <div className="view-row">
-          <label>제목</label>
-          <label>{board.boardTitle}</label>
+      <div style={{ width: "100%" }}>
+        <div className="bcontainer">
+          <div style={{ margin: "10px", fontSize: "30px", fontWeight: "bold" }}>
+            Q.{board.boardTitle}
+          </div>
+          <div>
+            <span style={{ textAlign: "left", marginRight: "10px" }}>
+              {userName}
+            </span>
+            <span style={{ textAlign: "right" }}>{board.boardRegDate}</span>
+          </div>
+          <hr></hr>
+          <div className="content">
+            <label>{ReactHtmlParser(board.boardContent)}</label>
+          </div>
+          <div className="buttons">
+            <Button variant="outlined" onClick={() => navigate(`/Board`)}>
+              목록
+            </Button>
+            <Button
+              style={{ margin: "10px", float: "right" }}
+              variant="outlined"
+              onClick={() =>
+                navigate(`/BoardModify`, {
+                  state: {
+                    boardTitle: board.boardTitle,
+                    boardContent: board.boardContent,
+                    boardCode: board.boardCode,
+                  },
+                })
+              }
+            >
+              수정
+            </Button>
+            <Button
+              style={{ margin: "10px", float: "right" }}
+              variant="outlined"
+              startIcon={<DeleteIcon />}
+              onClick={() => deleteBoard()}
+            >
+              삭제
+            </Button>
+          </div>
+          <div className="areacontainer">
+            <textarea
+              value={reply}
+              onChange={changeReply}
+              className="replycontent"
+              name="message"
+              placeholder="Message"
+              rows="10"
+            ></textarea>
+          </div>
+          <div className="buttonss">
+            <Button variant="outlined" onClick={submitReply}>
+              댓글등록
+            </Button>
+          </div>
+          <div>
+            {list1.map((a, index) => (
+              <div key={index}>
+                <div className="form-control">
+                  <div>
+                    <span style={{ float: "left", marginRight: "10px" }}>
+                      {userName}
+                    </span>
+                    <div style={{ float: "right" }}>
+                      <Button onClick={() => deleteReply(a.replyCode)}>
+                        삭제
+                      </Button>
+                    </div>
+                    <span style={{ float: "right" }}>{a.replyRegdate}</span>
+                  </div>
+                  <div>
+                    <span style={{ float: "inline-start" }}>
+                      {a.replyContent}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
-        <div className="view-row">
-          <label>작성일</label>
-          <label>{board.boardRegDate}</label>
-        </div>
-        <div className="view-row"></div>
-        <div className="content">
-          <label>{ReactHtmlParser(board.boardContent)}</label>
-        </div>
-      </div>
-
-      <div style={{ marginTop: "20px", marginBottom: "20px" }}>
-        <Button
-          variant="outlined"
-          onClick={() =>
-            navigate(`/BoardModify`, {
-              state: {
-                boardTitle: board.boardTitle,
-                boardContent: board.boardContent,
-                boardCode: board.boardCode,
-              },
-            })
-          }
-        >
-          수정
-        </Button>
-        <Button
-          variant="outlined"
-          startIcon={<DeleteIcon />}
-          onClick={() => deleteBoard()}
-        >
-          삭제
-        </Button>
-        <Button variant="outlined" onClick={() => navigate(`/Board`)}>
-          목록
-        </Button>
-        <div
-          style={{ width: "80%", marginLeft: "500px", marginRight: "500px" }}
-        >
-          {list1.map((a, index) => (
-            <tr key={index}>
-              <td>{userName}</td>
-              <td>{a.replyContent}</td>
-              <td>{a.replyRegdate}</td>
-
-              <td>
-                <Button onClick={() => deleteReply(a.replyCode)}>삭제</Button>
-              </td>
-            </tr>
-          ))}
-        </div>
-        <TextField
-          id="standard-textarea"
-          value={reply}
-          onChange={changeReply}
-          label="댓글"
-          placeholder="댓글을 입력해주세요"
-          multiline
-          variant="standard"
-          style={{ width: "40%" }}
-        />
-
-        <Button variant="outlined" onClick={submitReply}>
-          댓글등록
-        </Button>
       </div>
     </>
   );
