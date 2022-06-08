@@ -117,7 +117,7 @@ export default function SignIn() {
             <Grid container>
               <Grid item>
                 <Link to="/SignUp" variant="body2">
-                  이미 계정이 있으십니까? 로그인하기
+                  계정이 없으십니까? 회원가입하기
                 </Link>
               </Grid>
             </Grid>
