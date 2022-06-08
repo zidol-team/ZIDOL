@@ -25,24 +25,22 @@ const GetBoardList = () => {
   }, []);
 
   const item = board.map((a, index) => (
-    <>
-      <CommonTableRow key={index} className="boardListLine">
-        <td>
-          <span className="boardCode">{a.board.boardCode}</span>
-        </td>
-        <td
-          onClick={() =>
-            navigate(`/BoardDetail?boardCode=${a.board.boardCode}`, {
-              state: { board, boardCode: a.board.boardCode },
-            })
-          }
-        >
-          {a.board.boardTitle}
-        </td>
-        <td>{a.user.userName}</td>
-        <td>{a.board.boardRegDate}</td>
-      </CommonTableRow>
-    </>
+    <CommonTableRow key={index} className="boardListLine">
+      <td>
+        <span className="boardCode">{a.board.boardCode}</span>
+      </td>
+      <td
+        onClick={() =>
+          navigate(`/BoardDetail?boardCode=${a.board.boardCode}`, {
+            state: { board, boardCode: a.board.boardCode },
+          })
+        }
+      >
+        {a.board.boardTitle}
+      </td>
+      <td>{a.user.userNickname}</td>
+      <td>{a.board.boardRegDate}</td>
+    </CommonTableRow>
   ));
 
   return item;

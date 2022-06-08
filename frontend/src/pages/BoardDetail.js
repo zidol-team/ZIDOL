@@ -20,7 +20,6 @@ const BoardDetail = ({}) => {
   const userCode = localStorage.getItem("userCode");
 
   useEffect(() => {
-    console.log(userCode);
     fetch(`/find-board.act?boardCode=${changelocationCode}`, {
       method: "GET",
     })
@@ -29,7 +28,7 @@ const BoardDetail = ({}) => {
         console.log(data.data);
         setUser(data.data.user);
         setBoard(data.data.board);
-        setList1(data.data.board.reply);
+        setList1(data.data.replys);
       });
   }, [list2]);
 
@@ -102,7 +101,7 @@ const BoardDetail = ({}) => {
           </div>
           <div>
             <span style={{ textAlign: "left", marginRight: "10px" }}>
-              {user.userName}
+              {user.userNickname}
             </span>
             <span style={{ textAlign: "right" }}>{board.boardRegDate}</span>
           </div>
@@ -163,18 +162,20 @@ const BoardDetail = ({}) => {
                 <div className="form-control">
                   <div>
                     <span style={{ float: "left", marginRight: "10px" }}>
-                      {userName}
+                      {a.user.userNickname}
                     </span>
                     <div style={{ float: "right" }}>
-                      <Button onClick={() => deleteReply(a.replyCode)}>
+                      <Button onClick={() => deleteReply(a.reply.replyCode)}>
                         삭제
                       </Button>
                     </div>
-                    <span style={{ float: "right" }}>{a.replyRegdate}</span>
+                    <span style={{ float: "right" }}>
+                      {a.reply.replyRegdate}
+                    </span>
                   </div>
                   <div>
                     <span style={{ float: "inline-start" }}>
-                      {a.replyContent}
+                      {a.reply.replyContent}
                     </span>
                   </div>
                 </div>
