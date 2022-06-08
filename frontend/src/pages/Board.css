@@ -87,11 +87,10 @@
 
 .form-control {
   width: 100%;
-  height: 5vh;
+  height: 11vh;
 
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 10px;
 }
 .replycontent {
   width: 100%;

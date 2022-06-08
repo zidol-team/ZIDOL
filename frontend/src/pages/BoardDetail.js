@@ -160,23 +160,21 @@ const BoardDetail = ({}) => {
             {list1.map((a, index) => (
               <div key={index}>
                 <div className="form-control">
-                  <div>
-                    <span style={{ float: "left", marginRight: "10px" }}>
+                  <div
+                    style={{ display: "flex", justifyContent: "space-between" }}
+                  >
+                    <span style={{ fontWeight: "bold" }}>
                       {a.user.userNickname}
                     </span>
-                    <div style={{ float: "right" }}>
-                      <Button onClick={() => deleteReply(a.reply.replyCode)}>
-                        삭제
-                      </Button>
-                    </div>
-                    <span style={{ float: "right" }}>
-                      {a.reply.replyRegdate}
-                    </span>
+
+                    <span style={{}}>{a.reply.replyRegdate}</span>
+
+                    <Button onClick={() => deleteReply(a.reply.replyCode)}>
+                      삭제
+                    </Button>
                   </div>
                   <div>
-                    <span style={{ float: "inline-start" }}>
-                      {a.reply.replyContent}
-                    </span>
+                    <span style={{}}>{a.reply.replyContent}</span>
                   </div>
                 </div>
               </div>
