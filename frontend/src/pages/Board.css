@@ -1,3 +1,52 @@
+.boardContainer {
+  width: 100%;
+}
+.boardMainContainer {
+  width: 80%;
+  margin: 0 auto;
+}
+.boardHeader {
+  padding-top: 30px;
+}
+.boardHeader > h1 > span {
+  background-color: #b6daff;
+  display: inline-block;
+  padding: 20px 30px;
+  border-radius: 30px;
+  font-weight: 700;
+}
+.boardHeader .boardDesc {
+  font-size: 20px;
+  margin: 30px;
+}
+.boardDescAndWrite {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* margin: 20px; */
+}
+.writeButton {
+  color: #2eb3ff;
+  text-align: right;
+}
+.writeButton:hover {
+  cursor: pointer;
+}
+.writeButton:active {
+  cursor: pointer;
+  color: #003ca5;
+}
+
+.boardCode {
+  background-color: #b6daff;
+  padding: 5px;
+  border-radius: 5px;
+}
+.boardListLine {
+  margin-bottom: 20px;
+}
+/*  */
+
 .bcontainer {
   text-align: left;
   width: 65%;

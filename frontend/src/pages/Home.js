@@ -7,6 +7,7 @@ function Home() {
   return (
     <div className="mainContainer">
       <div className="mainDesc">
+        <div className="homeTitle">Sea s</div>
         <div className="mainTitle">CS공부 한 잔 하고 가세요.</div>
       </div>
       <div className="loginContainer">
