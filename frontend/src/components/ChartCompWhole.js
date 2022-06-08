@@ -99,21 +99,22 @@ export default function ChartCompWhole() {
     },
     elements: {
       bar: {
-        borderWidth: 2,
+        borderWidth: 3,
       },
     },
     responsive: false,
     plugins: {
       legend: {
+        display: false,
         position: "right",
       },
       title: {
         display: true,
-        text: "Chart.js Horizontal Bar Chart",
+        text: "전체 학습 진행률",
       },
     },
   };
-  const labels = ["전체 진행률"];
+  const labels = [""];
 
   const data = {
     labels,
@@ -121,7 +122,7 @@ export default function ChartCompWhole() {
       {
         label: "Dataset 1",
         data: [wholePercent],
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
+        backgroundColor: "#82c6ff",
       },
     ],
   };
@@ -137,8 +138,9 @@ export default function ChartCompWhole() {
   return (
     <>
       <div>
-        <Bar options={options} data={data} height={100} />
+        <Bar options={options} data={data} />
       </div>
+      <div>{Math.ceil(wholePercent)} % 진행 중</div>
     </>
   );
 }

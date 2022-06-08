@@ -71,7 +71,6 @@ public class BoardController {
 
 			return new ResponseEntity<DataResponse>(dataResponse, headers, HttpStatus.NOT_FOUND);
 		}
-
 	}
 
 	// 게시글 작성
@@ -165,7 +164,7 @@ public class BoardController {
 		if (boardService.insertReply(reply) != null) {
 			dataResponse.setStatus(StatusCode.OK.getStatus());
 			dataResponse.setCode(StatusCode.OK.getCode());
-			dataResponse.setData(board);
+			dataResponse.setData(reply);
 
 			return new ResponseEntity<DataResponse>(dataResponse, headers, HttpStatus.OK);
 		} else {

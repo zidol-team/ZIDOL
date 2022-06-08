@@ -11,6 +11,13 @@ import { TotalContext } from "../context/TotalContext";
 import ChartCompIndividual from "../components/ChartCompIndividual";
 import ChartCompWhole from "../components/ChartCompWhole";
 
+import { styled } from "@mui/material/styles";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import Box from "@mui/material/Box";
+
+import "./MyPage.css";
+
 function MyPage() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -87,29 +94,55 @@ function MyPage() {
   return (
     <TotalContext.Provider value={total}>
       <>
-        <h1>MyPage</h1>
-        <div>{user.userEmail}</div>
-        <div>{user.userName}</div>
-        <div>{user.userNickname}</div>
-        <div>
-          <button
-            onClick={() => {
-              alert("로그아웃 되었습니다.");
-              deleteLocalStorage();
-              navigate("/");
-            }}
-          >
-            로그아웃 버튼
-          </button>
-        </div>
-        <div>
-          <Calendar />
-        </div>
-        <div>
-          <ChartCompWhole></ChartCompWhole>
-        </div>
-        <div>
-          <ChartCompIndividual></ChartCompIndividual>
+        <div className="mypageContainer">
+          <div className="mypageMainContainer">
+            <Box sx={{ width: "100%" }}>
+              <Grid
+                container
+                rowSpacing={1}
+                columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+              >
+                <Grid item xs={6}>
+                  <div className="bgwhite">
+                    <ChartCompWhole></ChartCompWhole>
+                  </div>
+                </Grid>
+                <Grid item xs={6}>
+                  <div className="bgblue">
+                    <div className="mypageInfo">
+                      <div className="mypageHeader">
+                        <div>{user.userName} 님, 환영합니다.</div>
+                      </div>
+                      <div>
+                        <button
+                          onClick={() => {
+                            alert("로그아웃 되었습니다.");
+                            deleteLocalStorage();
+                            navigate("/");
+                          }}
+                          className="logoutButton"
+                        >
+                          로그아웃
+                        </button>
+                      </div>
+                    </div>
+                    <div>{user.userEmail}</div>
+                    <div>{user.userNickname}</div>
+                  </div>
+                </Grid>
+                <Grid item xs={6}>
+                  <div className="bgwhite">
+                    <ChartCompIndividual></ChartCompIndividual>
+                  </div>
+                </Grid>
+                <Grid item xs={6}>
+                  <div className="bgwhite">
+                    <Calendar />
+                  </div>
+                </Grid>
+              </Grid>
+            </Box>
+          </div>
         </div>
       </>
     </TotalContext.Provider>
