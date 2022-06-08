@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Calendar from "react-calendar";
 import moment from "moment";
-
-//import 'react-calendar/dist/Calendar.css' ;
 import "../App.css";
 import "../components/Calendar.css";
 
@@ -10,7 +8,6 @@ function MyCalendar() {
   const [date, setDate] = useState(new Date());
   const [user, setUser] = useState({});
   const [marks, setMarks] = useState([]);
-  const [mark, setMark] = useState([]);
 
   useEffect(() => {
     const userInfo = {
@@ -61,7 +58,6 @@ function MyCalendar() {
           selectRange={true}
           formatDay={(locale, date) => moment(date).format("DD")}
           tileClassName={({ date, view }) => {
-            let html = [];
             if (marks.find((x) => x === moment(date).format("YYYY-MM-DD"))) {
               return "highlight";
             }

@@ -18,9 +18,7 @@ export default function SimpleAccordion() {
           <Typography>공지합니다</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>
-            당장 이 사이트를 빠져나가십시오 악성코드가 있습니다.
-          </Typography>
+          <Typography>공지사항입니다.</Typography>
         </AccordionDetails>
       </Accordion>
       <Accordion>
@@ -29,10 +27,22 @@ export default function SimpleAccordion() {
           aria-controls="panel2a-content"
           id="panel2a-header"
         >
-          <Typography>돌아가세요</Typography>
+          <Typography>SEA C의 사용법을 알려드립니다.</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>악성코드가있다구요!!</Typography>
+          <Typography>공부를 해보아요!!</Typography>
+        </AccordionDetails>
+      </Accordion>
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel2a-content"
+          id="panel2a-header"
+        >
+          <Typography>SEA S의 웹사이트에 오신걸 환영합니다.</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>안녕하세요. 함꼐 CS 스터디를 해봅시다.</Typography>
         </AccordionDetails>
       </Accordion>
     </div>

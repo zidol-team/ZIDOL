@@ -9,7 +9,7 @@ const MainNavbar = () => {
       {/* 네비게이션 바 */}
       <Navbar bg="dark" variant="dark">
         <Container>
-          <Navbar.Brand>Navbar</Navbar.Brand>
+          <Navbar.Brand>SEA S</Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link
               onClick={() => {
@@ -18,13 +18,14 @@ const MainNavbar = () => {
             >
               CS Study
             </Nav.Link>
-            <Nav.Link
+            {/* <Nav.Link
               onClick={() => {
                 navigate("/interview");
               }}
-            >
+              >
               인터뷰 준비
-            </Nav.Link>
+            </Nav.Link> */}
+
             <Nav.Link
               onClick={() => {
                 navigate("/board");
