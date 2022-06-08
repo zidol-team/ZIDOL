@@ -34,7 +34,7 @@ const GetBoardList = () => {
       >
         {a.board.boardTitle}
       </td>
-      <td>{a.user.userName}</td>
+      <td>{a.user.userNickname}</td>
       <td>{a.board.boardRegDate}</td>
     </CommonTableRow>
   ));
