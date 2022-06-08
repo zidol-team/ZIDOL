@@ -39,11 +39,21 @@ public class BoardService {
 	
 	public Map<String, Object> findByBoardCode(long boardCode) {
 		Map<String, Object> result = new HashMap<>();
+		List<Map<String, Object>> replys = new ArrayList<>();
 		Board board = boardRepository.findByBoardCode(boardCode);
 		User user = board.getUser();
+		List<Reply> tempReplys = board.getReply();
+		
+		for(Reply reply : tempReplys) {
+			Map<String, Object> temp = new HashMap<>();
+			temp.put("user", reply.getUser());
+			temp.put("reply", reply);
+			replys.add(temp);
+		}
 		
 		result.put("user", user);
 		result.put("board", board);
+		result.put("replys", replys);
 		
 		return result;
 	}
