@@ -1,6 +1,5 @@
 import React, { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import "../components/NoticeDetail.css";
 import Button from "@mui/material/Button";
 
 import ReactMarkdown from "react-markdown";
