@@ -3,22 +3,33 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^34.1.0",
+    "@ckeditor/ckeditor5-react": "^5.0.2",
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
-    "@mui/icons-material": "^5.8.0",
+    "@mui/icons-material": "^5.8.3",
     "@mui/material": "^5.8.1",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.2.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.27.2",
     "bootstrap": "^5.1.3",
+    "buffer": "^6.0.3",
+    "chart.js": "^3.8.0",
+    "moment": "^2.29.3",
     "react": "^18.1.0",
     "react-bootstrap": "^2.4.0",
+    "react-calendar": "^3.7.0",
+    "react-chartjs-2": "^4.1.0",
     "react-dom": "^18.1.0",
+    "react-html-parser": "^2.0.2",
+    "react-markdown": "^8.0.3",
     "react-redux": "^8.0.2",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
     "redux": "^4.2.0",
+    "rehype-raw": "^6.1.1",
+    "rehype-react": "^7.1.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -44,6 +55,12 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/faker": "5.5.3",
+    "@types/react": "18.0.0",
+    "@types/react-dom": "18.0.0",
+    "typescript": "4.5.4"
   },
   "proxy": "http://112.172.225.17:8282"
 }

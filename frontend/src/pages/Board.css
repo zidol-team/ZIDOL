@@ -1,0 +1,107 @@
+.boardContainer {
+  width: 100%;
+}
+.boardMainContainer {
+  width: 80%;
+  margin: 0 auto;
+}
+.boardHeader {
+  padding-top: 30px;
+}
+.boardHeader > h1 > span {
+  background-color: #b6daff;
+  display: inline-block;
+  padding: 20px 30px;
+  border-radius: 30px;
+  font-weight: 700;
+}
+.boardHeader .boardDesc {
+  font-size: 20px;
+  margin: 30px;
+}
+.boardDescAndWrite {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* margin: 20px; */
+}
+.writeButton {
+  color: #2eb3ff;
+  text-align: right;
+}
+.writeButton:hover {
+  cursor: pointer;
+}
+.writeButton:active {
+  cursor: pointer;
+  color: #003ca5;
+}
+
+.boardCode {
+  background-color: #b6daff;
+  padding: 5px;
+  border-radius: 5px;
+}
+.boardListLine {
+  margin-bottom: 20px;
+}
+/*  */
+
+.bcontainer {
+  text-align: left;
+  width: 65%;
+  margin: 0 auto;
+}
+
+.content {
+  width: 65vh;
+  height: 300px;
+}
+.buttons {
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.buttonss {
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: row;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.buttonw {
+  margin-left: auto;
+  margin-right: auto;
+  align-items: center;
+}
+
+.table {
+  margin-top: 30px;
+  border-collapse: separate;
+  width: 70vh;
+  height: 80px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.form-control {
+  width: 100%;
+  height: 5vh;
+
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10px;
+}
+.replycontent {
+  width: 100%;
+  height: 10vh;
+  margin: 0 auto;
+}
+.areacontainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  justify-items: center;
+}
