@@ -15,19 +15,21 @@ const BoardDetail = ({}) => {
   const [reply, setReply] = useState("");
   const [list1, setList1] = useState([]);
   const [list2, setList2] = useState([]);
+  const [user, setUser] = useState([]);
   const userName = localStorage.getItem("userName");
   const userCode = localStorage.getItem("userCode");
 
   useEffect(() => {
+    console.log(userCode);
     fetch(`/find-board.act?boardCode=${changelocationCode}`, {
       method: "GET",
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-
-        setBoard(data.data);
-        setList1(data.data.reply);
+        console.log(data.data);
+        setUser(data.data.user);
+        setBoard(data.data.board);
+        setList1(data.data.board.reply);
       });
   }, [list2]);
 
@@ -96,11 +98,11 @@ const BoardDetail = ({}) => {
       <div style={{ width: "100%" }}>
         <div className="bcontainer">
           <div style={{ margin: "10px", fontSize: "30px", fontWeight: "bold" }}>
-            Q.{board.boardTitle}
+            Q. {board.boardTitle}
           </div>
           <div>
             <span style={{ textAlign: "left", marginRight: "10px" }}>
-              {userName}
+              {user.userName}
             </span>
             <span style={{ textAlign: "right" }}>{board.boardRegDate}</span>
           </div>
@@ -108,33 +110,37 @@ const BoardDetail = ({}) => {
           <div className="content">
             <label>{ReactHtmlParser(board.boardContent)}</label>
           </div>
-          <div className="buttons">
+          <div className="buttonss">
             <Button variant="outlined" onClick={() => navigate(`/Board`)}>
               목록
             </Button>
-            <Button
-              style={{ margin: "10px", float: "right" }}
-              variant="outlined"
-              onClick={() =>
-                navigate(`/BoardModify`, {
-                  state: {
-                    boardTitle: board.boardTitle,
-                    boardContent: board.boardContent,
-                    boardCode: board.boardCode,
-                  },
-                })
-              }
-            >
-              수정
-            </Button>
-            <Button
-              style={{ margin: "10px", float: "right" }}
-              variant="outlined"
-              startIcon={<DeleteIcon />}
-              onClick={() => deleteBoard()}
-            >
-              삭제
-            </Button>
+            {userCode == user.userCode ? (
+              <div className="buttons">
+                <Button
+                  style={{ margin: "10px", float: "right" }}
+                  variant="outlined"
+                  onClick={() =>
+                    navigate(`/BoardModify`, {
+                      state: {
+                        boardTitle: board.boardTitle,
+                        boardContent: board.boardContent,
+                        boardCode: board.boardCode,
+                      },
+                    })
+                  }
+                >
+                  수정
+                </Button>
+                <Button
+                  style={{ margin: "10px", float: "right" }}
+                  variant="outlined"
+                  startIcon={<DeleteIcon />}
+                  onClick={() => deleteBoard()}
+                >
+                  삭제
+                </Button>
+              </div>
+            ) : null}
           </div>
           <div className="areacontainer">
             <textarea

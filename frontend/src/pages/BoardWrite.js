@@ -26,12 +26,10 @@ function BoardWrite() {
     userNickname: localStorage.getItem("userNickname"),
   };
 
-  console.log(localStorage.getItem("userCode"));
-
   const PostSubmit = (event) => {
     //event.preventDefault();
     const userCode = localStorage.getItem("userCode");
-    console.log(userCode);
+
     fetch("/insert-board.act", {
       method: "POST",
       headers: {
@@ -76,7 +74,7 @@ function BoardWrite() {
         editor={ClassicEditor}
         onChange={(event, editor) => {
           const data = editor.getData();
-          console.log({ event, editor, data });
+          //console.log({ event, editor, data });
           setQnaContent({
             ...qnaContent,
             boardContent: data,

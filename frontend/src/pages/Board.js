@@ -17,25 +17,25 @@ const GetBoardList = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data.data.content);
-        setBoard(data.data.content);
+        console.log(data.data);
+        setBoard(data.data);
       });
   }, []);
 
   const item = board.map((a, index) => (
     <CommonTableRow key={index}>
-      <td>{a.boardCode}</td>
+      <td>{a.board.boardCode}</td>
       <td
         onClick={() =>
-          navigate(`/BoardDetail?boardCode=${a.boardCode}`, {
-            state: { board, boardCode: a.boardCode },
+          navigate(`/BoardDetail?boardCode=${a.board.boardCode}`, {
+            state: { board, boardCode: a.board.boardCode },
           })
         }
       >
-        {a.boardTitle}
+        {a.board.boardTitle}
       </td>
-      <td>{a.user}</td>
-      <td>{a.boardRegDate}</td>
+      <td>{a.user.userName}</td>
+      <td>{a.board.boardRegDate}</td>
     </CommonTableRow>
   ));
 
