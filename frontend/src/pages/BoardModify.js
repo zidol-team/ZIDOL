@@ -42,7 +42,7 @@ function BoardModify() {
     })
       .then((res) => res.json())
       .then((data) => {
-        //navigate("/Board");
+        navigate("/Board");
       });
   };
   return (

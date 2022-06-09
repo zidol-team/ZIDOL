@@ -109,38 +109,53 @@ const BoardDetail = ({}) => {
           <div className="content">
             <label>{ReactHtmlParser(board.boardContent)}</label>
           </div>
-          <div className="buttonss">
-            <Button variant="outlined" onClick={() => navigate(`/Board`)}>
-              목록
-            </Button>
-            {userCode == user.userCode ? (
-              <div className="buttons">
-                <Button
-                  style={{ margin: "10px", float: "right" }}
-                  variant="outlined"
-                  onClick={() =>
-                    navigate(`/BoardModify`, {
-                      state: {
-                        boardTitle: board.boardTitle,
-                        boardContent: board.boardContent,
-                        boardCode: board.boardCode,
-                      },
-                    })
-                  }
-                >
-                  수정
-                </Button>
-                <Button
-                  style={{ margin: "10px", float: "right" }}
-                  variant="outlined"
-                  startIcon={<DeleteIcon />}
-                  onClick={() => deleteBoard()}
-                >
-                  삭제
-                </Button>
-              </div>
-            ) : null}
+
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              margin: "10px",
+            }}
+          >
+            <div>
+              <Button variant="outlined" onClick={() => navigate(`/Board`)}>
+                목록
+              </Button>
+            </div>
+            <div style={{ display: "flex" }}>
+              {userCode == user.userCode ? (
+                <>
+                  <div style={{ marginRight: "10px" }}>
+                    <Button
+                      variant="outlined"
+                      onClick={() =>
+                        navigate(`/BoardModify`, {
+                          state: {
+                            boardTitle: board.boardTitle,
+                            boardContent: board.boardContent,
+                            boardCode: board.boardCode,
+                          },
+                        })
+                      }
+                    >
+                      수정
+                    </Button>
+                  </div>
+                  <div>
+                    <Button
+                      style={{}}
+                      variant="outlined"
+                      startIcon={<DeleteIcon />}
+                      onClick={() => deleteBoard()}
+                    >
+                      삭제
+                    </Button>
+                  </div>
+                </>
+              ) : null}
+            </div>
           </div>
+
           <div className="areacontainer">
             <textarea
               value={reply}
@@ -163,15 +178,18 @@ const BoardDetail = ({}) => {
                   <div
                     style={{ display: "flex", justifyContent: "space-between" }}
                   >
-                    <span style={{ fontWeight: "bold" }}>
-                      {a.user.userNickname}
-                    </span>
+                    <div style={{ display: "flex" }}>
+                      <span style={{ fontWeight: "bold" }}>
+                        {a.user.userNickname}
+                      </span>
+                    </div>
+                    <div>
+                      <span style={{}}>{a.reply.replyRegdate}</span>
 
-                    <span style={{}}>{a.reply.replyRegdate}</span>
-
-                    <Button onClick={() => deleteReply(a.reply.replyCode)}>
-                      삭제
-                    </Button>
+                      <Button onClick={() => deleteReply(a.reply.replyCode)}>
+                        삭제
+                      </Button>
+                    </div>
                   </div>
                   <div>
                     <span style={{}}>{a.reply.replyContent}</span>
