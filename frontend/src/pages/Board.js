@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import CommonTable from "../components/CommonTable";
 import CommonTableRow from "../components/CommonTableRow";
 import Button from "@mui/material/Button";
+import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
+import "./Board.css";
 
 const GetBoardList = () => {
   const navigate = useNavigate();
@@ -23,8 +25,10 @@ const GetBoardList = () => {
   }, []);
 
   const item = board.map((a, index) => (
-    <CommonTableRow key={index}>
-      <td>{a.board.boardCode}</td>
+    <CommonTableRow key={index} className="boardListLine">
+      <td>
+        <span className="boardCode">{a.board.boardCode}</span>
+      </td>
       <td
         onClick={() =>
           navigate(`/BoardDetail?boardCode=${a.board.boardCode}`, {
@@ -47,17 +51,30 @@ function View() {
   const navigate = useNavigate();
   return (
     <>
-      <div style={{ marginTop: "50px" }}>
-        <Button
-          variant="outlined"
-          onClick={() => navigate(`/BoardWrite`)}
-          style={{ float: "right" }}
-        >
-          글쓰기
-        </Button>
-        <CommonTable headersName={["글번호", "제목", "작성자", "등록일"]}>
-          {item}
-        </CommonTable>
+      <div className="boardContainer">
+        <div className="boardMainContainer">
+          <div>
+            <div className="boardHeader">
+              <h1>
+                <span>질 문 게 시 판</span>
+              </h1>
+              <div className="boardDescAndWrite">
+                <div className="boardDesc">
+                  모르는 것이 있으면 질문을 올려주세요~~~
+                </div>
+                <ModeEditOutlineOutlinedIcon
+                  variant="outlined"
+                  onClick={() => navigate(`/BoardWrite`)}
+                  className="writeButton"
+                />
+              </div>
+            </div>
+
+            <CommonTable headersName={["글번호", "제목", "작성자", "등록일"]}>
+              {item}
+            </CommonTable>
+          </div>
+        </div>
       </div>
     </>
   );
