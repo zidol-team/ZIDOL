@@ -26,12 +26,10 @@ function BoardWrite() {
     userNickname: localStorage.getItem("userNickname"),
   };
 
-  console.log(localStorage.getItem("userCode"));
-
   const PostSubmit = (event) => {
     //event.preventDefault();
     const userCode = localStorage.getItem("userCode");
-    console.log(userCode);
+
     fetch("/insert-board.act", {
       method: "POST",
       headers: {
@@ -52,7 +50,11 @@ function BoardWrite() {
         console.log(res);
 
         alert("등록완료");
-        window.location = "/Board";
+        if (qnaContent.boardContent != "") {
+          window.location = "/Board";
+        } else {
+          alert("글을 입력해주세요");
+        }
       });
   };
   return (
@@ -72,7 +74,7 @@ function BoardWrite() {
         editor={ClassicEditor}
         onChange={(event, editor) => {
           const data = editor.getData();
-          console.log({ event, editor, data });
+          //console.log({ event, editor, data });
           setQnaContent({
             ...qnaContent,
             boardContent: data,

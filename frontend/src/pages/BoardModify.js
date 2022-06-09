@@ -9,6 +9,7 @@ import Button from "@mui/material/Button";
 function BoardModify() {
   const location = useLocation();
   const navigate = useNavigate();
+  const userCode = localStorage.getItem("userCode");
 
   const [modifyContent, setModifyContent] = useState({
     boardTitle: location.state.boardTitle,
@@ -24,20 +25,24 @@ function BoardModify() {
       [name]: value,
     });
   };
+
   const modifySubmit = () => {
     fetch("/update-board.act", {
-      method: "POST",
+      method: "PUT",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json;charset=UTF-8",
       },
       body: JSON.stringify({
-        modifyContent: modifyContent,
+        boardTitle: modifyContent.boardTitle,
+        boardContent: modifyContent.boardContent,
+        boardCode: modifyContent.boardCode,
+        userCode: userCode,
       }),
     })
       .then((res) => res.json())
       .then((data) => {
-        navigate("/Notice");
+        //navigate("/Board");
       });
   };
   return (

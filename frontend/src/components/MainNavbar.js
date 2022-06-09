@@ -27,10 +27,17 @@ const MainNavbar = () => {
             </Nav.Link>
             <Nav.Link
               onClick={() => {
-                navigate("/notice");
+                navigate("/board");
               }}
             >
               질문 게시판
+            </Nav.Link>
+            <Nav.Link
+              onClick={() => {
+                navigate("/Fnq");
+              }}
+            >
+              공지사항
             </Nav.Link>
             <Nav.Link
               onClick={() => {
@@ -38,13 +45,6 @@ const MainNavbar = () => {
               }}
             >
               마이페이지
-            </Nav.Link>
-            <Nav.Link
-              onClick={() => {
-                navigate("/Fnq");
-              }}
-            >
-              Fnq
             </Nav.Link>
           </Nav>
         </Container>
