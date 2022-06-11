@@ -102,7 +102,7 @@ export default function ChartCompWhole() {
         borderWidth: 3,
       },
     },
-    responsive: false,
+    responsive: true,
     plugins: {
       legend: {
         display: false,

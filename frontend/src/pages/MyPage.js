@@ -126,8 +126,8 @@ function MyPage() {
                         </button>
                       </div>
                     </div>
-                    <div>{user.userEmail}</div>
-                    <div>{user.userNickname}</div>
+                    <div className="mypageFont">{user.userEmail}</div>
+                    <div className="mypageFont">{user.userNickname}</div>
                   </div>
                 </Grid>
                 <Grid item xs={6}>
