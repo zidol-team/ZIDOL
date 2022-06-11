@@ -36,7 +36,7 @@ export default function ChartCompIndividual() {
   };
 
   const options = {
-    responsive: false,
+    responsive: true,
     scales: {
       yAxis: {
         min: 0,
