@@ -73,6 +73,7 @@ public class UserController {
 		} 
 		
 		if (user.getUserPassword().equals(params.get("userPassword"))) {
+			// 세션에 저장
 			session.setAttribute("user", user);
 			dataResponse.setStatus(StatusCode.OK.getStatus());
 			dataResponse.setCode(StatusCode.OK.getCode());
