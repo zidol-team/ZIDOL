@@ -1,5 +1,6 @@
 package com.zidol.fc.domain;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -22,7 +23,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity
-public class User {
+public class User implements Serializable {
 	
 	@OneToOne(mappedBy = "user")
 	@JsonManagedReference(value = "user-admin")

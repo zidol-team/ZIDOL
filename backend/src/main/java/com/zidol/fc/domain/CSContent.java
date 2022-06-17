@@ -1,5 +1,6 @@
 package com.zidol.fc.domain;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
@@ -24,7 +25,7 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @Entity
-public class CSContent {
+public class CSContent implements Serializable{
 	
 	@OneToOne
 	@JoinColumn(name = "cs_code")

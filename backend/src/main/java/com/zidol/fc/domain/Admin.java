@@ -1,5 +1,7 @@
 package com.zidol.fc.domain;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,7 +20,7 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @Entity
-public class Admin {
+public class Admin implements Serializable {
 	
 	@OneToOne
 	@JoinColumn(name = "user_code")

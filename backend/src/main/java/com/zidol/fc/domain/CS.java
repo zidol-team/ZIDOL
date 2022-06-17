@@ -1,5 +1,6 @@
 package com.zidol.fc.domain;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -22,7 +23,7 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @Entity
-public class CS {
+public class CS implements Serializable{
 	
 	@OneToOne(mappedBy = "cs")
 	@JsonManagedReference(value = "cs-content")
