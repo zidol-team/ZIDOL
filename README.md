@@ -3,29 +3,33 @@
 <img src="https://img.shields.io/badge/version-v1.0.0-red" alt="version1.0.0" />
 </div>
 
+- 아이디어 회의 및 레이아웃 초안 작성: [figma](https://www.figma.com/file/Si4K1f73k0wsyxEMfavuB0/Untitled?node-id=0%3A1)
 
-아이디어 회의 및 레이아웃 초안 작성
-https://www.figma.com/file/Si4K1f73k0wsyxEMfavuB0/Untitled?node-id=0%3A1
-
+- 링크 주소 참고: [ProtoType](https://ovenapp.io/view/hPdNACZIIZIngN99CWyjMDgm7463Dhj5/)
+<br>
+<br>
 
 ## 👨🏻‍🏫 SEA S 소개
  
-<h2>꾸준히 computer science를 공부하기 위한 웹/앱</h2>
-   
+꾸준히 computer science를 공부하기 위한 웹/앱
+<br>
+<br>
 
 ## 🧑🏻‍💻 팀원
-### frontend
+- **frontend**
+
 |**Kyunghee**|**Jinho**|  
 |:---:|:---:|    
 | <img src="https://avatars.githubusercontent.com/u/96763714?v=4" width="80"> | <img src="https://avatars.githubusercontent.com/u/88222461?v=4" width="80">|  
 
 
-### backend
+- **backend**
+
 |**Inhyuk**|**Geonyoung**|
 |:---:|:---:|  
 | <img src="https://avatars.githubusercontent.com/u/96756113?v=4" width="80"> | <img src="https://avatars.githubusercontent.com/u/88614978?v=4" width="80">  |[우인혁](https://github.com/Y-mannn)|[신건영](https://github.com/Almondshin)|  
-
-
+<br>
+<br>
 
 ## 🛠 기술스택
 
@@ -35,33 +39,19 @@ https://www.figma.com/file/Si4K1f73k0wsyxEMfavuB0/Untitled?node-id=0%3A1
 [![Boot badge](https://img.shields.io/badge/Spring%20Boot-6DB33F?logo=Spring%20Boot&logoColor=white&style=for-the-badge)]()
 [![java badge](https://img.shields.io/badge/java-007396?logo=java&logoColor=white&style=for-the-badge)]()
 [![mysql badge](https://img.shields.io/badge/mysql-4479A1?logo=mysql&logoColor=white&style=for-the-badge)]()
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  
-  
-   
+<br>
+<br>
+
  ## 1. 메인화면
  
- <img width="253" alt="스크린샷 2022-06-13 오전 10 16 46" src="https://user-images.githubusercontent.com/88222461/173262983-b4f07810-2649-4241-bc46-969fd91f2154.png">
-
-
-
-
+<img width="253" alt="스크린샷 2022-06-13 오전 10 16 46" src="https://user-images.githubusercontent.com/88222461/173262983-b4f07810-2649-4241-bc46-969fd91f2154.png">
 <br>
 
 ## 2. 주요 기능
 
 <img width="584" alt="스크린샷 2022-06-13 오전 10 19 06" src="https://user-images.githubusercontent.com/88222461/173263105-b9617db8-1681-4b17-bc43-8b0b37fa27bb.png">
-
-
 <br>
 
 ## 3. 프로젝트 아키텍처
 <img width="838" alt="스크린샷 2022-06-13 오전 10 18 05" src="https://user-images.githubusercontent.com/88222461/173263052-77e5f709-f6f2-42ed-9340-c8c742a423eb.png">
-
 <br>
-
-
