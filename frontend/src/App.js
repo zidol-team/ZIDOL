@@ -13,9 +13,9 @@ import Mypage from "./pages/MyPage";
 import FourZeroFour from "./pages/FourZeroFour";
 
 import MainNavbar from "./components/MainNavbar";
-import SignIn from "./pages/SignIn";
+import SignIn from "./pages/auth/SignIn";
 
-import SignUp from "./pages/SignUp";
+import SignUp from "./pages/auth/SignUp";
 import CsStudy from "./pages/CsStudy";
 import SubjectDetail from "./pages/SubjectDetail";
 import SubjectInfo from "./pages/SubjectInfo";
