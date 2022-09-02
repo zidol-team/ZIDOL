@@ -10,7 +10,7 @@ import BoardWrite from "./pages/BoardWrite";
 import BoardModify from "./pages/BoardModify";
 import Mypage from "./pages/MyPage";
 
-import FourZeroFour from "./pages/FourZeroFour";
+import FourZeroFour from "./pages/Page404";
 
 import MainNavbar from "./components/MainNavbar";
 import SignIn from "./pages/SignIn";
