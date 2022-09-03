@@ -1,11 +1,12 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import Algorithm from "../data/algorithm";
-import DataStructure from "../data/dataStructure";
+import React, { useContext, useEffect, useState } from 'react';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import Algorithm from '../data/algorithm';
+import DataStructure from '../data/dataStructure';
 
-import ReactMarkdown from "react-markdown";
-import rehypeRaw from "rehype-raw";
-import "./SubjectInfo.css";
+import ReactMarkdown from 'react-markdown';
+import rehypeRaw from 'rehype-raw';
+import './SubjectInfo.css';
+import { URLS } from '../api/csStudy';
 
 const SubjectInfo = ({}, index) => {
   const location = useLocation();
@@ -33,10 +34,10 @@ const SubjectInfo = ({}, index) => {
 
   useEffect(() => {
     const userInfo = {
-      userCode: localStorage.getItem("userCode"),
-      userEmail: localStorage.getItem("userEmail"),
-      userName: localStorage.getItem("userName"),
-      userNickname: localStorage.getItem("userNickname"),
+      userCode: localStorage.getItem('userCode'),
+      userEmail: localStorage.getItem('userEmail'),
+      userName: localStorage.getItem('userName'),
+      userNickname: localStorage.getItem('userNickname')
     };
     // 로그인 정보 저장
     setUser((user) => {
@@ -47,31 +48,31 @@ const SubjectInfo = ({}, index) => {
 
   // 버튼 눌렀을때 전송 (csCode)
   const handleSubmit = (event) => {
-    console.log("csCode " + csCode + " 클릭했음");
+    console.log('csCode ' + csCode + ' 클릭했음');
     const requestOptions = {
-      method: "POST",
+      method: 'POST',
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json;charset=UTF-8",
+        Accept: 'application/json',
+        'Content-Type': 'application/json;charset=UTF-8'
       },
       body: JSON.stringify({
         // userEmail, userPassword 전송
         csCode: csCode,
-        userCode: user.userCode,
-      }),
+        userCode: user.userCode
+      })
     };
-    console.log("requestOptions : ", requestOptions);
+    console.log('requestOptions : ', requestOptions);
 
-    fetch("/insert-achievement.act", requestOptions)
+    fetch(URLS.CS_ACHIEVE_INSERT, requestOptions)
       .then((res) => res.json())
       .then((res) => {
-        console.log("res : ");
+        console.log('res : ');
         console.log(res);
 
-        if (res.code === "DUPLICATED_ACHIEVEMENT") {
+        if (res.code === 'DUPLICATED_ACHIEVEMENT') {
           alert(res.fieldErrors[0].message);
         } else {
-          alert("학습 완료");
+          alert('학습 완료');
           navigate(-1);
         }
       });
