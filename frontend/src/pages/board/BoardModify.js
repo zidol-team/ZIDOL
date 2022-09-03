@@ -1,44 +1,45 @@
-import { useState } from "react";
-import React, { useLocation, useNavigate } from "react-router-dom";
+import { useState } from 'react';
+import React, { useLocation, useNavigate } from 'react-router-dom';
 
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import "./Ckeditor.css";
-import Button from "@mui/material/Button";
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import '../Ckeditor.css';
+import Button from '@mui/material/Button';
+import { URLS } from '../../api/board';
 
 function BoardModify() {
   const location = useLocation();
   const navigate = useNavigate();
-  const userCode = localStorage.getItem("userCode");
+  const userCode = localStorage.getItem('userCode');
 
   const [modifyContent, setModifyContent] = useState({
     boardTitle: location.state.boardTitle,
     boardContent: location.state.boardContent,
-    boardType: "",
-    boardCode: location.state.boardCode,
+    boardType: '',
+    boardCode: location.state.boardCode
   });
 
   const getValue = (e) => {
     const { name, value } = e.target;
     setModifyContent({
       ...modifyContent,
-      [name]: value,
+      [name]: value
     });
   };
 
   const modifySubmit = () => {
-    fetch("/update-board.act", {
-      method: "PUT",
+    fetch(URLS.BOARD_MODIFY, {
+      method: 'PUT',
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json;charset=UTF-8",
+        Accept: 'application/json',
+        'Content-Type': 'application/json;charset=UTF-8'
       },
       body: JSON.stringify({
         boardTitle: modifyContent.boardTitle,
         boardContent: modifyContent.boardContent,
         boardCode: modifyContent.boardCode,
-        userCode: userCode,
-      }),
+        userCode: userCode
+      })
     })
       .then((res) => res.json())
       .then((data) => {
@@ -51,7 +52,7 @@ function BoardModify() {
       <br />
 
       <input
-        style={{ width: "500px", height: "40px", margin: "10px" }}
+        style={{ width: '500px', height: '40px', margin: '10px' }}
         value={modifyContent.boardTitle}
         onChange={getValue}
         placeholder="제목"
@@ -66,7 +67,7 @@ function BoardModify() {
           const data = editor.getData();
           setModifyContent({
             ...modifyContent,
-            boardContent: data,
+            boardContent: data
           });
         }}
       />

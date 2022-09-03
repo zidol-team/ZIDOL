@@ -5,7 +5,8 @@ import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ReactHtmlParser from 'react-html-parser';
 import TextField from '@mui/material/TextField';
-import '../pages/Board.css';
+import './Board.css';
+import { URLS } from '../../api/board';
 
 const BoardDetail = ({}) => {
   const location = useLocation();
@@ -20,11 +21,11 @@ const BoardDetail = ({}) => {
   const userCode = localStorage.getItem('userCode');
 
   useEffect(() => {
-    fetch(`/find-board.act?boardCode=${changelocationCode}`, {
+    fetch(URLS.BOARD_DETAIL + `${changelocationCode}`, {
       method: 'GET'
     })
-      .then(res => res.json())
-      .then(data => {
+      .then((res) => res.json())
+      .then((data) => {
         console.log(data.data);
         setUser(data.data.user);
         setBoard(data.data.board);
@@ -43,11 +44,11 @@ const BoardDetail = ({}) => {
         boardCode: changelocationCode,
         userCode: userCode
       })
-    }).then(ref => {
+    }).then((ref) => {
       navigate('/Board');
     });
   };
-  const deleteReply = replyCode => {
+  const deleteReply = (replyCode) => {
     fetch('/delete-reply.act', {
       method: 'DELETE',
       headers: {
@@ -58,9 +59,9 @@ const BoardDetail = ({}) => {
         replyCode: replyCode,
         userCode: userCode
       })
-    }).then(ref => {});
+    }).then((ref) => {});
 
-    const newList = list1.filter(data => {
+    const newList = list1.filter((data) => {
       return data.replyCode !== replyCode;
     });
     setList2(newList);
@@ -81,14 +82,14 @@ const BoardDetail = ({}) => {
         boardCode: board.boardCode
       })
     })
-      .then(res => res.json())
-      .then(res => {
+      .then((res) => res.json())
+      .then((res) => {
         setReply('');
         setList2(list1);
         alert('댓글등록완료');
       });
   };
-  const changeReply = e => {
+  const changeReply = (e) => {
     setReply(e.target.value);
   };
 

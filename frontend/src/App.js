@@ -1,32 +1,32 @@
-import { useState } from "react";
-import { Navbar, Container, Nav } from "react-bootstrap";
+import { useState } from 'react';
+import { Navbar, Container, Nav } from 'react-bootstrap';
 
-import { Routes, Route, Link, useNavigate, Outlet } from "react-router-dom";
+import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
 
-import Home from "./pages/Home";
-import Board from "./pages/Board";
-import BoardDetail from "./pages/BoardDetail";
-import BoardWrite from "./pages/BoardWrite";
-import BoardModify from "./pages/BoardModify";
-import Mypage from "./pages/MyPage";
+import Home from './pages/Home';
+import Board from './pages/board/Board';
+import BoardDetail from './pages/board/BoardDetail';
+import BoardWrite from './pages/board/BoardWrite';
+import BoardModify from './pages/board/BoardModify';
+import Mypage from './pages/MyPage';
 
-import FourZeroFour from "./pages/Page404";
+import FourZeroFour from './pages/Page404';
 
-import MainNavbar from "./components/MainNavbar";
-import SignIn from "./pages/auth/SignIn";
+import MainNavbar from './components/MainNavbar';
+import SignIn from './pages/auth/SignIn';
 
-import SignUp from "./pages/auth/SignUp";
-import CsStudy from "./pages/CsStudy";
-import SubjectDetail from "./pages/SubjectDetail";
-import SubjectInfo from "./pages/SubjectInfo";
-import Algorithm from "./data/algorithm";
-import DataStructure from "./data/dataStructure";
-import Admin from "./pages/Admin";
-import AdminWrite from "./pages/AdminWrite";
-import AdminDetail from "./pages/AdminDetail";
-import AdminModify from "./pages/AdminModify";
+import SignUp from './pages/auth/SignUp';
+import CsStudy from './pages/CsStudy';
+import SubjectDetail from './pages/SubjectDetail';
+import SubjectInfo from './pages/SubjectInfo';
+import Algorithm from './data/algorithm';
+import DataStructure from './data/dataStructure';
+import Admin from './pages/Admin';
+import AdminWrite from './pages/AdminWrite';
+import AdminDetail from './pages/AdminDetail';
+import AdminModify from './pages/AdminModify';
 
-import Fnq from "./pages/Fnq";
+import Fnq from './pages/Fnq';
 // 확인
 function App() {
   const [algorithm, setAlgorithm] = useState(Algorithm);
@@ -74,10 +74,7 @@ function App() {
           element={
             <>
               <MainNavbar></MainNavbar>
-              <SubjectDetail
-                algorithm={algorithm}
-                dataStructure={dataStructure}
-              ></SubjectDetail>
+              <SubjectDetail algorithm={algorithm} dataStructure={dataStructure}></SubjectDetail>
             </>
           }
         ></Route>
@@ -142,20 +139,11 @@ function App() {
         <Route path="/notice" element={<Board></Board>}></Route>
         <Route path="/mypage" element={<Mypage></Mypage>}></Route>
 
-        <Route
-          path="/BoardModify"
-          element={<BoardModify></BoardModify>}
-        ></Route>
+        <Route path="/BoardModify" element={<BoardModify></BoardModify>}></Route>
         <Route path="/Admin" element={<Admin></Admin>}></Route>
         <Route path="/AdminWrite" element={<AdminWrite></AdminWrite>}></Route>
-        <Route
-          path="/AdminDetail"
-          element={<AdminDetail></AdminDetail>}
-        ></Route>
-        <Route
-          path="/AdminModify"
-          element={<AdminModify></AdminModify>}
-        ></Route>
+        <Route path="/AdminDetail" element={<AdminDetail></AdminDetail>}></Route>
+        <Route path="/AdminModify" element={<AdminModify></AdminModify>}></Route>
         <Route path="*" element={<FourZeroFour></FourZeroFour>}></Route>
       </Routes>
     </div>

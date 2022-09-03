@@ -1,14 +1,15 @@
-import * as React from "react";
+import * as React from 'react';
 
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useLocation, useNavigate, Link } from "react-router-dom";
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useLocation, useNavigate, Link } from 'react-router-dom';
+import { URLS } from '../../api/auth';
 
 const theme = createTheme();
 
@@ -20,39 +21,39 @@ export default function SignIn() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
-      email: data.get("userEmail"),
-      password: data.get("userPassword"),
+      email: data.get('userEmail'),
+      password: data.get('userPassword')
     });
 
     const requestOptions = {
-      method: "POST",
+      method: 'POST',
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json;charset=UTF-8",
+        Accept: 'application/json',
+        'Content-Type': 'application/json;charset=UTF-8'
       },
       body: JSON.stringify({
         // userEmail, userPassword 전송
-        userEmail: data.get("userEmail"),
-        userPassword: data.get("userPassword"),
-      }),
+        userEmail: data.get('userEmail'),
+        userPassword: data.get('userPassword')
+      })
     };
-    console.log("requestOptions : ", requestOptions);
+    console.log('requestOptions : ', requestOptions);
 
-    fetch("/sign-in.act", requestOptions)
+    fetch(URLS.GET_ME, requestOptions)
       .then((res) => res.json())
       .then((res) => {
-        console.log("res : ", res);
-        if (res.code === "LOGIN_FAILED") {
+        console.log('res : ', res);
+        if (res.code === 'LOGIN_FAILED') {
           alert(res.fieldErrors[0].message);
         } else {
-          alert("로그인 성공했습니다.");
+          alert('로그인 성공했습니다.');
           // 로컬스토리지 저장
-          localStorage.setItem("userEmail", res.data.userEmail);
-          localStorage.setItem("userName", res.data.userName);
-          localStorage.setItem("userNickname", res.data.userNickname);
-          localStorage.setItem("userCode", res.data.userCode);
+          localStorage.setItem('userEmail', res.data.userEmail);
+          localStorage.setItem('userName', res.data.userName);
+          localStorage.setItem('userNickname', res.data.userNickname);
+          localStorage.setItem('userCode', res.data.userCode);
 
-          navigate("/MyPage", {
+          navigate('/MyPage', {
             // state: {
             //   userEmail: res.data.userEmail,
             //   userName: res.data.userName,
@@ -71,20 +72,15 @@ export default function SignIn() {
         <Box
           sx={{
             marginTop: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center'
           }}
         >
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Box
-            component="form"
-            onSubmit={handleSubmit}
-            noValidate
-            sx={{ mt: 1 }}
-          >
+          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               required
@@ -106,12 +102,7 @@ export default function SignIn() {
               autoComplete="current-password"
             />
 
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
+            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
               로 그 인
             </Button>
             <Grid container>
