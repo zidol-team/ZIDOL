@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import CommonTable from "../components/CommonTable";
-import CommonTableColumn from "../components/CommonTableColumn";
-import CommonTableRow from "../components/CommonTableRow";
-import Button from "@mui/material/Button";
+import { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import CommonTable from '../../components/CommonTable';
+import CommonTableColumn from '../../components/CommonTableColumn';
+import CommonTableRow from '../../components/CommonTableRow';
+import Button from '@mui/material/Button';
 
 const GetCSList = () => {
   const navigate = useNavigate();
@@ -11,11 +11,11 @@ const GetCSList = () => {
   const [csList, setcsList] = useState([]);
 
   useEffect(() => {
-    fetch("/find-all-admin-cs.act", {
-      method: "GET",
+    fetch('/find-all-admin-cs.act', {
+      method: 'GET',
       header: {
-        "content-type": "application/json",
-      },
+        'content-type': 'application/json'
+      }
     })
       .then((res) => res.json())
       .then((data) => {
@@ -33,7 +33,7 @@ const GetCSList = () => {
       <td
         onClick={() =>
           navigate(`/AdminDetail?csCode=${a.csCode}`, {
-            state: { csList, csCode: a.csCode },
+            state: { csList, csCode: a.csCode }
           })
         }
       >
@@ -51,11 +51,9 @@ function View() {
   const navigate = useNavigate();
   return (
     <>
-      <div style={{ marginTop: "50px" }}>
-        <CommonTable headersName={["CS코드", "제목", "등록일"]}>
-          {item}
-        </CommonTable>
-        <div style={{ marginTop: "50px" }}>
+      <div style={{ marginTop: '50px' }}>
+        <CommonTable headersName={['CS코드', '제목', '등록일']}>{item}</CommonTable>
+        <div style={{ marginTop: '50px' }}>
           <Button variant="outlined" onClick={() => navigate(`/AdminWrite`)}>
             글쓰기
           </Button>

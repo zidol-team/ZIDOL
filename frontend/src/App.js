@@ -21,10 +21,10 @@ import SubjectDetail from './pages/SubjectDetail';
 import SubjectInfo from './pages/SubjectInfo';
 import Algorithm from './data/algorithm';
 import DataStructure from './data/dataStructure';
-import Admin from './pages/Admin';
-import AdminWrite from './pages/AdminWrite';
-import AdminDetail from './pages/AdminDetail';
-import AdminModify from './pages/AdminModify';
+import Admin from './pages/admin/Admin';
+import AdminWrite from './pages/admin/AdminWrite';
+import AdminDetail from './pages/admin/AdminDetail';
+import AdminModify from './pages/admin/AdminModify';
 
 import Fnq from './pages/Fnq';
 // 확인
