@@ -2,11 +2,14 @@ import axios, { AxiosInstance } from 'axios';
 
 // ----------------------------------------------------------------------
 
-const axiosInstance = axios.create();
+const BASE_URL = 'http://localhost:3000/';
 
-// axiosInstance.interceptors.response.use(
-//   (response) => response,
-//   (error) => Promise.reject((error.response && error.response.data) || 'Something went wrong')
-// );
+const axiosInstance = axios.create({
+  baseURL: BASE_URL,
+  headers: {
+    Accept: 'application/json',
+    'Content-Type': 'application/json;charset=UTF-8'
+  }
+});
 
 export default axiosInstance;
