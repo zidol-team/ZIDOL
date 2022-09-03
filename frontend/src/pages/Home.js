@@ -29,7 +29,7 @@ function Home() {
       <Button
         variant="contained"
         onClick={() => {
-          navigate('/SignIn');
+          navigate('/SignUp');
         }}
       >
         <Typography>회원가입</Typography>

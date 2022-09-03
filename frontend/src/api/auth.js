@@ -1,4 +1,4 @@
-import http from 'utils/axios';
+import http from '../utils/axios';
 import { API_GATEWAY_URL } from './config';
 
 export const URLS = {
