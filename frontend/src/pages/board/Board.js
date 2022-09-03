@@ -1,21 +1,22 @@
-import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import CommonTable from "../components/CommonTable";
-import CommonTableRow from "../components/CommonTableRow";
-import Button from "@mui/material/Button";
-import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
-import "./Board.css";
+import { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import CommonTable from '../../components/CommonTable';
+import CommonTableRow from '../../components/CommonTableRow';
+import Button from '@mui/material/Button';
+import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
+import './Board.css';
+import { URLS } from '../../api/board';
 
 const GetBoardList = () => {
   const navigate = useNavigate();
   const [board, setBoard] = useState([]);
 
   useEffect(() => {
-    fetch("/find-all-board.act", {
-      method: "GET",
+    fetch(URLS.BOARD_LIST, {
+      method: 'GET',
       header: {
-        "content-type": "application/json",
-      },
+        'content-type': 'application/json'
+      }
     })
       .then((res) => res.json())
       .then((data) => {
@@ -32,7 +33,7 @@ const GetBoardList = () => {
       <td
         onClick={() =>
           navigate(`/BoardDetail?boardCode=${a.board.boardCode}`, {
-            state: { board, boardCode: a.board.boardCode },
+            state: { board, boardCode: a.board.boardCode }
           })
         }
       >
@@ -59,9 +60,7 @@ function View() {
                 <span>질 문 게 시 판</span>
               </h1>
               <div className="boardDescAndWrite">
-                <div className="boardDesc">
-                  모르는 것이 있으면 질문을 올려주세요~~~
-                </div>
+                <div className="boardDesc">모르는 것이 있으면 질문을 올려주세요~~~</div>
                 <ModeEditOutlineOutlinedIcon
                   variant="outlined"
                   onClick={() => navigate(`/BoardWrite`)}
@@ -70,9 +69,7 @@ function View() {
               </div>
             </div>
 
-            <CommonTable headersName={["글번호", "제목", "작성자", "등록일"]}>
-              {item}
-            </CommonTable>
+            <CommonTable headersName={['글번호', '제목', '작성자', '등록일']}>{item}</CommonTable>
           </div>
         </div>
       </div>
