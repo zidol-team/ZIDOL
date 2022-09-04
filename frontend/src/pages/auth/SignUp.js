@@ -26,7 +26,7 @@ const reg_pw = /.{4,20}$/;
 const reg_email = /^[0-9?A-z0-9?]+(\.)?[0-9?A-z0-9?]+@[0-9?A-z]+\.[A-z]{2}.?[A-z]{0,3}$/;
 
 export default function SignUp(usersInfo) {
-  const [userInfos, setUsersInfo] = useState({
+  const [userInfos, setUserInfos] = useState({
     userName: '',
     NickName: '',
     email: '',
@@ -45,7 +45,7 @@ export default function SignUp(usersInfo) {
     } else if (!reg_pw.test(userInfos.password)) {
       alert('비밀번호는 4 ~ 20자리까지 사용가능합니다.');
     } else {
-      postSignUp();
+      postSignUp(userInfos);
     }
   };
 
@@ -78,9 +78,9 @@ export default function SignUp(usersInfo) {
                   label="이름"
                   autoFocus
                   onChange={(e) => {
-                    setUsersInfo(() => {
-                      console.log(usersInfo);
-                      return { ...usersInfo, userName: e.target.value };
+                    setUserInfos(() => {
+                      console.log(userInfos);
+                      return { ...userInfos, userName: e.target.value };
                     });
                   }}
                 />
@@ -93,9 +93,9 @@ export default function SignUp(usersInfo) {
                   label="닉네임"
                   name="userNickname"
                   onChange={(e) => {
-                    setUsersInfo(() => {
-                      console.log(usersInfo);
-                      return { ...usersInfo, NickName: e.target.value };
+                    setUserInfos(() => {
+                      console.log(userInfos);
+                      return { ...userInfos, NickName: e.target.value };
                     });
                   }}
                 />
@@ -108,9 +108,9 @@ export default function SignUp(usersInfo) {
                   label="이메일 주소"
                   name="userEmail"
                   onChange={(e) => {
-                    setUsersInfo(() => {
-                      console.log(usersInfo);
-                      return { ...usersInfo, email: e.target.value };
+                    setUserInfos(() => {
+                      console.log(userInfos);
+                      return { ...userInfos, email: e.target.value };
                     });
                   }}
                 />
@@ -124,9 +124,9 @@ export default function SignUp(usersInfo) {
                   type="password"
                   id="userPassword"
                   onChange={(e) => {
-                    setUsersInfo(() => {
-                      console.log(usersInfo);
-                      return { ...usersInfo, password: e.target.value };
+                    setUserInfos(() => {
+                      console.log(userInfos);
+                      return { ...userInfos, password: e.target.value };
                     });
                   }}
                 />
