@@ -4,60 +4,18 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import '../Ckeditor.css';
 import Button from '@mui/material/Button';
 import './BoardWrite.css';
-import { URLS } from '../../api/board';
+import { postBoardWrite, URLS } from '../../api/board';
 
-function BoardWrite() {
+export default function BoardWrite() {
   const [qnaContent, setQnaContent] = useState({
     boardTitle: '',
     boardContent: '',
-    boardType: '질문게시판'
+    boardType: '질문게시판',
+    userCode: localStorage.getItem('userCode')
   });
-  const [user, setUser] = useState('');
-
-  const getValue = (e) => {
-    const { name, value } = e.target;
-    setQnaContent({
-      ...qnaContent,
-      [name]: value
-    });
-  };
-  const userInfo = {
-    userCode: localStorage.getItem('userCode'),
-    userEmail: localStorage.getItem('userEmail'),
-    userName: localStorage.getItem('userName'),
-    userNickname: localStorage.getItem('userNickname')
-  };
-
   const PostSubmit = (event) => {
-    //event.preventDefault();
-    const userCode = localStorage.getItem('userCode');
-
-    fetch(URLS.BOARD_WRITE, {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json;charset=UTF-8'
-      },
-      body: JSON.stringify({
-        boardTitle: qnaContent.boardTitle,
-        boardContent: qnaContent.boardContent,
-        boardType: qnaContent.boardType,
-        // userEmail, userPassword 전송
-        userCode: userCode
-      })
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log('res : ');
-        console.log(res);
-
-        alert('등록완료');
-        if (qnaContent.boardContent != '') {
-          window.location = '/Board';
-        } else {
-          alert('글을 입력해주세요');
-        }
-      });
+    event.preventDefault();
+    postBoardWrite(qnaContent);
   };
   return (
     <>
@@ -74,7 +32,11 @@ function BoardWrite() {
           <div style={{ alignItems: 'center' }}>
             <input
               style={{ width: '90%', height: '40px', margin: '10px' }}
-              onChange={getValue}
+              onChange={(e) => {
+                setQnaContent(() => {
+                  return { ...qnaContent, boardTitle: e.target.value };
+                });
+              }}
               placeholder="제목"
               type="text"
               name="boardTitle"
@@ -83,12 +45,11 @@ function BoardWrite() {
 
           <CKEditor
             editor={ClassicEditor}
-            onChange={(event, editor) => {
+            onChange={(e, editor) => {
               const data = editor.getData();
               //console.log({ event, editor, data });
-              setQnaContent({
-                ...qnaContent,
-                boardContent: data
+              setQnaContent(() => {
+                return { ...qnaContent, boardContent: data };
               });
             }}
           />
@@ -107,4 +68,3 @@ function BoardWrite() {
     </>
   );
 }
-export default BoardWrite;
