@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -9,60 +9,17 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
-import { URLS } from '../../api/auth';
+import { postSignIn, URLS } from '../../api/auth';
 
 const theme = createTheme();
 
 export default function SignIn() {
-  const navigate = useNavigate();
-  const location = useLocation();
+  const [userInfo, setUserInfo] = useState({ email: '', password: '' });
 
   const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('userEmail'),
-      password: data.get('userPassword')
-    });
+    event.preventDefault(); //이벤트를 막아줌
 
-    const requestOptions = {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json;charset=UTF-8'
-      },
-      body: JSON.stringify({
-        // userEmail, userPassword 전송
-        userEmail: data.get('userEmail'),
-        userPassword: data.get('userPassword')
-      })
-    };
-    console.log('requestOptions : ', requestOptions);
-
-    fetch(URLS.GET_ME, requestOptions)
-      .then((res) => res.json())
-      .then((res) => {
-        console.log('res : ', res);
-        if (res.code === 'LOGIN_FAILED') {
-          alert(res.fieldErrors[0].message);
-        } else {
-          alert('로그인 성공했습니다.');
-          // 로컬스토리지 저장
-          localStorage.setItem('userEmail', res.data.userEmail);
-          localStorage.setItem('userName', res.data.userName);
-          localStorage.setItem('userNickname', res.data.userNickname);
-          localStorage.setItem('userCode', res.data.userCode);
-
-          navigate('/MyPage', {
-            // state: {
-            //   userEmail: res.data.userEmail,
-            //   userName: res.data.userName,
-            //   userNickname: res.data.userNickname,
-            //   userCode: res.data.userCode,
-            // },
-          });
-        }
-      });
+    postSignIn(userInfo);
   };
 
   return (
@@ -90,6 +47,12 @@ export default function SignIn() {
               name="userEmail"
               autoComplete="email"
               autoFocus
+              onChange={(e) => {
+                setUserInfo(() => {
+                  console.log(userInfo);
+                  return { ...userInfo, email: e.target.value };
+                });
+              }}
             />
             <TextField
               margin="normal"
@@ -100,6 +63,12 @@ export default function SignIn() {
               type="password"
               id="userPassword"
               autoComplete="current-password"
+              onChange={(e) => {
+                setUserInfo(() => {
+                  console.log(userInfo);
+                  return { ...userInfo, password: e.target.value };
+                });
+              }}
             />
 
             <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
