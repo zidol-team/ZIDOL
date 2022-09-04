@@ -1,5 +1,6 @@
 package com.zidol.fc.domain;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
@@ -24,7 +25,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity
-public class Reply {
+public class Reply implements Serializable{
 	
 	@ManyToOne
 	@JoinColumn(name = "user_code")

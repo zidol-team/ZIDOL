@@ -1,5 +1,6 @@
 package com.zidol.fc.domain;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -29,7 +30,7 @@ import lombok.ToString;
 @Getter
 @NoArgsConstructor
 @Entity
-public class Board {
+public class Board implements Serializable{
 
 	@ManyToOne
 	@JoinColumn(name = "user_code")
@@ -40,7 +41,6 @@ public class Board {
 	@JsonManagedReference(value = "board-reply")
 	private List<Reply> reply;
 	
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long boardCode;

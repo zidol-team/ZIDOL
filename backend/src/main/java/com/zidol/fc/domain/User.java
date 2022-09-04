@@ -1,5 +1,6 @@
 package com.zidol.fc.domain;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -8,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -21,7 +23,11 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity
-public class User {
+public class User implements Serializable {
+	
+	@OneToOne(mappedBy = "user")
+	@JsonManagedReference(value = "user-admin")
+	private Admin admin;
 	
 	@OneToMany(mappedBy = "user")
 	@JsonManagedReference(value = "user-board")
@@ -56,9 +62,11 @@ public class User {
 	private String userNickname;
 
 	@Builder
-	public User(List<Board> board, List<Reply> reply, List<Achievement> css, long userCode, @NotNull String userEmail,
-			@NotNull String userPassword, @NotNull String userName, @NotNull String userNickname) {
+	public User(Admin admin, List<Board> board, List<Reply> reply, List<Achievement> css, long userCode,
+			@NotNull String userEmail, @NotNull String userPassword, @NotNull String userName,
+			@NotNull String userNickname) {
 		super();
+		this.admin = admin;
 		this.board = board;
 		this.reply = reply;
 		this.css = css;
