@@ -31,7 +31,7 @@ export function postSignUp(userInfos) {
       console.log('res : ', res);
       if (res.code === 'OK') {
         alert('회원가입이 완료되었습니다.');
-        window.location = '/SignIn';
+        window.location.replace(PATH_URLS.SIGNIN);
       } else if (res.code === 'DUPLICATED_ID') {
         alert('회원가입이 완료되지 않았습니다. 다시 시도해 주세요.');
       }
