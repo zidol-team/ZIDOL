@@ -1,11 +1,11 @@
 .boardTitleInputContainer {
   width: 100%;
-  margin: "10px";
+  margin: '10px';
 }
 .boardTitleInput {
   display: inline-block;
-  width: "100%";
-  height: "40px";
+  width: '100%';
+  height: '40px';
 }
 
 .boardWriteDoneButton {
