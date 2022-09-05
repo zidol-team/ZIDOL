@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import Calendar from "react-calendar";
-import moment from "moment";
-import "../App.css";
-import "../components/Calendar.css";
+import React, { useState, useEffect } from 'react';
+import Calendar from 'react-calendar';
+import moment from 'moment';
+//import "../App.css";
+import '../components/Calendar.css';
 
 function MyCalendar() {
   const [date, setDate] = useState(new Date());
@@ -11,32 +11,32 @@ function MyCalendar() {
 
   useEffect(() => {
     const userInfo = {
-      userCode: localStorage.getItem("userCode"),
-      userEmail: localStorage.getItem("userEmail"),
-      userName: localStorage.getItem("userName"),
-      userNickname: localStorage.getItem("userNickname"),
+      userCode: localStorage.getItem('userCode'),
+      userEmail: localStorage.getItem('userEmail'),
+      userName: localStorage.getItem('userName'),
+      userNickname: localStorage.getItem('userNickname')
     };
-    const userCode = localStorage.getItem("userCode");
+    const userCode = localStorage.getItem('userCode');
     // 로그인 정보 저장(지금안되는중)
     setUser((user) => {
       return { ...user, ...userInfo };
     });
     console.log(user);
 
-    fetch("/find-all-achievement.act", {
-      method: "POST",
+    fetch('/find-all-achievement.act', {
+      method: 'POST',
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json;charset=UTF-8",
+        Accept: 'application/json',
+        'Content-Type': 'application/json;charset=UTF-8'
       },
       body: JSON.stringify({
         // userEmail, userPassword 전송
-        userCode: userCode,
-      }),
+        userCode: userCode
+      })
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log("res : ");
+        console.log('res : ');
         console.log(res.data.achievements);
         const marks = [];
 
@@ -56,10 +56,10 @@ function MyCalendar() {
           onChange={setDate}
           value={date}
           selectRange={true}
-          formatDay={(locale, date) => moment(date).format("DD")}
+          formatDay={(locale, date) => moment(date).format('DD')}
           tileClassName={({ date, view }) => {
-            if (marks.find((x) => x === moment(date).format("YYYY-MM-DD"))) {
-              return "highlight";
+            if (marks.find((x) => x === moment(date).format('YYYY-MM-DD'))) {
+              return 'highlight';
             }
             return (
               <>

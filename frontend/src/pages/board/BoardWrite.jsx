@@ -22,9 +22,6 @@ export default function BoardWrite() {
       <div className="boardContainer">
         <div className="boardMainContainer">
           <div className="boardHeader">
-            <h1>
-              <span>질 문 게 시 판</span>
-            </h1>
             <div className="boardDescAndWrite"></div>
           </div>
           <input type="hidden" name="boardType" value="질문게시판" />
