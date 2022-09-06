@@ -36,7 +36,6 @@ function MyCalendar() {
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log('res : ');
         console.log(res.data.achievements);
         const marks = [];
 
