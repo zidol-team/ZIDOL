@@ -1,32 +1,29 @@
-import { useState } from "react";
-import { Navbar, Container, Nav } from "react-bootstrap";
+import { useState } from 'react';
+import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
 
-import { Routes, Route, Link, useNavigate, Outlet } from "react-router-dom";
+import Home from './pages/Home';
+import Board from './pages/board/Board';
+import BoardDetail from './pages/board/BoardDetail';
+import BoardWrite from './pages/board/BoardWrite';
+import BoardModify from './pages/board/BoardModify';
+import Mypage from './pages/MyPage';
 
-import Home from "./pages/Home";
-import Board from "./pages/Board";
-import BoardDetail from "./pages/BoardDetail";
-import BoardWrite from "./pages/BoardWrite";
-import BoardModify from "./pages/BoardModify";
-import Mypage from "./pages/MyPage";
+import FourZeroFour from './pages/Page404';
 
-import FourZeroFour from "./pages/FourZeroFour";
-
-import MainNavbar from "./components/MainNavbar";
-import SignIn from "./pages/SignIn";
-
-import SignUp from "./pages/SignUp";
-import CsStudy from "./pages/CsStudy";
-import SubjectDetail from "./pages/SubjectDetail";
-import SubjectInfo from "./pages/SubjectInfo";
-import Algorithm from "./data/algorithm";
-import DataStructure from "./data/dataStructure";
-import Admin from "./pages/Admin";
-import AdminWrite from "./pages/AdminWrite";
-import AdminDetail from "./pages/AdminDetail";
-import AdminModify from "./pages/AdminModify";
-
-import Fnq from "./pages/Fnq";
+import MainNavbar from './components/MainNavbar';
+import SignIn from './pages/auth/SignIn';
+import SignUp from './pages/auth/SignUp';
+import CsStudy from './pages/CsStudy';
+import SubjectDetail from './pages/SubjectDetail';
+import SubjectInfo from './pages/SubjectInfo';
+import Algorithm from './data/algorithm';
+import DataStructure from './data/dataStructure';
+import Admin from './pages/admin/Admin';
+import AdminWrite from './pages/admin/AdminWrite';
+import AdminDetail from './pages/admin/AdminDetail';
+import AdminModify from './pages/admin/AdminModify';
+import Fnq from './pages/Fnq';
+import Header from './components/Header';
 // 확인
 function App() {
   const [algorithm, setAlgorithm] = useState(Algorithm);
@@ -35,49 +32,38 @@ function App() {
   return (
     <div className="App">
       {/* 네비게이션 바 */}
+      <Header />
+      <MainNavbar />
 
       {/* 라우터 */}
       <Routes>
         <Route exact path="/" element={<Home></Home>}></Route>
+        {/*회원*/}
         <Route path="/SignIn" element={<SignIn></SignIn>}></Route>
         <Route path="/SignUp" element={<SignUp></SignUp>}></Route>
-        <Route
-          path="/cs-study"
-          element={
-            <>
-              <MainNavbar></MainNavbar>
-              <CsStudy></CsStudy>
-            </>
-          }
-        ></Route>
-        <Route
-          path="/Board"
-          element={
-            <>
-              <MainNavbar></MainNavbar>
-              <Board></Board>
-            </>
-          }
-        ></Route>
-        <Route
-          path="/mypage"
-          element={
-            <>
-              <MainNavbar></MainNavbar>
-              <Mypage></Mypage>
-            </>
-          }
-        ></Route>
+        <Route path="/mypage" element={<Mypage></Mypage>}></Route>
+        {/*게시판*/}
 
+        <Route path="/Board" element={<Board></Board>}></Route>
+        <Route path="BoardWrite" element={<BoardWrite></BoardWrite>}></Route>
+        <Route path="/BoardModify" element={<BoardModify></BoardModify>}></Route>
+        <Route path="BoardDetail" element={<BoardDetail></BoardDetail>}></Route>
+        {/*공지사항*/}
+        <Route path="Fnq" element={<Fnq></Fnq>}></Route>
+
+        <Route path="/notice" element={<Board></Board>}></Route>
+        {/*관리자페이지*/}
+        <Route path="/Admin" element={<Admin></Admin>}></Route>
+        <Route path="/AdminWrite" element={<AdminWrite></AdminWrite>}></Route>
+        <Route path="/AdminDetail" element={<AdminDetail></AdminDetail>}></Route>
+        <Route path="/AdminModify" element={<AdminModify></AdminModify>}></Route>
+        {/*csstudy*/}
+        <Route path="/cs-study" element={<CsStudy></CsStudy>}></Route>
         <Route
           path="cs-study/subject-detail"
           element={
             <>
-              <MainNavbar></MainNavbar>
-              <SubjectDetail
-                algorithm={algorithm}
-                dataStructure={dataStructure}
-              ></SubjectDetail>
+              <SubjectDetail algorithm={algorithm} dataStructure={dataStructure}></SubjectDetail>
             </>
           }
         ></Route>
@@ -85,7 +71,6 @@ function App() {
           path="cs-study/subject-detail/:csType"
           element={
             <>
-              <MainNavbar></MainNavbar>
               <SubjectDetail></SubjectDetail>
             </>
           }
@@ -93,73 +78,12 @@ function App() {
         <Route
           // /cs-study/subject-detail/${a.csType}/${a.csCode}
           path="cs-study/subject-detail/:csType/:csCode"
-          element={
-            <>
-              <MainNavbar></MainNavbar>
-              <SubjectInfo></SubjectInfo>
-            </>
-          }
-        ></Route>
-        <Route
-          path="*"
-          element={
-            <>
-              <MainNavbar></MainNavbar>
-              <FourZeroFour></FourZeroFour>
-            </>
-          }
-        ></Route>
-        <Route
-          path="BoardWrite"
-          element={
-            <>
-              <MainNavbar></MainNavbar>
-              <BoardWrite></BoardWrite>
-            </>
-          }
+          element={<SubjectInfo></SubjectInfo>}
         ></Route>
 
-        <Route
-          path="BoardDetail"
-          element={
-            <>
-              <MainNavbar></MainNavbar>
-              <BoardDetail></BoardDetail>
-            </>
-          }
-        ></Route>
-
-        <Route
-          path="Fnq"
-          element={
-            <>
-              <MainNavbar></MainNavbar>
-              <Fnq></Fnq>
-            </>
-          }
-        ></Route>
-
-        <Route path="/notice" element={<Board></Board>}></Route>
-        <Route path="/mypage" element={<Mypage></Mypage>}></Route>
-
-        <Route
-          path="/BoardModify"
-          element={<BoardModify></BoardModify>}
-        ></Route>
-        <Route path="/Admin" element={<Admin></Admin>}></Route>
-        <Route path="/AdminWrite" element={<AdminWrite></AdminWrite>}></Route>
-        <Route
-          path="/AdminDetail"
-          element={<AdminDetail></AdminDetail>}
-        ></Route>
-        <Route
-          path="/AdminModify"
-          element={<AdminModify></AdminModify>}
-        ></Route>
         <Route path="*" element={<FourZeroFour></FourZeroFour>}></Route>
       </Routes>
     </div>
   );
 }
-
 export default App;

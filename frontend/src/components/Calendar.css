@@ -118,12 +118,17 @@
 }
 
 .highlight {
-  /*background: linear-gradient(to right, rgba(142,197,252,1) 0%, rgba(224,195,252,1) 51%, rgba(142,197,252,1) 100%);
+  background: linear-gradient(
+    to right,
+    rgba(142, 197, 252, 1) 0%,
+    rgba(224, 195, 252, 1) 51%,
+    rgba(142, 197, 252, 1) 100%
+  );
   transition: 0.5s;
-  */
+
   background-size: cover;
 
-  background-image: url(./1.png);
+  /* background-image: url(./1.png); */
 }
 .fire {
   height: 8px;
