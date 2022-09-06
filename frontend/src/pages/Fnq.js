@@ -1,14 +1,15 @@
-import * as React from "react";
-import Accordion from "@mui/material/Accordion";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import Typography from "@mui/material/Typography";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import * as React from 'react';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import Typography from '@mui/material/Typography';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 export default function SimpleAccordion() {
   return (
-    <div style={{ marginTop: "50px", marginLeft: "20%", marginRight: "20%" }}>
+    <div style={{ marginTop: '50px', marginLeft: '20%', marginRight: '20%' }}>
       <h2>공지사항</h2>
+      <br></br>
       <Accordion>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}

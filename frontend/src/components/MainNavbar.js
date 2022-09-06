@@ -15,7 +15,7 @@ const theme = createTheme({
 export default function ColorTabs() {
   let navigate = useNavigate();
 
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState('마이페이지');
 
   const handleChange = (e, newValue) => {
     setValue(newValue);

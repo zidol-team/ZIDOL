@@ -21,14 +21,13 @@ export default function BoardWrite() {
     <>
       <div className="boardContainer">
         <div className="boardMainContainer">
-          <div className="boardHeader">
-            <div className="boardDescAndWrite"></div>
-          </div>
-          <input type="hidden" name="boardType" value="질문게시판" />
+          <div className="boardHeader"></div>
+
           <br />
-          <div style={{ alignItems: 'center' }}>
+          <div></div>
+          <div style={{ justifyContent: 'center', alignItems: 'center' }}>
             <input
-              style={{ width: '90%', height: '40px', margin: '10px' }}
+              style={{ width: '100%', height: '40px', marginBottom: '10px' }}
               onChange={(e) => {
                 setQnaContent(() => {
                   return { ...qnaContent, boardTitle: e.target.value };

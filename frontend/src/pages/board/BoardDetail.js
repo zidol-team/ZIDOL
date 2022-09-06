@@ -1,19 +1,19 @@
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import React, { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
 import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ReactHtmlParser from 'react-html-parser';
 import TextField from '@mui/material/TextField';
-import './Board.css';
-import { URLS } from '../../api/board';
+import '../board/Board.css';
+import { DeleteBoard, GetBoardDetail, PostReply } from '../../api/board';
 
 const BoardDetail = ({}) => {
   const location = useLocation();
   const navigate = useNavigate();
   const changelocationCode = location.state.boardCode;
   const [board, setBoard] = useState([]);
-
+  const [reply, setReply] = useState('');
   const [list1, setList1] = useState([]);
   const [list2, setList2] = useState([]);
   const [user, setUser] = useState([]);
@@ -21,37 +21,56 @@ const BoardDetail = ({}) => {
   const userCode = localStorage.getItem('userCode');
 
   useEffect(() => {
-    fetch(URLS.BOARD_DETAIL + `${changelocationCode}`, {
-      method: 'GET'
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data.data);
-        setUser(data.data.user);
-        setBoard(data.data.board);
-        setList1(data.data.replys);
-      });
+    GetBoardDetail(changelocationCode, setUser, setBoard, setList1);
   }, [list2]);
 
   const deleteBoard = () => {
-    fetch('/delete-board.act', {
+    DeleteBoard(changelocationCode, userCode);
+  };
+  const deleteReply = (replyCode) => {
+    fetch('/delete-reply.act', {
       method: 'DELETE',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json;charset=UTF-8'
       },
       body: JSON.stringify({
-        boardCode: changelocationCode,
+        replyCode: replyCode,
         userCode: userCode
       })
-    }).then((ref) => {
-      navigate('/Board');
+    }).then((ref) => {});
+
+    const newList = list1.filter((data) => {
+      return data.replyCode !== replyCode;
     });
+    setList2(newList);
+  };
+  const submitReply = () => {
+    const userCode = localStorage.getItem('userCode');
+
+    fetch('/insert-reply.act', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json;charset=UTF-8'
+      },
+      body: JSON.stringify({
+        replyContent: reply,
+        userCode: userCode,
+        boardCode: board.boardCode
+      })
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        setReply('');
+        setList2(list1);
+        alert('댓글등록완료');
+      });
   };
 
   return (
     <>
-      <div style={{ width: '100%' }}>
+      <div>
         <div className="bcontainer">
           <div style={{ margin: '10px', fontSize: '30px', fontWeight: 'bold' }}>
             Q. {board.boardTitle}
@@ -61,14 +80,14 @@ const BoardDetail = ({}) => {
             <span style={{ textAlign: 'right' }}>{board.boardRegDate}</span>
           </div>
           <hr></hr>
-          <div className="content">
+          <div>
             <label>{ReactHtmlParser(board.boardContent)}</label>
           </div>
           <div className="buttonss">
             <Button variant="outlined" onClick={() => navigate(`/Board`)}>
               목록
             </Button>
-            {userCode == user.userCode ? (
+            {userCode === user.userCode ? (
               <div className="buttons">
                 <Button
                   style={{ margin: '10px', float: 'right' }}
@@ -95,6 +114,44 @@ const BoardDetail = ({}) => {
                 </Button>
               </div>
             ) : null}
+          </div>
+          <div className="areacontainer">
+            <textarea
+              onChange={(e) => {
+                setReply(() => {
+                  return { ...reply, reply: e.target.value };
+                });
+              }}
+              className="replycontent"
+              name="message"
+              placeholder="댓글을 입력해주세요"
+              rows="10"
+            ></textarea>
+          </div>
+          <div className="buttonss">
+            <Button variant="outlined" onClick={submitReply}>
+              댓글등록
+            </Button>
+          </div>
+          <div>
+            {list1.map((a, index) => (
+              <div key={index}>
+                <div className="form-control">
+                  <div>
+                    <span style={{ float: 'left', marginRight: '10px' }}>
+                      {a.user.userNickname}
+                    </span>
+                    <div style={{ float: 'right' }}>
+                      <Button onClick={() => deleteReply(a.reply.replyCode)}>삭제</Button>
+                    </div>
+                    <span style={{ float: 'right' }}>{a.reply.replyRegdate}</span>
+                  </div>
+                  <div>
+                    <span style={{ float: 'inline-start' }}>{a.reply.replyContent}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>

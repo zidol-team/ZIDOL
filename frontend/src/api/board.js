@@ -8,7 +8,8 @@ export const URLS = {
   BOARD_DETAIL: `/find-board.act?boardCode=`,
   //POST
   BOARD_WRITE: `/insert-board.act`,
-  BOARD_MODIFY: `/update-board.act`
+  BOARD_MODIFY: `/update-board.act`,
+  BOARE_DELETE: `/delete-board.act`
 };
 export function getBoardList(setBoard) {
   fetch(URLS.BOARD_LIST, {
@@ -19,7 +20,6 @@ export function getBoardList(setBoard) {
   })
     .then((res) => res.json())
     .then((data) => {
-      console.log(data.data);
       setBoard(data.data);
     });
 }
@@ -50,4 +50,31 @@ export function postBoardWrite(qnaContent) {
         alert('글을 입력해주세요');
       }
     });
+}
+export function GetBoardDetail(changelocationCode, setUser, setBoard, setList1) {
+  fetch(URLS.BOARD_DETAIL + `${changelocationCode}`, {
+    method: 'GET'
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data.data);
+      setUser(data.data.user);
+      setBoard(data.data.board);
+      setList1(data.data.replys);
+    });
+}
+export function DeleteBoard(changelocationCode, userCode) {
+  fetch(URLS.BOARE_DELETE, {
+    method: 'DELETE',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json;charset=UTF-8'
+    },
+    body: JSON.stringify({
+      boardCode: changelocationCode,
+      userCode: userCode
+    })
+  }).then((ref) => {
+    window.location.replace(PATH_URLS.BOARD);
+  });
 }
